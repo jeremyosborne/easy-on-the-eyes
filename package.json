@@ -1,0 +1,30 @@
+{
+  "name": "easy-on-the-eyes",
+  "version": "0.0.0",
+  "description": "the web, simply",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremyosborne/easy-on-the-eyes.git"
+  },
+  "keywords": [
+    "markdown",
+    "simple",
+    "web"
+  ],
+  "author": "Jeremy Osborne <jeremywosborne@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeremyosborne/easy-on-the-eyes/issues"
+  },
+  "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "morgan": "^1.6.1",
+    "serve-favicon": "^2.3.0",
+    "winston": "^2.1.1"
+  }
+}
