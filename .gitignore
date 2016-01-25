@@ -1,0 +1,12 @@
+# Node
+node_modules
+npm-debug.log
+
+# Bower
+bower_components
+
+# Mac
+.DS_Store
+
+# Atom
+.imdone
