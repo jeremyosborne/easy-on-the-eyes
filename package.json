@@ -4,6 +4,7 @@
   "description": "the web, simply",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
     "morgan": "^1.6.1",
     "serve-favicon": "^2.3.0",
     "winston": "^2.1.1"

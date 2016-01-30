@@ -1,13 +1,27 @@
+var exphbs = require('express-handlebars');
 var express = require("express");
-var path = require("path");
 var favicon = require("serve-favicon");
+var Handlebars = require("Handlebars");
 var htmlToMarkdown = require("html-to-markdown");
 var logger = require("winston");
 var morgan = require("morgan");
+var path = require("path");
+
 
 logger.level = "debug";
 
 var app = express();
+
+app.engine(".hbs", exphbs({
+    extname: ".hbs",
+    defaultLayout: false,
+    helpers: {
+        toJSON: function(object){
+        	return new Handlebars.SafeString(JSON.stringify(object));
+        }
+    }
+}));
+app.set("view engine", ".hbs");
 
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.use(morgan("dev"));
@@ -20,13 +34,52 @@ app.use(morgan("dev"));
 // * TODO Part 2: show in a client
 app.get("/api/fetch", function(req, res) {
     var u = req.query.u; // url
-    logger.debug("fetching content from:", u);
     if (u) {
         htmlToMarkdown.fetch(u, "wikipedia", function(err, content) {
-            res.send(content);
+            if (err || !content) {
+                logger.error("Could not retrieve content from:", u, "with error:", err);
+                res.send(404).send({
+                    error: "Could not retrieve content."
+                });
+            } else {
+                logger.debug("fetched content from:", u);
+                res.send({
+                    content: content
+                });
+            }
         });
     } else {
-        res.status(401).send("Require url querystring parameter.");
+        res.status(401).send({
+            error: "'u'rl querystring parameter required."
+        });
+    }
+});
+
+app.get("/", function(req, res) {
+    var u = req.query.u;
+    // Make an attempt to get the requested content.
+    if (u) {
+        htmlToMarkdown.fetch(u, "wikipedia", function(err, content) {
+            // Send no matter what, but log output. The client should
+            // handle presence or lack of content and not care about
+            // the URL.
+            if (err) {
+                logger.error("Could not retrieve content from:", u, "with error:", err);
+            } else {
+                logger.debug("fetched content from:", u);
+            }
+            res.render("reader", {
+                bootstrap: {
+                    content: content
+                }
+            });
+        });
+    } else {
+        res.render("reader", {
+            bootstrap: {
+                content: ""
+            }
+        });
     }
 });
 
