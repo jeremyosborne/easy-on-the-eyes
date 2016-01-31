@@ -4,14 +4,15 @@
         <meta charset="utf-8"/>
         <title>Easy on the eyes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="/reader.css" rel="stylesheet"/>
     </head>
     <body>
-        <div id="content"></div>
+        <div class="content"></div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
         <script>
 (function() {
     var bootstrap = {{{toJSON bootstrap}}};
-    document.getElementById("content").innerHTML = marked(bootstrap.content || "");
+    document.querySelector(".content").innerHTML = marked(bootstrap.content || "");
 })();
         </script>
     </body>
