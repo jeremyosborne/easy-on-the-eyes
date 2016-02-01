@@ -7,47 +7,19 @@
         <link href="/reader.css" rel="stylesheet"/>
     </head>
     <body>
+        <form class="nav hide" action="javascript:void(0);">
+            <label for="u">Where do you want to go today?</label><br/>
+            <input type="url" name="u" id="u"/>
+        </form>
         <div class="content"></div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js"></script>
         <script>
-window.onload = function() {
-    // Any data the server wants to provide to us. Server promises at minimum
-    // empty object.
-    var bootstrap = {{{toJSON bootstrap}}};
-
-
-
-    var Content = function(c) {
-        return {
-            toHTML: function() {
-                return marked(c || "");
-            }
-        };
-    };
-    // We only have one content object for now.
-    var content = Content(bootstrap.content);
-
-
-
-    var render = function(content) {
-        document.querySelector(".content").innerHTML = content.toHTML();
-    };
-    // First render.
-    render(content);
-
-
-
-    // Attempt to read links in this single pane view.
-    // We hope whatever links are left are worth reading.
-    var linkInterceptor = function(ev) {
-        var t = ev.target;
-        if (t.tagName.toLowerCase() === "a") {
-            ev.preventDefault();
-            window.location.href = "/?u=" + encodeURIComponent(t.href);
-        }
-    };
-    document.querySelector("body").addEventListener("click", linkInterceptor);
-};
+{{!--
+    Any data the server wants to provide to us. Server promises at minimum
+    empty object.
+--}}
+var bootstrap = {{{toJSON bootstrap}}};
         </script>
+        <script src="/reader.js"></script>
     </body>
 </html>
