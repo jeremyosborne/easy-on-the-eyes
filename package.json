@@ -1,6 +1,6 @@
 {
   "name": "easy-on-the-eyes",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "the web, simply",
   "main": "app.js",
   "scripts": {
