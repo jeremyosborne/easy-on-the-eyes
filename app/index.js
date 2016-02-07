@@ -1,14 +1,14 @@
-var exphbs = require('express-handlebars');
+var exphbs = require("express-handlebars");
 var express = require("express");
 var favicon = require("serve-favicon");
 var Handlebars = require("Handlebars");
 var htmlToMarkdown = require("html-to-markdown");
-var logger = require("winston");
+var logger = require("./logger");
 var morgan = require("morgan");
 var path = require("path");
 
-
-logger.level = "debug";
+// For accessing public, views, and other sibling directories.
+var ROOT_PATH = path.resolve(path.join(__dirname, ".."));
 
 var app = express();
 
@@ -16,19 +16,17 @@ app.engine(".hbs", exphbs({
     extname: ".hbs",
     defaultLayout: false,
     helpers: {
-        toJSON: function(object){
-        	return new Handlebars.SafeString(JSON.stringify(object));
-        }
-    }
+        toJSON: function (object) {
+            return new Handlebars.SafeString(JSON.stringify(object));
+        },
+    },
 }));
 app.set("view engine", ".hbs");
+app.set("views", path.join(ROOT_PATH, "views"));
 
-app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+app.use(favicon(path.join(ROOT_PATH, "public", "favicon.ico")));
 app.use(morgan("dev"));
 
-
-
-// TODO: Work out kinks with page reload (see below).
 // TODO: Setup proxy that
 // * sniffs domain and makes guesses about filter
 // * Makes GET request to remote page.
@@ -58,13 +56,11 @@ app.use(morgan("dev"));
 //     }
 // });
 
-
-
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
     var u = req.query.u;
 
     // This is going to get nasty really quick, but for now...
-    var filterGuesser = function(u) {
+    var filterGuesser = function (u) {
         if (/\.wikipedia\./.test(u)) {
             return "wikipedia";
         } else {
@@ -74,7 +70,7 @@ app.get("/", function(req, res) {
 
     if (u) {
         var filter = filterGuesser(u);
-        htmlToMarkdown.fetch(u, filter, function(err, content) {
+        htmlToMarkdown.fetch(u, filter, function (err, content) {
             // Send no matter what, but log output. The client should
             // handle presence or lack of content and not care about
             // the URL.
@@ -83,56 +79,22 @@ app.get("/", function(req, res) {
             } else {
                 logger.debug("fetched content from:", u, "using filter:", filter);
             }
+
             res.render("reader", {
                 bootstrap: {
-                    content: content
-                }
+                    content: content,
+                },
             });
         });
     } else {
         res.render("reader", {
             bootstrap: {
-                content: ""
-            }
+                content: "",
+            },
         });
     }
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(ROOT_PATH, "public")));
 
-
-
-if (require.main === module) {
-    (function() {
-        var http = require('http');
-        var port = process.env.PORT || '3000';
-        var server = http.createServer(app);
-        server.listen(port);
-        server.on('error', function(error) {
-            if (error.syscall !== 'listen') {
-                throw error;
-            }
-
-            var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
-
-            // handle specific listen errors with friendly messages
-            switch (error.code) {
-                case 'EACCES':
-                    console.error(bind + ' requires elevated privileges');
-                    process.exit(1);
-                    break;
-                case 'EADDRINUSE':
-                    console.error(bind + ' is already in use');
-                    process.exit(1);
-                    break;
-                default:
-                    throw error;
-            }
-        });
-        server.on('listening', function() {
-            var addr = server.address();
-            var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-            logger.info('Listening on ' + bind);
-        });
-    })();
-}
+module.exports = app;

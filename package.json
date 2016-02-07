@@ -4,7 +4,7 @@
   "description": "the web, simply",
   "main": "app.js",
   "scripts": {
-    "start": "node app",
+    "start": "node server/dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

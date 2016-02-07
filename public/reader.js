@@ -1,27 +1,25 @@
 /* jshint browser:true */
 /* global marked:false */
 
-(function(bootstrap) {
+(function (bootstrap) {
 
     var Content = function(c) {
         return {
-            toHTML: function() {
+            toHTML: function () {
                 return marked(c || "");
-            }
+            },
         };
     };
+
     // We only have one content object for now.
     var content = Content(bootstrap.content);
-
-
 
     var render = function(content) {
         document.querySelector(".content").innerHTML = content.toHTML();
     };
+
     // First render.
     render(content);
-
-
 
     // Attempt to read links in this single pane view.
     // We hope whatever links are left are worth reading.
@@ -32,20 +30,21 @@
             window.location.href = "/?u=" + encodeURIComponent(t.href);
         }
     };
+
     document.querySelector("body").addEventListener("click", linkInterceptor);
 
-
-
     var nav = function(content) {
-        var navForm = document.querySelector(".nav");
+        var navForm;
         if (!content) {
+            navForm = document.querySelector(".nav");
             navForm.className = navForm.className.replace(/hide/, "");
-            navForm.addEventListener("submit", function(ev) {
-                console.log("TODO: travel to this URL:", ev.target.querySelector("#u").value);
+            navForm.addEventListener("submit", function (ev) {
+                window.location.href = "/?u=" + encodeURIComponent(document.querySelector("#u").value);
                 ev.preventDefault();
             });
         }
     };
+
     nav(content.toHTML());
 
 })(window.bootstrap);

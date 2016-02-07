@@ -2,6 +2,7 @@
     "verbose": true,
     "disallowEmptyBlocks": true,
     "disallowMixedSpacesAndTabs": "smart",
+    "disallowMultipleLineBreaks": false,
     "disallowMultipleLineStrings": true,
     "disallowMultipleVarDecl": false,
     "disallowNamedUnassignedFunctions": false,
@@ -19,6 +20,23 @@
     "requireCommaBeforeLineBreak": true,
     "requireCurlyBraces": true,
     "requireParenthesesAroundIIFE": true,
+    "requireSpaceAfterKeywords": [
+        "do",
+        "for",
+        "if",
+        "else",
+        "switch",
+        "case",
+        "try",
+        "void",
+        "while",
+        "with",
+        "return",
+        "typeof"
+    ],
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
     "validateIndentation": 4,
     "validateQuoteMarks": true
 }
