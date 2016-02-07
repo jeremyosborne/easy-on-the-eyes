@@ -2,10 +2,11 @@ var exphbs = require("express-handlebars");
 var express = require("express");
 var favicon = require("serve-favicon");
 var Handlebars = require("Handlebars");
-var htmlToMarkdown = require("html-to-markdown");
 var logger = require("./logger");
 var morgan = require("morgan");
+var request = require("request");
 var path = require("path");
+var xform = require("./xform");
 
 // For accessing public, views, and other sibling directories.
 var ROOT_PATH = path.resolve(path.join(__dirname, ".."));
@@ -37,29 +38,16 @@ app.use(function(req, res, next) {
 // If they do, we will attempt to retrieve the contents at the URL.
 app.use(function(req, res, next) {
     var u = req.query.u;
-
-    // This is going to get nasty really quick, but for now...
-    var filterGuesser = function (u) {
-        if (/\.wikipedia\./.test(u)) {
-            return "wikipedia";
-        } else {
-            return "normal";
-        }
-    };
-
+    console.log("res.locals", res.locals);
     if (u) {
-        var filter = filterGuesser(u);
-        htmlToMarkdown.fetch(u, filter, function (err, content) {
-            // Send no matter what, but log output. The client should
-            // handle presence or lack of content and not care about
-            // the URL.
+        var x = xform.bestGuess(u);
+        request(u, function(err, reqResponse, body) {
             if (err) {
                 logger.error("Could not retrieve content from:", u, "with error:", err);
             } else {
-                logger.debug("fetched content from:", u, "using filter:", filter);
+                logger.debug("fetched content from:", u, "using filter:", x.name);
+                res.locals.bootstrap.content = x.f(body);
             }
-
-            res.locals.bootstrap.content = content;
             next();
         });
     } else {

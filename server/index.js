@@ -1,6 +1,6 @@
-var app = require("../app");
+var app = require("./app");
 var http = require("http");
-var logger = require("../app/logger");
+var logger = require("./app/logger");
 
 
 // Config

@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
   "dependencies": {
+    "cheerio": "^0.19.0",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
-    "html-to-markdown": "github:jeremyosborne/html-to-markdown#0.0.7",
+    "minimist": "^1.1.1",
     "morgan": "^1.6.1",
+    "request": "^2.53.0",
     "serve-favicon": "^2.3.0",
     "winston": "^2.1.1"
   },

@@ -1,12 +1,12 @@
 /* jshint browser:true */
-/* global marked:false */
 
 (function (bootstrap) {
 
     var Content = function(c) {
+        // This was needed when we used markdown... now is it needed?
         return {
             toHTML: function () {
-                return marked(c || "");
+                return c || "";
             },
         };
     };
