@@ -27,12 +27,51 @@ app.set("views", path.join(ROOT_PATH, "views"));
 app.use(favicon(path.join(ROOT_PATH, "public", "favicon.ico")));
 app.use(morgan("dev"));
 
+// HTML page content ends up on the bootstrap.
+app.use(function(req, res, next) {
+    res.locals.bootstrap = {};
+    next();
+});
+
+// All incoming requests might have a u query string parameter.
+// If they do, we will attempt to retrieve the contents at the URL.
+app.use(function(req, res, next) {
+    var u = req.query.u;
+
+    // This is going to get nasty really quick, but for now...
+    var filterGuesser = function (u) {
+        if (/\.wikipedia\./.test(u)) {
+            return "wikipedia";
+        } else {
+            return "normal";
+        }
+    };
+
+    if (u) {
+        var filter = filterGuesser(u);
+        htmlToMarkdown.fetch(u, filter, function (err, content) {
+            // Send no matter what, but log output. The client should
+            // handle presence or lack of content and not care about
+            // the URL.
+            if (err) {
+                logger.error("Could not retrieve content from:", u, "with error:", err);
+            } else {
+                logger.debug("fetched content from:", u, "using filter:", filter);
+            }
+
+            res.locals.bootstrap.content = content;
+            next();
+        });
+    } else {
+        next();
+    }
+});
+
 // TODO: Setup proxy that
 // * sniffs domain and makes guesses about filter
 // * Makes GET request to remote page.
 // * Returns the markdown in a minimal JSON object.
 // * Return manageable errors and log on server side.
-// * TODO Part 2: show in a client
 // app.get("/api/fetch", function(req, res) {
 //     var u = req.query.u; // url
 //     if (u) {
@@ -57,42 +96,7 @@ app.use(morgan("dev"));
 // });
 
 app.get("/", function (req, res) {
-    var u = req.query.u;
-
-    // This is going to get nasty really quick, but for now...
-    var filterGuesser = function (u) {
-        if (/\.wikipedia\./.test(u)) {
-            return "wikipedia";
-        } else {
-            return "normal";
-        }
-    };
-
-    if (u) {
-        var filter = filterGuesser(u);
-        htmlToMarkdown.fetch(u, filter, function (err, content) {
-            // Send no matter what, but log output. The client should
-            // handle presence or lack of content and not care about
-            // the URL.
-            if (err) {
-                logger.error("Could not retrieve content from:", u, "with error:", err);
-            } else {
-                logger.debug("fetched content from:", u, "using filter:", filter);
-            }
-
-            res.render("reader", {
-                bootstrap: {
-                    content: content,
-                },
-            });
-        });
-    } else {
-        res.render("reader", {
-            bootstrap: {
-                content: "",
-            },
-        });
-    }
+    res.render("reader");
 });
 
 app.use(express.static(path.join(ROOT_PATH, "public")));
