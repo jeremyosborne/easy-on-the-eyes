@@ -1,7 +1,12 @@
 var app = require("../app");
 var http = require("http");
 var logger = require("../app/logger");
+
+
+// Config
 var port = process.env.PORT || "3000";
+
+
 
 var server = http.createServer(app);
 server.listen(port);
@@ -15,12 +20,12 @@ server.on("error", function (error) {
     // handle specific listen errors with friendly messages
     switch (error.code) {
         case "EACCES": {
-            console.error(bind + " requires elevated privileges");
+            logger.error(bind + " requires elevated privileges");
             process.exit(1);
             break;
         }
         case "EADDRINUSE": {
-            console.error(bind + " is already in use");
+            logger.error(bind + " is already in use");
             process.exit(1);
             break;
         }
