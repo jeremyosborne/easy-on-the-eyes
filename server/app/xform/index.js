@@ -11,7 +11,7 @@ exports.exists = function(xform) {
 
 // This is going to get nasty really quick, but for now...
 exports.bestGuess = function (u) {
-    if (/\.wikipedia\./.test(u)) {
+    if (/\.wikipedia\.org\/wiki\//.test(u)) {
         return {
             name: "wikipedia",
             f: require("./xforms/wikipedia"),

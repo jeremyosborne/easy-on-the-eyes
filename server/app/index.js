@@ -9,7 +9,7 @@ var path = require("path");
 var xform = require("./xform");
 
 // For accessing public, views, and other sibling directories.
-var ROOT_PATH = path.resolve(path.join(__dirname, ".."));
+var ROOT_PATH = path.resolve(path.join(__dirname, "..", ".."));
 
 var app = express();
 
@@ -38,7 +38,6 @@ app.use(function(req, res, next) {
 // If they do, we will attempt to retrieve the contents at the URL.
 app.use(function(req, res, next) {
     var u = req.query.u;
-    console.log("res.locals", res.locals);
     if (u) {
         var x = xform.bestGuess(u);
         request(u, function(err, reqResponse, body) {

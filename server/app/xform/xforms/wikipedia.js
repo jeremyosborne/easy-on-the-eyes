@@ -1,3 +1,6 @@
+//
+// For *wikipedia.org/wiki/* articles
+//
 var cheerio = require("cheerio");
 
 module.exports = function(html) {
