@@ -4,65 +4,43 @@
 var cheerio = require("cheerio");
 
 module.exports = function(html) {
+    var $ = cheerio.load(html);
+
     // Grab the heading to reinsert later.
-    var title = cheerio.load(html)("#firstHeading");
+    var title = $("#firstHeading");
 
-    // Clean the content of wikipedia stuff.
-    var $ = cheerio.load(cheerio.load(html)("#mw-content-text").html());
+    // Remove everything we don't want in the page.
+    // Remove everything we don't want.
+    // We select everything to get all potential elements no matter how deeply
+    // nested because finding comments is tricky (no explicit selector).
+    $.root()
+        .find("*")
+        .contents()
+        .filter(function() {
+            var tagsToRemove = {
+                noscript: true,
+                script: true,
+                link: true,
+                style: true,
+                table: true,
+            };
+            return this && (this.type === "comment" ||
+                (this.tagName && this.tagName.toLowerCase() in tagsToRemove));
+        })
+        .remove();
 
-    // Remove comments.
-    $.root().contents().each(function() {
-        if (this.type === "comment") {
-            $(this).remove();
-        }
-    });
-
-    // Get rid if internal wiki links.
-    $("a").each(function() {
-        if ($(this).attr("href").indexOf("/") === 0) {
-            $(this).replaceWith($(this).html());
-        }
-    });
-
-    $("script").each(function(i, el) {
+    $("#toc, #siteSub, #contentSub, .mw-jump, .hatnote, .thumb.tright, .printfooter, #catlinks").each(function(i, el) {
         $(el).remove();
     });
-    $("noscript").each(function(i, el) {
+    $(".mw-editsection, .reference, .noprint.Inline-Template.Template-Fact, .visualClear").each(function(i, el) {
         $(el).remove();
     });
-    $("table").each(function(i, el) {
-        $(el).remove();
-    });
-    $("#toc").each(function(i, el) {
-        $(el).remove();
-    });
-    $("#siteSub, #contentSub, .mw-jump, .hatnote, .thumb.tright, .printfooter, #catlinks, .visualClear")
-        .each(function(i, el) {
-            $(el).remove();
-        });
-    $(".mw-editsection").each(function(i, el) {
-        $(el).remove();
-    });
-    $(".reference").each(function(i, el) {
-        $(el).remove();
-    });
-    $(".noprint.Inline-Template.Template-Fact").each(function(i, el) {
-        $(el).remove();
-    });
-    $("h1,h2,h3,h4,h5,h6").each(function(i, el) {
+    $("h1, h2, h3, h4, h5, h6, .references > *").each(function(i, el) {
         $(el).html($(el).text());
-    });
-    $(".references > *").each(function(i, el) {
-        $(el).html($(el).text());
-    });
-
-    // Unwrap silly columns.
-    $(".columns").each(function() {
-        $(this).replaceWith($(this).html());
     });
 
     // Add the title back in.
-    $.root().prepend(title);
+    $("#mw-content-text").prepend(title);
 
-    return $.html();
+    return $("#mw-content-text").html();
 };

@@ -19,6 +19,7 @@
     "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
     "requireCommaBeforeLineBreak": true,
     "requireCurlyBraces": true,
+    "requireDollarBeforejQueryAssignment": false,
     "requirePaddingNewLinesAfterBlocks": false,
     "requireParenthesesAroundIIFE": true,
     "requireSpaceAfterKeywords": [
