@@ -26,8 +26,18 @@
     var linkInterceptor = function(ev) {
         var t = ev.target;
         if (t.tagName.toLowerCase() === "a") {
+            var href = t.getAttribute("href");
+
+            // TODO: Will need a real URL parser, but for now, treat this is our
+            // one usecase.
+            if (href[0] === "/" && href[1] !== "/") {
+                window.location.href = "/?u=" + encodeURIComponent(bootstrap.rootUrl) + encodeURIComponent(href);
+            } else {
+                // In this case, good luck to you.
+                window.location.href = "/?u=" + encodeURIComponent(href);
+            }
+
             ev.preventDefault();
-            window.location.href = "/?u=" + encodeURIComponent(t.href);
         }
     };
 

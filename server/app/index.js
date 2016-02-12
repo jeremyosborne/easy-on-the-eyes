@@ -6,6 +6,7 @@ var logger = require("./logger");
 var morgan = require("morgan");
 var request = require("request");
 var path = require("path");
+var url = require("url");
 var xform = require("./xform");
 
 // For accessing public, views, and other sibling directories.
@@ -46,6 +47,13 @@ app.use(function(req, res, next) {
             } else {
                 logger.debug("fetched content from:", u, "using filter:", x.name);
                 res.locals.bootstrap.content = x.f(body);
+
+                // Also parse the url and make available.
+                var parsedUrl = url.parse(u);
+                res.locals.bootstrap.rootUrl = url.format({
+                    protocol: parsedUrl.protocol,
+                    host: parsedUrl.host,
+                });
             }
             next();
         });

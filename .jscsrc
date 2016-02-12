@@ -21,6 +21,7 @@
     "requireCurlyBraces": true,
     "requireDollarBeforejQueryAssignment": false,
     "requirePaddingNewLinesAfterBlocks": false,
+    "requirePaddingNewLinesBeforeLineComments": false,
     "requireParenthesesAroundIIFE": true,
     "requireSpaceAfterKeywords": [
         "do",
