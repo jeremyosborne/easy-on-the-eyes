@@ -2,6 +2,7 @@
 
 * Quality of life improvement: break the client code apart into separate files
   mainly as a test to see what independent components I have.
+* Make use of Node's `url` parser library on the client.
 
 
 
