@@ -9,14 +9,18 @@ module.exports = {
         filename: "app.js",
     },
     module: {
-        loaders: [
+        preLoaders: [
             {
-                // We assume that requires done within the client folder should
-                // be linted and ng-annotated.
-                test: /\.js/,
-                loader: "jshint!jscs",
+                test: /\.js$/,
+                loader: "jscs!jshint",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.css$/,
+                loader: "stylelint"
+            },
+        ],
+        loaders: [
             {
                 test: /\.css$/,
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
@@ -31,4 +35,7 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("app.css")
     ],
+    stylelint: {
+        configFile: path.join(__dirname, "./.stylelintrc"),
+    },
 };
