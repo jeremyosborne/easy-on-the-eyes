@@ -1,5 +1,6 @@
 var content = require("./content");
 var dataBootstrap = require("./databootstrap");
+var url = require("url");
 
 // Nav form if initial content is empty / no initial content requested.
 var nav = function(content) {
@@ -23,18 +24,14 @@ nav(content);
 var linkInterceptor = function(ev) {
     var t = ev.target;
     if (t.tagName.toLowerCase() === "a") {
-        var href = t.getAttribute("href");
-
-        // TODO: Will need a real URL parser, but for now, treat this is our
-        // one usecase.
-        if (href[0] === "/" && href[1] !== "/") {
-            window.location.href = "/?u=" + encodeURIComponent(dataBootstrap.get("rootUrl")) + encodeURIComponent(href);
-        } else {
+        var targetHref = t.getAttribute("href");
+        var baseHref = dataBootstrap.get("rootUrl");
+        if (targetHref) {
             // In this case, good luck to you.
-            window.location.href = "/?u=" + encodeURIComponent(href);
-        }
+            window.location.href = "/?u=" + encodeURIComponent(url.resolve(baseHref, targetHref));
 
-        ev.preventDefault();
+            ev.preventDefault();
+        }
     }
 };
 
