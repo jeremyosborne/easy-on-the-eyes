@@ -1,6 +1,13 @@
+# 0.0.3 (to be released)
+
+* Quality of life improvement: break the client code apart into separate files
+  mainly as a test to see what independent components I have.
+
+
+
 # 0.0.2 (released 2016 Feb 14)
 
-* DEV: Break dependency on `html-to-markdown`. That project inspired this, but
+* Break dependency on `html-to-markdown`. That project inspired this, but
   I realized it's not the same thing I want to do here, and also not efficient
   enough. That project was started so I could grab wikipedia articles and store
   them in text files on disk. This project is about reading in the browser without
@@ -10,6 +17,7 @@
 * Made the first page insert-url-here form appropriate for humans, not ants.
 * Quality of life improvements like webpack building of client assets, various
   code linters.
+
 
 
 # 0.0.1 (released 2016 Feb 07)

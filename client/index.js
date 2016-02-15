@@ -1,2 +1,3 @@
 require("./reader.css");
-require("./reader");
+require("./content");
+require("./nav");
