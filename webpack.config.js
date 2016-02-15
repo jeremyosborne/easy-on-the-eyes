@@ -1,5 +1,5 @@
 var path = require("path");
-
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: "style!css",
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
             },
             {
                 // For font and icon requires.
@@ -27,5 +27,8 @@ module.exports = {
                 loader: "url?limit=100000",
             }
         ],
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin("app.css")
+    ],
 };
