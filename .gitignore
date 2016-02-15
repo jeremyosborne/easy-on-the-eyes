@@ -10,3 +10,8 @@ bower_components
 
 # Atom
 .imdone
+
+# Built application code.
+public/*.*
+!public/.gitkeep
+!public/favicon.ico
