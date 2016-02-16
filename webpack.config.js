@@ -3,9 +3,12 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
 module.exports = {
-    entry: "./client/index.js",
+    entry: [
+        "./client/index.js",
+    ],
     output: {
-        path: path.join(__dirname, "public"),
+        path: path.resolve(path.join(__dirname, "public")),
+        publicPath: "/",
         filename: "app.js",
     },
     module: {
@@ -33,7 +36,7 @@ module.exports = {
         ],
     },
     plugins: [
-        new ExtractTextPlugin("app.css")
+        new ExtractTextPlugin("app.css"),
     ],
     stylelint: {
         configFile: path.join(__dirname, "./.stylelintrc"),
