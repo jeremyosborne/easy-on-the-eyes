@@ -3,6 +3,10 @@
 * Quality of life improvement: break the client code apart into separate files
   mainly as a test to see what independent components I have.
 * Make use of Node's `url` parser library on the client.
+* Change `server/index.js` to optionally build assets on the fly with a webpack
+  compiler, but drop the whole idea of webpack hot reloading. Not the most elegant
+  but extremely simple to handle without much overhead. Also doesn't require
+  any retooling (in fact allows deletion of dependencies).
 
 
 

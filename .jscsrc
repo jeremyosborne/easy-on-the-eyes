@@ -42,5 +42,5 @@
     },
     "requireTrailingComma": false,
     "validateIndentation": 4,
-    "validateQuoteMarks": true
+    "validateQuoteMarks": "\""
 }

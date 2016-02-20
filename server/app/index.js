@@ -31,42 +31,6 @@ app.use(morgan("dev"));
 
 
 
-// TODO: Make this configurable with a `hot-reload` env switch, or something
-// like that.
-//
-// Add an intercept for asset requests that allows building on the fly and
-// reloading the browser page on changed files.
-(function() {
-    // Step 1: Create & configure a webpack compiler
-    var webpack = require("webpack");
-    var webpackConfig = require(process.env.WEBPACK_CONFIG ?
-            process.env.WEBPACK_CONFIG : path.resolve(ROOT_PATH, "webpack.config"));
-
-    // Modify the default config with dev only things we need for hot rebuid and reload.
-    webpackConfig.entry.push("webpack/hot/dev-server");
-    webpackConfig.entry.push("webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true");
-    webpackConfig.plugins.push(new webpack.optimize.OccurenceOrderPlugin());
-    webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
-    webpackConfig.plugins.push(new webpack.NoErrorsPlugin());
-
-    var compiler = webpack(webpackConfig);
-
-    // Step 2: Attach the dev middleware to the compiler & the server
-    app.use(require("webpack-dev-middleware")(compiler, {
-        noInfo: true,
-        publicPath: webpackConfig.output.publicPath
-    }));
-
-    // Step 3: Attach the hot middleware to the compiler & the server
-    app.use(require("webpack-hot-middleware")(compiler, {
-        // log: console.log,
-        // path: "/__webpack_hmr",
-        // heartbeat: 10 * 1000
-    }));
-})();
-
-
-
 // HTML page content ends up on the bootstrap.
 app.use(function(req, res, next) {
     res.locals.bootstrap = {};

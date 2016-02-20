@@ -9,5 +9,5 @@ Read the web stripped down (in markdown).
     # Regular server
     npm start
 
-    # Auto restart dev server
+    # Dev friendly server that will autorestart and autorebuild on change.
     npm run start-dev
