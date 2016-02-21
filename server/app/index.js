@@ -35,8 +35,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-// HTML page content ends up on the bootstrap.
+// Some things get added to the bootstrap to help out the client side JS.
+// Declare location of the content.
 app.use(function(req, res, next) {
+    res.locals.content = "";
     res.locals.bootstrap = {};
     next();
 });
@@ -52,7 +54,7 @@ app.use(function(req, res, next) {
                 logger.error("Could not retrieve content from:", u, "with error:", err);
             } else {
                 logger.debug("fetched content from:", u, "using filter:", x.name);
-                res.locals.bootstrap.content = x.f(body);
+                res.locals.content = x.f(body).trim();
 
                 // Also parse the url and make available.
                 var parsedUrl = url.parse(u);
@@ -67,34 +69,6 @@ app.use(function(req, res, next) {
         next();
     }
 });
-
-// TODO: Setup proxy that
-// * sniffs domain and makes guesses about filter
-// * Makes GET request to remote page.
-// * Returns the markdown in a minimal JSON object.
-// * Return manageable errors and log on server side.
-// app.get("/api/fetch", function(req, res) {
-//     var u = req.query.u; // url
-//     if (u) {
-//         htmlToMarkdown.fetch(u, "wikipedia", function(err, content) {
-//             if (err || !content) {
-//                 logger.error("Could not retrieve content from:", u, "with error:", err);
-//                 res.send(404).send({
-//                     error: "Could not retrieve content."
-//                 });
-//             } else {
-//                 logger.debug("fetched content from:", u);
-//                 res.send({
-//                     content: content
-//                 });
-//             }
-//         });
-//     } else {
-//         res.status(401).send({
-//             error: "'u'rl querystring parameter required."
-//         });
-//     }
-// });
 
 app.get("/", function (req, res) {
     res.render("reader");
