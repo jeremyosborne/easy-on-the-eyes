@@ -1,4 +1,4 @@
-# 0.0.3 (to be released)
+# 0.0.3 (released 2016 Feb 20)
 
 * Quality of life improvement: break the client code apart into separate files
   mainly as a test to see what independent components I have.
