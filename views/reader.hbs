@@ -13,13 +13,17 @@
             <input type="submit"/>
         </form>
         <div class="content"></div>
+
+        {{!-- Any data the server wants to provide to us. Server promises at minimum empty object. --}}
         <script>
-{{!--
-    Any data the server wants to provide to us. Server promises at minimum
-    empty object.
---}}
 var bootstrap = {{{toJSON bootstrap}}};
         </script>
+
         <script src="/app.js"></script>
+
+        {{!-- In development, allow auto-refresh of the browser when the files change on server. --}}
+        {{#if DEV_SERVER }}
+        <script src="reload/reload.js"></script>
+        {{/if}}
     </body>
 </html>

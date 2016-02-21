@@ -29,7 +29,11 @@ app.set("views", path.join(ROOT_PATH, "views"));
 app.use(favicon(path.join(ROOT_PATH, "public", "favicon.ico")));
 app.use(morgan("dev"));
 
-
+// Pass along the dev server state.
+app.use(function(req, res, next) {
+    res.locals.DEV_SERVER = !!process.env.DEV_SERVER;
+    next();
+});
 
 // HTML page content ends up on the bootstrap.
 app.use(function(req, res, next) {

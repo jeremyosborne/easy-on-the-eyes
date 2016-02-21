@@ -2,6 +2,7 @@ var app = require("./app");
 var http = require("http");
 var logger = require("./app/logger");
 var path = require("path");
+var reload = require("reload");
 var webpack = require("webpack");
 
 
@@ -41,8 +42,9 @@ server.on("listening", function () {
 
 
 
-if (process.env.DEV_BUILD_ASSETS_FIRST) {
-    logger.info("Developer build assets first triggered.");
+if (process.env.DEV_SERVER) {
+    logger.info("Developer server serving.");
+
     // Build assets then start server.
     //
     // Add an intercept for asset requests that allows building on the fly and
@@ -55,6 +57,12 @@ if (process.env.DEV_BUILD_ASSETS_FIRST) {
         } else {
             // Assets built, run the server.
             logger.info("Webpack assets built.");
+
+            // Browser reload, see:
+            // see: https://www.npmjs.com/package/reload
+            // Was not able to get this working without an explicit delay and `wait`.
+            reload(server, app, 300, true);
+
             server.listen(port);
         }
     });
