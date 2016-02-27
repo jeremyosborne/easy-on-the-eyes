@@ -35,11 +35,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-// Some things get added to the bootstrap to help out the client side JS.
-// Declare location of the content.
+// Content of the article/page to load, if it exists.
 app.use(function(req, res, next) {
     res.locals.content = "";
-    res.locals.bootstrap = {};
     next();
 });
 
@@ -55,13 +53,6 @@ app.use(function(req, res, next) {
             } else {
                 logger.debug("fetched content from:", u, "using filter:", x.name);
                 res.locals.content = x.f(body).trim();
-
-                // Also parse the url and make available.
-                var parsedUrl = url.parse(u);
-                res.locals.bootstrap.rootUrl = url.format({
-                    protocol: parsedUrl.protocol,
-                    host: parsedUrl.host,
-                });
             }
             next();
         });

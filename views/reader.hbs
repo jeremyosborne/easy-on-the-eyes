@@ -26,11 +26,11 @@
 
         <div class="content">{{{content}}}</div>
 
-        {{!-- Any data the server wants to provide to us. Server promises at minimum empty object. --}}
+{{!-- Any data the server wants to provide to us. Server promises at minimum empty object.
         <script>
 var bootstrap = {{{toJSON bootstrap}}};
         </script>
-
+--}}
         <script src="/app.js"></script>
 
         {{!-- In development, allow auto-refresh of the browser when the files change on server. --}}

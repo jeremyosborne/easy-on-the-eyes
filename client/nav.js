@@ -1,5 +1,4 @@
 var content = require("./content");
-var dataBootstrap = require("./databootstrap");
 var url = require("url");
 
 // Nav form if initial content is empty / no initial content requested.
@@ -17,6 +16,18 @@ var nav = function(content) {
 
 nav(content);
 
+// Easy on the eyes acts as a proxy. The page equivalent is stored in the
+// `?u=<page>` param.
+var contentUrl = url.parse(window.location.href, true).query.u || "";
+if (contentUrl) {
+    try {
+        contentUrl = decodeURIComponent(contentUrl);
+    } catch(err) {
+        contentUrl = "";
+        console.error("Unable to parse u query string parameter.", err);
+    }
+}
+
 
 
 // Attempt to read links in this single pane view.
@@ -25,11 +36,11 @@ var linkInterceptor = function(ev) {
     var t = ev.target;
     if (t.tagName.toLowerCase() === "a") {
         var targetHref = t.getAttribute("href");
-        var baseHref = dataBootstrap.get("rootUrl") || "";
         if (targetHref) {
-            // In this case, good luck to you.
-            window.location.href = "/?u=" + encodeURIComponent(url.resolve(baseHref, targetHref));
-
+            // Using the `url.resolve` logic should allow links to
+            // be resolved correctly against the content url, whether relative or
+            // absolute.
+            window.location.href = "/?u=" + encodeURIComponent(url.resolve(contentUrl, targetHref));
             ev.preventDefault();
         }
     }
