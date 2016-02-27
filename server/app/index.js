@@ -6,7 +6,6 @@ var logger = require("./logger");
 var morgan = require("morgan");
 var request = require("request");
 var path = require("path");
-var url = require("url");
 var xform = require("./xform");
 
 // For accessing public, views, and other sibling directories.

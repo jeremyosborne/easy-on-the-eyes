@@ -4,7 +4,7 @@
   "description": "the web, simply",
   "main": "server/index.js",
   "scripts": {
-    "prestart": "echo 'building dev app' && webpack --config .webpack.config.js",
+    "prestart": "echo 'building dev app' && jshint server/ client/ && jscs client/ server/ && webpack --config .webpack.config.js",
     "start": "node server",
     "start-dev": "echo 'restarting server on server changes' && DEV_SERVER=true supervisor -e css,js -w server,client server"
   },
