@@ -25,7 +25,7 @@ var linkInterceptor = function(ev) {
     var t = ev.target;
     if (t.tagName.toLowerCase() === "a") {
         var targetHref = t.getAttribute("href");
-        var baseHref = dataBootstrap.get("rootUrl");
+        var baseHref = dataBootstrap.get("rootUrl") || "";
         if (targetHref) {
             // In this case, good luck to you.
             window.location.href = "/?u=" + encodeURIComponent(url.resolve(baseHref, targetHref));

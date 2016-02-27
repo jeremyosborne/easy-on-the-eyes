@@ -45,3 +45,7 @@ img {
 .nav input[type="url"] {
     font-size: 1em;
 }
+
+.starting-points {
+    text-align: left;
+}
