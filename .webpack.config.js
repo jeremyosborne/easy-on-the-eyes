@@ -15,12 +15,12 @@ module.exports = {
         preLoaders: [
             {
                 test: /\.js$/,
-                loader: "jscs!jshint",
+                loader: "eslint-loader",
                 exclude: /node_modules/,
             },
             {
                 test: /\.css$/,
-                loader: "stylelint"
+                loader: "stylelint-loader"
             },
         ],
         loaders: [

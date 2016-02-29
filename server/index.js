@@ -10,7 +10,7 @@ var webpack = require("webpack");
 // Setup server.
 var port = process.env.PORT || "3000";
 var server = http.createServer(app);
-server.on("error", function (error) {
+server.on("error", function(error) {
     if (error.syscall !== "listen") {
         throw error;
     }
@@ -34,7 +34,7 @@ server.on("error", function (error) {
         }
     }
 });
-server.on("listening", function () {
+server.on("listening", function() {
     var addr = server.address();
     var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
     logger.info("Listening on " + bind);

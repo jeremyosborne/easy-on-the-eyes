@@ -7,7 +7,7 @@ var nav = function(content) {
     if (content.isEmpty()) {
         navForm = document.querySelector(".nav");
         navForm.className = navForm.className.replace(/hide/, "");
-        navForm.addEventListener("submit", function (ev) {
+        navForm.addEventListener("submit", function(ev) {
             window.location.href = "/?u=" + encodeURIComponent(document.querySelector("#u").value);
             ev.preventDefault();
         });
@@ -22,9 +22,8 @@ var contentUrl = url.parse(window.location.href, true).query.u || "";
 if (contentUrl) {
     try {
         contentUrl = decodeURIComponent(contentUrl);
-    } catch(err) {
+    } catch (err) {
         contentUrl = "";
-        console.error("Unable to parse u query string parameter.", err);
     }
 }
 

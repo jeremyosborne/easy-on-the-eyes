@@ -1,7 +1,5 @@
-var exphbs = require("express-handlebars");
 var express = require("express");
 var favicon = require("serve-favicon");
-var Handlebars = require("Handlebars");
 var logger = require("./logger");
 var morgan = require("morgan");
 var request = require("request");
@@ -13,17 +11,9 @@ var ROOT_PATH = path.resolve(path.join(__dirname, "..", ".."));
 
 var app = express();
 
-app.engine(".hbs", exphbs({
-    extname: ".hbs",
-    defaultLayout: false,
-    helpers: {
-        toJSON: function (object) {
-            return new Handlebars.SafeString(JSON.stringify(object));
-        },
-    },
-}));
-app.set("view engine", ".hbs");
 app.set("views", path.join(ROOT_PATH, "views"));
+app.set("view engine", "jsx");
+app.engine("jsx", require("express-react-views").createEngine());
 
 app.use(favicon(path.join(ROOT_PATH, "public", "favicon.ico")));
 app.use(morgan("dev"));
@@ -36,7 +26,7 @@ app.use(function(req, res, next) {
 
 // Content of the article/page to load, if it exists.
 app.use(function(req, res, next) {
-    res.locals.content = "";
+    res.locals.content = {__html: ""};
     next();
 });
 
@@ -51,7 +41,7 @@ app.use(function(req, res, next) {
                 logger.error("Could not retrieve content from:", u, "with error:", err);
             } else {
                 logger.debug("fetched content from:", u, "using filter:", x.name);
-                res.locals.content = x.f(body).trim();
+                res.locals.content = {__html: x.f(body).trim()};
             }
             next();
         });
@@ -60,7 +50,7 @@ app.use(function(req, res, next) {
     }
 });
 
-app.get("/", function (req, res) {
+app.get("/", function(req, res) {
     res.render("reader");
 });
 
