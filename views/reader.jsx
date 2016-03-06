@@ -32,7 +32,7 @@ module.exports = React.createClass({
 
                     <script src="/app.js"></script>
 
-                    {this.props.DEV_SERVER ? <script src='reload/reload.js'/> : ""}
+                    {this.props.env.NODE_ENV == "production" ? "" : <script src="reload/reload.js"/> }
                 </body>
             </html>
         );

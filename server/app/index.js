@@ -18,9 +18,9 @@ app.engine("jsx", require("express-react-views").createEngine());
 app.use(favicon(path.join(ROOT_PATH, "public", "favicon.ico")));
 app.use(morgan("dev"));
 
-// Pass along the dev server state.
+// Pass along env state.
 app.use(function(req, res, next) {
-    res.locals.DEV_SERVER = !!process.env.DEV_SERVER;
+    res.locals.env = Object.assign({}, process.env);
     next();
 });
 

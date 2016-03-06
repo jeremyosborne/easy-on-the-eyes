@@ -42,7 +42,7 @@ server.on("listening", function() {
 
 
 
-if (process.env.DEV_SERVER) {
+if (process.env.NODE_ENV !== "production") {
     logger.info("Developer server serving.");
 
     // Build assets then start server.

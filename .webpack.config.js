@@ -1,6 +1,15 @@
 var path = require("path");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var webpack = require("webpack");
 
+const PROD = process.env.NODE_ENV === "production";
+
+var plugins = PROD ? [
+    new ExtractTextPlugin("app.css"),
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
+] : [
+    new ExtractTextPlugin("app.css"),
+];
 
 module.exports = {
     entry: [
@@ -35,9 +44,7 @@ module.exports = {
             }
         ],
     },
-    plugins: [
-        new ExtractTextPlugin("app.css"),
-    ],
+    plugins: plugins,
     stylelint: {
         configFile: path.join(__dirname, "./.stylelintrc"),
     },

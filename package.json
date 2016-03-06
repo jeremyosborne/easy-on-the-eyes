@@ -4,16 +4,17 @@
   "description": "the web, simply",
   "main": "server/index.js",
   "scripts": {
-    "prestart": "echo 'building dev app' && eslint server && webpack --config .webpack.config.js",
+    "build": "echo 'building assets' && eslint server && webpack --config .webpack.config.js",
+    "prestart": "npm run build",
     "start": "node server",
-    "start-dev": "echo 'restarting server on server changes' && DEV_SERVER=true supervisor -e css,js,jsx -w server,client,views server"
+    "start-dev": "echo 'starting dev server' && npm run build && supervisor -e css,js,jsx -w server,client,views server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeremyosborne/easy-on-the-eyes.git"
   },
   "keywords": [
-    "markdown",
+    "reader",
     "simple",
     "web"
   ],
