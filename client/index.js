@@ -1,3 +1,3 @@
-require("./reader.css");
-require("./content");
-require("./nav");
+require('./reader.css')
+require('./content')
+require('./nav')

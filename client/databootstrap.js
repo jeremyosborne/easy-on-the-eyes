@@ -14,11 +14,11 @@
  * dataBootstrap.get("some.nested.property"); // === something || undefined
  *
  * // don't like the window.bootstrap object? Require then
- * dataBootstrap.reload("notBootstrap");
+ * dataBootstrap.reload("notBootstrap")
  * ```
  */
 
-var dataBootstrap = window.bootstrap || {};
+var dataBootstrap = window.bootstrap || {}
 
 // Get the value of a key from an object without throwing an error if
 // the key does not exist.
@@ -29,27 +29,27 @@ var dataBootstrap = window.bootstrap || {};
 //
 // Returns
 // value or undefined
-var getByProp = function(key, obj) {
-    var val;
-    key = key.split(".");
-    do {
-        val = obj = (obj && obj[key[0]]);
-        key.shift();
-    } while (val && key[0]);
-    return val;
-};
+var getByProp = function (key, obj) {
+  var val
+  key = key.split('.')
+  do {
+    val = obj = (obj && obj[key[0]])
+    key.shift()
+  } while (val && key[0])
+  return val
+}
 
 module.exports = {
-    reload: function(key) {
-        var val = getByProp(key, window);
-        if (val) {
-            dataBootstrap = val;
-        } else {
-            // Good programming shouldn't get here.
-            throw new Error("dataBootstrap: reload could not find key: " + key);
-        }
-    },
-    get: function(key) {
-        return getByProp(key, dataBootstrap);
-    },
-};
+  reload: function (key) {
+    var val = getByProp(key, window)
+    if (val) {
+      dataBootstrap = val
+    } else {
+      // Good programming shouldn't get here.
+      throw new Error('dataBootstrap: reload could not find key: ' + key)
+    }
+  },
+  get: function (key) {
+    return getByProp(key, dataBootstrap)
+  }
+}

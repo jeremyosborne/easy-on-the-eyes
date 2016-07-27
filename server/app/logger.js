@@ -1,5 +1,5 @@
-var logger = require("winston");
+var logger = require('winston')
 
-logger.level = "debug";
+logger.level = 'debug'
 
-module.exports = logger;
+module.exports = logger
