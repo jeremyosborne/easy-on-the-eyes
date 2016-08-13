@@ -12,12 +12,12 @@ exports.bestGuess = function (u) {
   if (/\.wikipedia\.org\/wiki\//.test(u)) {
     return {
       name: 'wikipedia',
-      f: require('./xforms/wikipedia')
+      xform: require('./xforms/wikipedia')
     }
   } else {
     return {
       name: 'normal',
-      f: require('./xforms/normal')
+      xform: require('./xforms/normal')
     }
   }
 }

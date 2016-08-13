@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
         logger.error('Could not retrieve content from:', u, 'with error:', err)
       } else {
         logger.debug('fetched content from:', u, 'using filter:', x.name)
-        res.locals.content = {__html: x.f(body).trim()}
+        res.locals.content = {__html: x.xform(body).trim()}
       }
       next()
     })
