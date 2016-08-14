@@ -24,8 +24,10 @@
     "url": "https://github.com/jeremyosborne/easy-on-the-eyes/issues"
   },
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
+  "standard": {},
   "dependencies": {
     "cheerio": "^0.19.0",
+    "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
     "express": "^4.13.4",
     "express-react-views": "^0.10.0",
     "minimist": "^1.1.1",

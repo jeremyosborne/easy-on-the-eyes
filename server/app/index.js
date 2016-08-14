@@ -4,7 +4,7 @@ var logger = require('./logger')
 var morgan = require('morgan')
 var request = require('request')
 var path = require('path')
-var xform = require('./xform')
+var xforms = require('easy-on-the-eyes-xforms')
 
 // For accessing public, views, and other sibling directories.
 var ROOT_PATH = path.resolve(path.join(__dirname, '..', '..'))
@@ -35,13 +35,13 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
   var u = req.query.u
   if (u) {
-    var x = xform.bestGuess(u)
+    var tranformer = xforms.bestGuess(u)
     request(u, function (err, reqResponse, body) {
       if (err) {
         logger.error('Could not retrieve content from:', u, 'with error:', err)
       } else {
-        logger.debug('fetched content from:', u, 'using filter:', x.name)
-        res.locals.content = {__html: x.xform(body).trim()}
+        logger.debug('fetched content from:', u, 'using filter:', tranformer.name)
+        res.locals.content = {__html: tranformer.xform(body).trim()}
       }
       next()
     })
