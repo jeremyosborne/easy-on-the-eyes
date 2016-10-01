@@ -1,4 +1,5 @@
 var express = require('express')
+var expressReactViews = require('express-react-views')
 var favicon = require('serve-favicon')
 var logger = require('./logger')
 var morgan = require('morgan')
@@ -13,7 +14,7 @@ var app = express()
 
 app.set('views', path.join(ROOT_PATH, 'views'))
 app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
+app.engine('jsx', expressReactViews.createEngine({}))
 
 app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 app.use(morgan('dev'))
@@ -51,7 +52,7 @@ app.use(function (req, res, next) {
 })
 
 app.get('/', function (req, res) {
-  res.render('reader')
+  res.render('reader', {})
 })
 
 app.use(express.static(path.join(ROOT_PATH, 'public')))

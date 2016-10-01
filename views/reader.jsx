@@ -14,13 +14,13 @@ module.exports = React.createClass({
         </head>
         <body>
           <form className='nav hide' action='javascript:void(0);'>
-            <label for='u'>
+            <label htmlFor='u'>
               What do you want to read today?
             </label>
-            <br/>
+            <br />
             <input type='url' name='u' id='u' />
             <input type='submit' />
-            <br/>
+            <br />
             <div className='starting-points'>
               <p>
                 Some starting points:
@@ -41,8 +41,8 @@ module.exports = React.createClass({
               </ul>
             </div>
           </form>
-          <div className='content' dangerouslySetInnerHTML={this.props.content}></div>
-          <script src='/app.js'></script>
+          <div className='content' dangerouslySetInnerHTML={this.props.content} />
+          <script src='/app.js' />
           {this.props.env.NODE_ENV === 'production' ? '' : <script src='reload/reload.js' />}
         </body>
       </html>

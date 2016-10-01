@@ -9,6 +9,9 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
 
+[*.css,*.sass,*.scss]
+indent_size = 4
+
 [*.js]
 charset = utf-8
 
