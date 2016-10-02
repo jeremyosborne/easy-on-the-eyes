@@ -7,7 +7,7 @@
     "build": "echo 'building assets' && standard server && webpack --config .webpack.config.js",
     "prestart": "npm run build",
     "start": "node server",
-    "start-dev": "npm run build && supervisor -e css,js,jsx -w server,client,views server"
+    "start-dev": "npm run build && opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,client,views server"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "cheerio": "^0.19.0",
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
     "express": "^4.13.4",
-    "express-react-views": "0.10.0",
+    "express-react-views": "github:jeremyosborne/express-react-views",
     "minimist": "^1.1.1",
     "morgan": "^1.6.1",
     "react": "0.14.7",
@@ -42,6 +42,8 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "opn": "^4.0.2",
+    "opn-cli": "^3.1.0",
     "reload": "^0.7.0",
     "semiraw-loader": "^0.5.2",
     "standard": "^8.3.0",
