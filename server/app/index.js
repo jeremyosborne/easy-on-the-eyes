@@ -14,7 +14,7 @@ var app = express()
 
 app.set('views', path.join(ROOT_PATH, 'views'))
 app.set('view engine', 'jsx')
-app.engine('jsx', expressReactViews.createEngine({}))
+app.engine('jsx', expressReactViews.createEngine())
 
 app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 app.use(morgan('dev'))

@@ -1,3 +1,3 @@
 require('./reader.css')
-require('./content')
+// require('./content.jsx')
 require('./nav')

@@ -1,20 +1,21 @@
-var content = require('./content')
 var url = require('url')
+// var content = require('./content')
 
+// TODO: Need to turn this back on or we'll get nothing in our view.
 // Nav form if initial content is empty / no initial content requested.
-var nav = function (content) {
-  var navForm
-  if (content.isEmpty()) {
-    navForm = document.querySelector('.nav')
-    navForm.className = navForm.className.replace(/hide/, '')
-    navForm.addEventListener('submit', function (ev) {
-      window.location.href = '/?u=' + encodeURIComponent(document.querySelector('#u').value)
-      ev.preventDefault()
-    })
-  }
-}
-
-nav(content)
+// var nav = function (content) {
+//   var navForm
+//   if (content.isEmpty()) {
+//     navForm = document.querySelector('.nav')
+//     navForm.className = navForm.className.replace(/hide/, '')
+//     navForm.addEventListener('submit', function (ev) {
+//       window.location.href = '/?u=' + encodeURIComponent(document.querySelector('#u').value)
+//       ev.preventDefault()
+//     })
+//   }
+// }
+//
+// nav(content)
 
 // Easy on the eyes acts as a proxy. The page equivalent is stored in the
 // `?u=<page>` param.

@@ -1,4 +1,6 @@
 var React = require('react')
+var Content = require('./content.jsx')
+var NavForm = require('./navform.jsx')
 
 module.exports = React.createClass({
   render: function () {
@@ -13,35 +15,8 @@ module.exports = React.createClass({
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
-          <form className='nav hide' action='javascript:void(0);'>
-            <label htmlFor='u'>
-              What do you want to read today?
-            </label>
-            <br />
-            <input type='url' name='u' id='u' />
-            <input type='submit' />
-            <br />
-            <div className='starting-points'>
-              <p>
-                Some starting points:
-              </p>
-              <ul>
-                <li>
-                  <a href='https://en.wikipedia.org/wiki/Umberto_Eco'>Umberto Eco</a>
-                </li>
-                <li>
-                  <a href='https://en.wikipedia.org/wiki/Sephirot'>Sephirot</a>
-                </li>
-                <li>
-                  <a href='https://en.wikipedia.org/wiki/Semantics'>Semantics</a>
-                </li>
-                <li>
-                  <a href='https://en.wikipedia.org/wiki/Maternal_insult'>"Your Mom..." Jokes</a>
-                </li>
-              </ul>
-            </div>
-          </form>
-          <div className='content' dangerouslySetInnerHTML={this.props.content} />
+          <NavForm />
+          <Content content={this.props.content} />
           <script src='/app.js' />
           {this.props.env.NODE_ENV === 'production' ? '' : <script src='reload/reload.js' />}
         </body>
