@@ -9,7 +9,8 @@ var Content = React.createClass({
 })
 
 Content.propTypes = {
-  content: React.PropTypes.string
+  // Dangerous html friendly object.
+  content: React.PropTypes.object
 }
 
 module.exports = Content

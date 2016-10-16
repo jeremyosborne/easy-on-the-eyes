@@ -1,5 +1,6 @@
 var React = require('react')
 var Content = require('./content.jsx')
+var LinkInterceptor = require('./linkinterceptor.jsx')
 var NavForm = require('./navform.jsx')
 
 module.exports = React.createClass({
@@ -15,8 +16,10 @@ module.exports = React.createClass({
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
-          <NavForm content={this.props.content} />
-          <Content content={this.props.content} />
+          <LinkInterceptor>
+            <NavForm content={this.props.content} />
+            <Content content={this.props.content} />
+          </LinkInterceptor>
           <script src='/app.js' />
           {this.props.env.NODE_ENV === 'production' ? '' : <script src='reload/reload.js' />}
         </body>
