@@ -12,7 +12,7 @@ indent_size = 2
 [*.css,*.sass,*.scss]
 indent_size = 4
 
-[*.js]
+[*.js,*.jsx]
 charset = utf-8
 
 [*.md]

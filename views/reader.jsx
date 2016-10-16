@@ -15,7 +15,7 @@ module.exports = React.createClass({
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
-          <NavForm />
+          <NavForm content={this.props.content} />
           <Content content={this.props.content} />
           <script src='/app.js' />
           {this.props.env.NODE_ENV === 'production' ? '' : <script src='reload/reload.js' />}

@@ -1,9 +1,28 @@
 var React = require('react')
+var classNames = require('classnames')
+var qs = require('queryString')
 
 var NavForm = React.createClass({
+  getInitialState: function () {
+    return {
+      fields: {}
+    }
+  },
+  handleChange: function (e) {
+    var fields = this.state.fields
+    fields[e.target.name] = e.target.value
+    this.setState('fields', fields)
+  },
+  submit: function (e) {
+    e.preventDefault()
+    window.location.href = qs.stringify(this.state.fields)
+  },
   render: function () {
+    var classes = classNames('nav', {
+      hide: this.props.content
+    })
     return (
-      <form className='nav' action='javascript:void(0);'>
+      <form className={classes} onSubmit={this.submit}>
         <label htmlFor='u'>
           What do you want to read today?
         </label>
@@ -34,5 +53,9 @@ var NavForm = React.createClass({
     )
   }
 })
+
+NavForm.propTypes = {
+  content: React.PropTypes.string
+}
 
 module.exports = NavForm
