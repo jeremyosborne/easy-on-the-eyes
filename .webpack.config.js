@@ -21,13 +21,20 @@ var plugins = PROD ? [
     files: '**/*.?(s)@(a|c)ss',
     failOnError: true
   }),
-  new ExtractTextPlugin('app.css')
+  new ExtractTextPlugin('app.css'),
+  new webpack.HotModuleReplacementPlugin()
+]
+
+var entry = PROD ? [
+  './client/index.js'
+] : [
+  'webpack-dev-server/client?http://0.0.0.0:3000',
+  'webpack/hot/only-dev-server',
+  './client/index.js'
 ]
 
 module.exports = {
-  entry: [
-    './client/index.js'
-  ],
+  entry: entry,
   output: {
     path: path.resolve(path.join(__dirname, 'public')),
     publicPath: '/',
@@ -45,10 +52,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react']
-        }
+        loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react']
       },
       {
         test: /\.css$/,

@@ -21,7 +21,6 @@ module.exports = React.createClass({
             <Content content={this.props.content} />
           </LinkInterceptor>
           <script src='/app.js' />
-          {this.props.env.NODE_ENV === 'production' ? '' : <script src='reload/reload.js' />}
         </body>
       </html>
     )
