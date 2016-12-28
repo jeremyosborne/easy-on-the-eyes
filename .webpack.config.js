@@ -22,14 +22,17 @@ var plugins = PROD ? [
     failOnError: true
   }),
   new ExtractTextPlugin('app.css'),
-  new webpack.HotModuleReplacementPlugin()
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NoErrorsPlugin()
 ]
 
 var entry = PROD ? [
   './client/index.js'
 ] : [
-  'webpack-dev-server/client?http://0.0.0.0:3000',
-  'webpack/hot/only-dev-server',
+  // 'webpack-dev-server/client?http://0.0.0.0:3000',
+  // 'webpack/hot/only-dev-server',
+  'webpack-hot-middleware/client?http://0.0.0.0:3000',
   './client/index.js'
 ]
 

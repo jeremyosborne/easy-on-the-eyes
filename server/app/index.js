@@ -6,6 +6,7 @@ var morgan = require('morgan')
 var request = require('request')
 var path = require('path')
 var xforms = require('easy-on-the-eyes-xforms')
+var webpack = require('webpack')
 
 // For accessing public, views, and other sibling directories.
 var ROOT_PATH = path.resolve(path.join(__dirname, '..', '..'))
@@ -50,6 +51,21 @@ app.use(function (req, res, next) {
     next()
   }
 })
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.info('Developer server serving.')
+
+  var webpackConfig = require(path.resolve(__dirname, '../../.webpack.config'))
+  var webpackCompiler = webpack(webpackConfig)
+  var webpackDevMiddlewareConfig = {
+    publicPath: webpackConfig.output.publicPath,
+    hot: true,
+    stats: {colors: true}
+  }
+
+  app.use(require('webpack-dev-middleware')(webpackCompiler, webpackDevMiddlewareConfig))
+  app.use(require('webpack-hot-middleware')(webpackCompiler))
+}
 
 app.get('/', function (req, res) {
   res.render('reader', {})

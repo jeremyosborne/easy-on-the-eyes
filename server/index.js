@@ -1,8 +1,6 @@
 var app = require('./app')
 var http = require('http')
 var logger = require('./app/logger')
-var path = require('path')
-var webpack = require('webpack')
 
 // Setup server.
 var port = process.env.PORT || '3000'
@@ -36,18 +34,5 @@ server.on('listening', function () {
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   logger.info('Listening on ' + bind)
 })
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.info('Developer server serving.')
-
-  var webpackConfig = require(path.resolve(__dirname, '../.webpack.config'))
-  var compiler = webpack(webpackConfig)
-
-  app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: webpackConfig.output.publicPath
-  }))
-
-  app.use(require('webpack-hot-middleware')(compiler))
-}
 
 server.listen(port)
