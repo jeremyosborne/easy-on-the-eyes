@@ -50,7 +50,6 @@ var LinkInterceptor = React.createClass({
   render: function () {
     return (
       <div className='link-interceptor' ref={(c) => {
-        console.log('hi ref')
         this._linkInterceptorEl = c
       }}>
         {this.props.children}

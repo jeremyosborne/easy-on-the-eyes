@@ -1,10 +1,10 @@
 var React = require('react')
-var Content = require('./content.jsx')
-var LinkInterceptor = require('./linkinterceptor.jsx')
-var NavForm = require('./navform.jsx')
 
 module.exports = React.createClass({
   render: function () {
+    var dataBootstrap = {
+      __html: this.props.content ? 'window.content = ' + JSON.stringify(this.props.content) : ''
+    }
     return (
       <html>
         <head>
@@ -16,10 +16,8 @@ module.exports = React.createClass({
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
-          <LinkInterceptor>
-            <NavForm content={this.props.content} />
-            <Content content={this.props.content} />
-          </LinkInterceptor>
+          <div id='app' />
+          <script dangerouslySetInnerHTML={dataBootstrap} />
           <script src='/app.js' />
         </body>
       </html>
