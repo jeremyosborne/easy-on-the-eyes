@@ -37,13 +37,17 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
   var u = req.query.u
   if (u) {
-    var tranformer = xforms.bestGuess(u)
+    var transformer = xforms.bestGuess(u)
     request(u, function (err, reqResponse, body) {
       if (err) {
         logger.error('Could not retrieve content from:', u, 'with error:', err)
       } else {
-        logger.debug('fetched content from:', u, 'using filter:', tranformer.name)
-        res.locals.content = {__html: tranformer.xform(body).trim()}
+        logger.debug('fetched content from:', u, 'using filter:', transformer.name)
+        res.locals.content = {
+          transformer: transformer.name,
+          u: u,
+          __html: transformer.xform(body).trim()
+        }
       }
       next()
     })

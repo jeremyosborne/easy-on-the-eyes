@@ -1,6 +1,18 @@
 var React = require('react')
 
 module.exports = React.createClass({
+  propTypes: {
+    // Dangerous html friendly object.
+    content: React.PropTypes.object
+  },
+  getDefaultProps: function () {
+    const content = Object.freeze({
+      __html: null
+    })
+    return {
+      content: content
+    }
+  },
   render: function () {
     var dataBootstrap = {
       __html: this.props.content ? 'window.content = ' + JSON.stringify(this.props.content) : ''
