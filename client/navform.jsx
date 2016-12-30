@@ -3,6 +3,17 @@ var classNames = require('classnames')
 var qs = require('querystring')
 
 var NavForm = React.createClass({
+  propTypes: {
+    content: React.PropTypes.object
+  },
+  getDefaultProps: function () {
+    const content = Object.freeze({
+      __html: null
+    })
+    return {
+      content: content
+    }
+  },
   getInitialState: function () {
     return {
       fields: {}
@@ -53,10 +64,5 @@ var NavForm = React.createClass({
     )
   }
 })
-
-NavForm.propTypes = {
-  // Dangerous html friendly object.
-  content: React.PropTypes.object
-}
 
 module.exports = NavForm
