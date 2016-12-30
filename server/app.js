@@ -1,3 +1,4 @@
+var devMiddleware = require('./dev-middleware')
 var express = require('express')
 var expressReactViews = require('express-react-views')
 var favicon = require('serve-favicon')
@@ -6,10 +7,9 @@ var morgan = require('morgan')
 var request = require('request')
 var path = require('path')
 var xforms = require('easy-on-the-eyes-xforms')
-var webpack = require('webpack')
 
 // For accessing public, views, and other sibling directories.
-var ROOT_PATH = path.resolve(path.join(__dirname, '..', '..'))
+var ROOT_PATH = path.resolve(path.join(__dirname, '..'))
 
 var app = express()
 
@@ -53,18 +53,9 @@ app.use(function (req, res, next) {
 })
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.info('Developer server serving.')
+  logger.info('Running in dev mode with webpack dev and hot middleware.')
 
-  var webpackConfig = require(path.resolve(__dirname, '../../.webpack.config'))
-  var webpackCompiler = webpack(webpackConfig)
-  var webpackDevMiddlewareConfig = {
-    publicPath: webpackConfig.output.publicPath,
-    hot: true,
-    stats: {colors: true}
-  }
-
-  app.use(require('webpack-dev-middleware')(webpackCompiler, webpackDevMiddlewareConfig))
-  app.use(require('webpack-hot-middleware')(webpackCompiler))
+  app.use(devMiddleware())
 }
 
 app.get('/', function (req, res) {

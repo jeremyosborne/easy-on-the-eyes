@@ -1,6 +1,6 @@
 var React = require('react')
 var classNames = require('classnames')
-var qs = require('queryString')
+var qs = require('querystring')
 
 var NavForm = React.createClass({
   getInitialState: function () {

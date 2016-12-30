@@ -1,6 +1,6 @@
 var app = require('./app')
 var http = require('http')
-var logger = require('./app/logger')
+var logger = require('./logger')
 
 // Setup server.
 var port = process.env.PORT || '3000'
