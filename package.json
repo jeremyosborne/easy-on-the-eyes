@@ -26,6 +26,7 @@
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
   "standard": {},
   "dependencies": {
+    "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
     "classnames": "^2.2.5",
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",

@@ -2,11 +2,10 @@ var devMiddleware = require('./dev-middleware')
 var express = require('express')
 var expressReactViews = require('express-react-views')
 var favicon = require('serve-favicon')
+var fetchContent = require('./fetch-content')
 var logger = require('./logger')
 var morgan = require('morgan')
-var request = require('request')
 var path = require('path')
-var xforms = require('easy-on-the-eyes-xforms')
 
 // For accessing public, views, and other sibling directories.
 var ROOT_PATH = path.resolve(path.join(__dirname, '..'))
@@ -37,20 +36,16 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
   var u = req.query.u
   if (u) {
-    var transformer = xforms.bestGuess(u)
-    request(u, function (err, reqResponse, body) {
-      if (err) {
+    fetchContent(u)
+      .then(function (content) {
+        logger.debug('fetched content from:', u, 'using filter:', content.transformer.name)
+        res.locals.content = content
+        next()
+      })
+      .catch(function (err) {
         logger.error('Could not retrieve content from:', u, 'with error:', err)
-      } else {
-        logger.debug('fetched content from:', u, 'using filter:', transformer.name)
-        res.locals.content = {
-          transformer: transformer.name,
-          u: u,
-          __html: transformer.xform(body).trim()
-        }
-      }
-      next()
-    })
+        next()
+      })
   } else {
     next()
   }

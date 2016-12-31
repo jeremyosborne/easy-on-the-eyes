@@ -1,0 +1,29 @@
+/**
+ * Retrieve and transform web content.
+ *
+ * Call with a URL and (not unsupported) options object.
+ *
+ * Promise api rejecting with error or resolving witih a content object.
+ */
+var Promise = require('bluebird')
+var request = require('request')
+var xforms = require('easy-on-the-eyes-xforms')
+
+module.exports = function (u, options) {
+  var transformer = xforms.bestGuess(u)
+  return new Promise(function (resolve, reject) {
+    request(u, function (err, reqResponse, body) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve({
+          transformer: {
+            name: transformer.name
+          },
+          u: u,
+          __html: transformer.xform(body).trim()
+        })
+      }
+    })
+  })
+}
