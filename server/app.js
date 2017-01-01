@@ -2,7 +2,7 @@ var devMiddleware = require('./dev-middleware')
 var express = require('express')
 var expressReactViews = require('express-react-views')
 var favicon = require('serve-favicon')
-var fetchContent = require('./fetch-content')
+var fetchContentMiddlware = require('./fetch-content/middleware')
 var logger = require('./logger')
 var morgan = require('morgan')
 var path = require('path')
@@ -19,11 +19,11 @@ app.engine('jsx', expressReactViews.createEngine())
 app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 app.use(morgan('dev'))
 
-// Pass along env state.
-app.use(function (req, res, next) {
-  res.locals.env = Object.assign({}, process.env)
-  next()
-})
+if (process.env.NODE_ENV !== 'production') {
+  logger.info('Running in dev mode with webpack dev and hot middleware.')
+
+  app.use(devMiddleware())
+}
 
 // Content of the article/page to load, if it exists.
 app.use(function (req, res, next) {
@@ -33,29 +33,7 @@ app.use(function (req, res, next) {
 
 // All incoming requests might have a u query string parameter.
 // If they do, we will attempt to retrieve the contents at the URL.
-app.use(function (req, res, next) {
-  var u = req.query.u
-  if (u) {
-    fetchContent(u)
-      .then(function (content) {
-        logger.debug('fetched content from:', u, 'using filter:', content.transformer.name)
-        res.locals.content = content
-        next()
-      })
-      .catch(function (err) {
-        logger.error('Could not retrieve content from:', u, 'with error:', err)
-        next()
-      })
-  } else {
-    next()
-  }
-})
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.info('Running in dev mode with webpack dev and hot middleware.')
-
-  app.use(devMiddleware())
-}
+app.use(fetchContentMiddlware({logger: logger}))
 
 app.get('/', function (req, res) {
   res.render('reader', {})
