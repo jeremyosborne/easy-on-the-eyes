@@ -27,11 +27,11 @@ module.exports = function ({urlQueryKey = 'u', logger} = {}) {
           res.locals.content = content
           next()
         })
-        .catch(function (err) {
+        .catch(function (content) {
           if (logger) {
-            logger.error('Could not retrieve content from:', u, 'with error:', err)
-            // TODO: Should the content object also convey errors?
+            logger.error('Could not retrieve content from:', content.u, 'with error:', content.error)
           }
+          res.locals.content = content
           next()
         })
     } else {

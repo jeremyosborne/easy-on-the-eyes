@@ -14,9 +14,18 @@ module.exports = function (u, options) {
   return new Promise(function (resolve, reject) {
     request(u, function (err, reqResponse, body) {
       if (err) {
-        reject(err)
+        reject({
+          // Experiment: pass back error.
+          error: err,
+          transformer: {
+            name: transformer.name
+          },
+          u: u,
+          __html: transformer.xform(body).trim()
+        })
       } else {
         resolve({
+          error: null,
           transformer: {
             name: transformer.name
           },
