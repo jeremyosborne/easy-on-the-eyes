@@ -9,10 +9,10 @@ var Promise = require('bluebird')
 var request = require('request')
 var xforms = require('easy-on-the-eyes-xforms')
 
-module.exports = function (u, options) {
-  var transformer = xforms.bestGuess(u)
+module.exports = function (url, options) {
+  var transformer = xforms.bestGuess(url)
   return new Promise(function (resolve, reject) {
-    request(u, function (err, reqResponse, body) {
+    request(url, function (err, reqResponse, body) {
       if (err) {
         reject({
           // Experiment: pass back error.
@@ -20,7 +20,7 @@ module.exports = function (u, options) {
           transformer: {
             name: transformer.name
           },
-          u: u,
+          url: url,
           __html: transformer.xform(body).trim()
         })
       } else {
@@ -29,7 +29,7 @@ module.exports = function (u, options) {
           transformer: {
             name: transformer.name
           },
-          u: u,
+          url: url,
           __html: transformer.xform(body).trim()
         })
       }

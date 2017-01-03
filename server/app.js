@@ -21,10 +21,10 @@ app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 if (process.env.NODE_ENV !== 'production') {
   logger.info('Running in dev mode.')
 
-  logger.info('Setting logging level to "debug."')
+  logger.info('Setting logging level to "debug".')
   logger.level = 'debug'
 
-  logger.info('Configuration morgan loggin.')
+  logger.info('morgan logging set to "dev".')
   app.use(morgan('dev'))
 
   logger.info('Loading webpack dev and hot reloading middleware.')
@@ -32,10 +32,10 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   logger.info('Running in production mode.')
 
-  logger.info('Setting logging level to "info."')
+  logger.info('Setting logging level to "info".')
   logger.level = 'info'
 
-  logger.info('Configuring morgan loggin.')
+  logger.info('morgan logging set to "combined".')
   app.use(morgan('combined'))
 }
 

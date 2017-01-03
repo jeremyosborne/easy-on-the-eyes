@@ -7,29 +7,29 @@ var fetchContent = require('./index')
  * Usage:
  *
  * var fetchContentMiddleware = require('fetch-content/middleware')
- * app.use(fetchContentMiddleWare())
+ * app.use(fetchContentQsMiddleWare())
  *
  * @param {object} options Hash of options.
  * @param {object} options.urlQueryKey Option to change what query string key is
- * monitored for remote content retrieval.
+ * monitored for remote content retrieval. Defaults to `url`.
  * @param {object} options.logger Optional implementing logger interface. Required
- * to log output.
+ * to log output. Defaults to no logging.
  */
-module.exports = function ({urlQueryKey = 'u', logger} = {}) {
+module.exports = function ({urlQueryKey = 'url', logger} = {}) {
   return function (req, res, next) {
-    var u = req.query[urlQueryKey]
-    if (u) {
-      fetchContent(u)
+    var url = req.query[urlQueryKey]
+    if (url) {
+      fetchContent(url)
         .then(function (content) {
           if (logger) {
-            logger.debug('fetched content from:', u, 'using filter:', content.transformer.name)
+            logger.debug('fetched content from:', url, 'using filter:', content.transformer.name)
           }
           res.locals.content = content
           next()
         })
         .catch(function (content) {
           if (logger) {
-            logger.error('Could not retrieve content from:', content.u, 'with error:', content.error)
+            logger.error('Could not retrieve content from:', content.url, 'with error:', content.error)
           }
           res.locals.content = content
           next()

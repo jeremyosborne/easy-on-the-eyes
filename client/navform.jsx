@@ -34,11 +34,11 @@ var NavForm = React.createClass({
     })
     return (
       <form className={classes} onSubmit={this.submit}>
-        <label htmlFor='u'>
+        <label htmlFor='url'>
           What do you want to read today?
         </label>
         <br />
-        <input type='url' name='u' id='u' />
+        <input type='url' name='url' id='url' />
         <input type='submit' />
         <br />
         <div className='starting-points'>
