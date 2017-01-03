@@ -4,10 +4,10 @@
   "description": "the web, simply",
   "main": "server/index.js",
   "scripts": {
-    "build": "echo 'building assets' && standard server && webpack --config .webpack.config.js",
+    "build": "echo 'building assets' && webpack --config .webpack.config.js",
     "prestart": "npm run build",
-    "start": "node server",
-    "start-dev": "npm run build && opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,client,views server"
+    "start": "cross-env NODE_ENV=production node server",
+    "start-dev": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
     "classnames": "^2.2.5",
+    "cross-env": "^3.1.4",
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
     "express": "^4.13.4",
     "express-react-views": "github:jeremyosborne/express-react-views",

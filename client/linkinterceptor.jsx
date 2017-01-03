@@ -12,7 +12,7 @@ var LinkInterceptor = React.createClass({
   // Easy on the eyes acts as a proxy. The page equivalent is stored in the
   // `?u=<page>` param.
   contentUrl: function () {
-    var contentUrl = url.parse(window.location.href, true).query.u || ''
+    var contentUrl = url.parse(window.location.href, true).query.url || ''
     if (contentUrl) {
       try {
         contentUrl = decodeURIComponent(contentUrl)

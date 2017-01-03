@@ -1,3 +1,4 @@
+
 var app = require('./app')
 var http = require('http')
 var logger = require('./logger')
@@ -15,12 +16,12 @@ server.on('error', function (error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES': {
-      logger.error(bind + ' requires elevated privileges')
+      logger.error(bind + ' requires elevated privileges.')
       process.exit(1)
       break
     }
     case 'EADDRINUSE': {
-      logger.error(bind + ' is already in use')
+      logger.error(bind + ' is already in use.')
       process.exit(1)
       break
     }
@@ -32,7 +33,7 @@ server.on('error', function (error) {
 server.on('listening', function () {
   var addr = server.address()
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
-  logger.info('Listening on ' + bind)
+  logger.info('Listening on ' + bind + '.')
 })
 
 server.listen(port)
