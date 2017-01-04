@@ -45,6 +45,35 @@ if (process.env.NODE_ENV !== 'production') {
 // If they do, we will attempt to retrieve the contents at the URL.
 app.use(fetchContentQsMiddlware({logger: logger}))
 
+// AJAX specific content fetching.
+// Assumed that if this is being called, we want content or we want to
+// deliver a sane object that describes why we can't get the error.
+app.get('/api/content', function (req, res) {
+  // If we are here, we better have content on res.locals.content.
+  var content = res.locals.content
+  if (!content) {
+    res.status(400).send({
+      error: {
+        message: 'No content. Please pass the correct query params.'
+      },
+      transformer: {
+        name: null
+      },
+      url: null,
+      __html: null
+    })
+  } else {
+    // TODO: Adjust status code if there was an error in the content request.
+    res.status(content.error ? 400 : 200).send(content)
+  }
+})
+
+// Intended to service routes intended to display content and not the index.
+app.get('/content', function (req, res) {
+  res.render('reader', {})
+})
+
+// Intended to service index specific route.
 app.get('/', function (req, res) {
   res.render('reader', {})
 })
