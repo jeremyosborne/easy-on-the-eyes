@@ -1,18 +1,32 @@
 var express = require('express')
-var path = require('path')
 var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
 
-module.exports = function () {
+/**
+ * Configure and return webpack developer middleware.
+ *
+ * Includes dev and hot middleware.
+ *
+ * @param {object} options hash of arguments.
+ * @param {object} options.webpackConfig webpack configuration passed to the
+ * webpackCompiler.
+ * @param {object} options.webpackDevMiddlewareConfig optional overrides to pass
+ * to the webpack-dev-middleware.
+ */
+module.exports = function ({webpackConfig, webpackDevMiddlewareConfig = {}} = {}) {
+  if (!webpackConfig) {
+    throw new Error('`webpackConfig` not optional.')
+  }
   var router = express.Router()
-  var webpackConfig = require(path.resolve(__dirname, '../.webpack.config'))
   var webpackCompiler = webpack(webpackConfig)
-  var webpackDevMiddlewareConfig = {
+  webpackDevMiddlewareConfig = Object.assign({}, {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
     stats: {colors: true}
-  }
+  }, webpackDevMiddlewareConfig)
 
-  router.use(require('webpack-dev-middleware')(webpackCompiler, webpackDevMiddlewareConfig))
-  router.use(require('webpack-hot-middleware')(webpackCompiler))
+  router.use(webpackDevMiddleware(webpackCompiler, webpackDevMiddlewareConfig))
+  router.use(webpackHotMiddleware(webpackCompiler))
   return router
 }

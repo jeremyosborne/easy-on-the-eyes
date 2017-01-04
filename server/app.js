@@ -21,18 +21,20 @@ app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 if (process.env.NODE_ENV !== 'production') {
   logger.info('Running in dev mode.')
 
-  logger.info('Setting logging level to "debug".')
+  logger.info('winston logging level to "debug".')
   logger.level = 'debug'
 
   logger.info('morgan logging set to "dev".')
   app.use(morgan('dev'))
 
   logger.info('Loading webpack dev and hot reloading middleware.')
-  app.use(devWebpackMiddleware())
+  app.use(devWebpackMiddleware({
+    webpackConfig: require(path.resolve(__dirname, '../.webpack.config'))
+  }))
 } else {
   logger.info('Running in production mode.')
 
-  logger.info('Setting logging level to "info".')
+  logger.info('winstoh logging level to "info".')
   logger.level = 'info'
 
   logger.info('morgan logging set to "combined".')
