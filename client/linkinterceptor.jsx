@@ -10,7 +10,7 @@ const LinkInterceptor = React.createClass({
     return {}
   },
   // Easy on the eyes acts as a proxy. The page equivalent is stored in the
-  // `?u=<page>` param.
+  // `?url=<page>` param.
   contentUrl: function () {
     var contentUrl = url.parse(window.location.href, true).query.url || ''
     if (contentUrl) {
@@ -38,8 +38,6 @@ const LinkInterceptor = React.createClass({
       }
     }
   },
-  // FIXME: Currently componentDidMount won't fire because everthing is rendered
-  // on the server side.
   componentDidMount: function () {
     // Need raw event listener for listening to `a`nchor tag clicks.
     this._linkInterceptorEl.addEventListener('click', this.linkInterceptor)
