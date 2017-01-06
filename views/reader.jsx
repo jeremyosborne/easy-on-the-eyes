@@ -1,6 +1,6 @@
-var React = require('react')
+import React from 'react'
 
-module.exports = React.createClass({
+const Reader = React.createClass({
   propTypes: {
     // Dangerous html friendly object.
     content: React.PropTypes.object
@@ -36,3 +36,5 @@ module.exports = React.createClass({
     )
   }
 })
+
+export default Reader

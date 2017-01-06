@@ -1,11 +1,11 @@
 require('./reader.css')
-var React = require('react')
-var ReactDOM = require('react-dom')
-var Content = require('./content.jsx')
-var LinkInterceptor = require('./linkinterceptor.jsx')
-var NavForm = require('./navform.jsx')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Content from './content.jsx'
+import LinkInterceptor from './linkinterceptor.jsx'
+import NavForm from './navform.jsx'
 
-var App = React.createClass({
+const App = React.createClass({
   render: function () {
     return (
       <LinkInterceptor>

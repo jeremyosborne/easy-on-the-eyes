@@ -1,6 +1,6 @@
-var React = require('react')
+import React from 'react'
 
-var Content = React.createClass({
+const Content = React.createClass({
   propTypes: {
     // Dangerous html friendly object.
     content: React.PropTypes.object
@@ -20,4 +20,4 @@ var Content = React.createClass({
   }
 })
 
-module.exports = Content
+export default Content

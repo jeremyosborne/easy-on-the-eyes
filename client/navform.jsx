@@ -1,8 +1,8 @@
-var React = require('react')
-var classNames = require('classnames')
-var qs = require('querystring')
+import React from 'react'
+import classNames from 'classnames'
+import qs from 'querystring'
 
-var NavForm = React.createClass({
+const NavForm = React.createClass({
   propTypes: {
     content: React.PropTypes.object
   },
@@ -65,4 +65,4 @@ var NavForm = React.createClass({
   }
 })
 
-module.exports = NavForm
+export default NavForm

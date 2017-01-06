@@ -1,8 +1,8 @@
-var React = require('react')
-var url = require('url')
+import React from 'react'
+import url from 'url'
 
 // Handle clicks on plain old `a`nchor tags.
-var LinkInterceptor = React.createClass({
+const LinkInterceptor = React.createClass({
   getInitialState: function () {
     // Reference to our DOM element after mounting.
     this._linkInterceptorEl = null
@@ -58,4 +58,4 @@ var LinkInterceptor = React.createClass({
   }
 })
 
-module.exports = LinkInterceptor
+export default LinkInterceptor
