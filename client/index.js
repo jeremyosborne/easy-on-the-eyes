@@ -1,9 +1,13 @@
 require('./reader.css')
-import React from 'react'
-import ReactDOM from 'react-dom'
+
 import Content from './content.jsx'
 import LinkInterceptor from './linkinterceptor.jsx'
 import NavForm from './navform.jsx'
+import { createStore } from 'redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import reducers from './reducers'
 
 const App = React.createClass({
   render: function () {
@@ -16,6 +20,10 @@ const App = React.createClass({
   }
 })
 
+const store = createStore(reducers)
+
 ReactDOM.render((
-  <App content={window.content} />
+  <Provider store={store}>
+    <App content={window.content} />
+  </Provider>
 ), document.getElementById('app'))
