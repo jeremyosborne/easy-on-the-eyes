@@ -14,8 +14,11 @@ const Reader = React.createClass({
     }
   },
   render: function () {
-    var dataBootstrap = {
-      __html: this.props.content ? 'window.content = ' + JSON.stringify(this.props.content) : ''
+    var initialState = {
+      content: this.props.content || {}
+    }
+    var dataScriptBootstrap = {
+      __html: this.props.content ? 'window.initialState = ' + JSON.stringify(initialState) : ''
     }
     return (
       <html>
@@ -29,7 +32,7 @@ const Reader = React.createClass({
         </head>
         <body>
           <div id='app' />
-          <script dangerouslySetInnerHTML={dataBootstrap} />
+          <script dangerouslySetInnerHTML={dataScriptBootstrap} />
           <script src='/app.js' />
         </body>
       </html>

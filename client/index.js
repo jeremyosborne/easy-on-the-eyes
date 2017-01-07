@@ -20,10 +20,14 @@ const App = React.createClass({
   }
 })
 
-const store = createStore(reducers)
+const store = createStore(reducers,
+  window.initialState || {},
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 ReactDOM.render((
   <Provider store={store}>
-    <App content={window.content} />
+    {/* TODO: Unmuddle this with redux, current code still relies on this. */}
+    <App content={window.initialState.content} />
   </Provider>
 ), document.getElementById('app'))
