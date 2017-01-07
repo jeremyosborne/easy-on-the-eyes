@@ -6,10 +6,10 @@ import NavForm from './navform.jsx'
 import { createStore } from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import reducers from './reducers'
 
-const App = React.createClass({
+let App = React.createClass({
   render: function () {
     return (
       <LinkInterceptor>
@@ -19,6 +19,10 @@ const App = React.createClass({
     )
   }
 })
+const mapStateToProps = function (state) {
+  return { content: state.content }
+}
+App = connect(mapStateToProps)(App)
 
 const store = createStore(reducers,
   window.initialState || {},
@@ -27,7 +31,6 @@ const store = createStore(reducers,
 
 ReactDOM.render((
   <Provider store={store}>
-    {/* TODO: Unmuddle this with redux, current code still relies on this. */}
-    <App content={window.initialState.content} />
+    <App />
   </Provider>
 ), document.getElementById('app'))
