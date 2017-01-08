@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const Content = React.createClass({
   propTypes: {
@@ -20,4 +21,8 @@ const Content = React.createClass({
   }
 })
 
-export default Content
+const mapContentToProps = function (state) {
+  return { content: state.content }
+}
+
+export default connect(mapContentToProps)(Content)

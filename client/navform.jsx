@@ -1,5 +1,6 @@
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
+import { connect } from 'react-redux'
 import qs from 'querystring'
 
 const NavForm = React.createClass({
@@ -65,4 +66,8 @@ const NavForm = React.createClass({
   }
 })
 
-export default NavForm
+const mapContentToProps = function (state) {
+  return { content: state.content }
+}
+
+export default connect(mapContentToProps)(NavForm)

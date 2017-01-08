@@ -13,16 +13,16 @@ let App = React.createClass({
   render: function () {
     return (
       <LinkInterceptor>
-        <NavForm content={this.props.content} />
-        <Content content={this.props.content} />
+        <NavForm />
+        <Content />
       </LinkInterceptor>
     )
   }
 })
-const mapStateToProps = function (state) {
+const mapContentToProps = function (state) {
   return { content: state.content }
 }
-App = connect(mapStateToProps)(App)
+App = connect(mapContentToProps)(App)
 
 const store = createStore(reducers,
   window.initialState || {},
