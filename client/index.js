@@ -1,4 +1,4 @@
-require('./reader.css')
+require('./index.css')
 
 import Content from './content.jsx'
 import LinkInterceptor from './linkinterceptor.jsx'

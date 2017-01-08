@@ -1,7 +1,14 @@
+/**
+ * Input a URL and navigate to it.
+ */
+
+require('./navform.css')
+
 import classNames from 'classnames'
+import qs from 'querystring'
 import React from 'react'
 import { connect } from 'react-redux'
-import qs from 'querystring'
+import Suggestions from './suggestions.jsx'
 
 const NavForm = React.createClass({
   propTypes: {
@@ -30,38 +37,22 @@ const NavForm = React.createClass({
     window.location.href = qs.stringify(this.state.fields)
   },
   render: function () {
-    var classes = classNames('nav', {
+    var classes = classNames('navform', {
       hide: this.props.content.__html
     })
     return (
-      <form className={classes} onSubmit={this.submit}>
-        <label htmlFor='url'>
-          What do you want to read today?
-        </label>
-        <br />
-        <input type='url' name='url' id='url' />
-        <input type='submit' />
-        <br />
-        <div className='starting-points'>
-          <p>
-            Some starting points:
-          </p>
-          <ul>
-            <li>
-              <a href='https://en.wikipedia.org/wiki/Umberto_Eco'>Umberto Eco</a>
-            </li>
-            <li>
-              <a href='https://en.wikipedia.org/wiki/Sephirot'>Sephirot</a>
-            </li>
-            <li>
-              <a href='https://en.wikipedia.org/wiki/Semantics'>Semantics</a>
-            </li>
-            <li>
-              <a href='https://en.wikipedia.org/wiki/Maternal_insult'>"Your Mom..." Jokes</a>
-            </li>
-          </ul>
-        </div>
-      </form>
+      <div className={classes}>
+        <form onSubmit={this.submit}>
+          <label htmlFor='url'>
+            What do you want to read today?
+          </label>
+          <br />
+          <input type='url' name='url' id='url' />
+          <input type='submit' />
+          <br />
+        </form>
+        <Suggestions />
+      </div>
     )
   }
 })
