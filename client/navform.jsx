@@ -4,7 +4,6 @@
 
 require('./navform.css')
 
-import classNames from 'classnames'
 import qs from 'querystring'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -37,11 +36,8 @@ const NavForm = React.createClass({
     window.location.href = qs.stringify(this.state.fields)
   },
   render: function () {
-    var classes = classNames('navform', {
-      hide: this.props.content.__html
-    })
     return (
-      <div className={classes}>
+      <div className='navform'>
         <form onSubmit={this.submit}>
           <label htmlFor='url'>
             What do you want to read today?

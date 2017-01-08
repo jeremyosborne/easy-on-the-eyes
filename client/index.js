@@ -7,14 +7,14 @@ import { createStore } from 'redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider, connect } from 'react-redux'
+import { browserHistory, IndexRoute, Route, Router } from 'react-router'
 import reducers from './reducers'
 
 let App = React.createClass({
   render: function () {
     return (
       <LinkInterceptor>
-        <NavForm />
-        <Content />
+        {this.props.children}
       </LinkInterceptor>
     )
   }
@@ -31,6 +31,11 @@ const store = createStore(reducers,
 
 ReactDOM.render((
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <IndexRoute component={NavForm} />
+        <Route path='/content' component={Content} />
+      </Route>
+    </Router>
   </Provider>
 ), document.getElementById('app'))

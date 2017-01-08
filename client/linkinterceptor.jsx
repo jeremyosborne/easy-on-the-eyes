@@ -34,7 +34,7 @@ const LinkInterceptor = React.createClass({
         // Using the `url.resolve` logic should allow links to
         // be resolved correctly against the content url, whether relative or
         // absolute.
-        window.location.href = '/?url=' + encodeURIComponent(url.resolve(contentUrl, targetHref))
+        window.location.href = '/content?url=' + encodeURIComponent(url.resolve(contentUrl, targetHref))
       }
     }
   },
