@@ -18,7 +18,9 @@ const Content = React.createClass({
   },
   render: function () {
     return (
-      <LinkInterceptor {...this.props}>
+      // FIXME: This is only being done for now to handle passing `props.dispatch` to the linkinterceptor.
+      // Somehow this feels wrong.
+      <LinkInterceptor dispatch={this.props.dispatch}>
         <div className='content' dangerouslySetInnerHTML={this.props.content} />
       </LinkInterceptor>
     )
