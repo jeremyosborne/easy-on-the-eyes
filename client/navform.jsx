@@ -4,9 +4,10 @@
 
 require('./navform.css')
 
-import qs from 'querystring'
+import {fetchContent} from './content-actions'
+// import qs from 'querystring'
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import Suggestions from './suggestions.jsx'
 
 const NavForm = React.createClass({
@@ -33,7 +34,8 @@ const NavForm = React.createClass({
   },
   submit: function (e) {
     e.preventDefault()
-    window.location.href = '/content?' + qs.stringify(this.state.fields)
+    // window.location.href = '/content?' + qs.stringify(this.state.fields)
+    this.props.dispatch(fetchContent(this.state.fields))
   },
   render: function () {
     return (

@@ -10,7 +10,7 @@ import React from 'react'
 const Suggestions = React.createClass({
   render: function () {
     return (
-      <LinkInterceptor>
+      <LinkInterceptor {...this.props}>
         <div className='suggestions'>
           <p>
             Some starting points:

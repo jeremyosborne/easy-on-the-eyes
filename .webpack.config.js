@@ -55,7 +55,8 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loaders: ['react-hot', 'babel-loader?presets[]=es2015&presets[]=react']
+        // Please only configure via .babelrc where possible.
+        loaders: ['react-hot', 'babel-loader']
       },
       {
         test: /\.css$/,

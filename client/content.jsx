@@ -18,7 +18,7 @@ const Content = React.createClass({
   },
   render: function () {
     return (
-      <LinkInterceptor>
+      <LinkInterceptor {...this.props}>
         <div className='content' dangerouslySetInnerHTML={this.props.content} />
       </LinkInterceptor>
     )
