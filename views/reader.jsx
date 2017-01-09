@@ -31,7 +31,7 @@ const Reader = React.createClass({
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
-          <div id='app' />
+          <div id='app-container' />
           <script dangerouslySetInnerHTML={dataScriptBootstrap} />
           <script src='/app.js' />
         </body>

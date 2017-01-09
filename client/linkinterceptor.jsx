@@ -1,7 +1,10 @@
 import React from 'react'
 import url from 'url'
 
-// Handle clicks on plain old `a`nchor tags.
+/**
+ * Clicks an anchor tags in child components/elements will be watched and content
+ * will attempt to be loaded within our app.
+ */
 const LinkInterceptor = React.createClass({
   getInitialState: function () {
     // Reference to our DOM element after mounting.

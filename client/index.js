@@ -1,7 +1,6 @@
 require('./index.css')
 
 import Content from './content.jsx'
-import LinkInterceptor from './linkinterceptor.jsx'
 import NavForm from './navform.jsx'
 import { createStore } from 'redux'
 import React from 'react'
@@ -13,9 +12,9 @@ import reducers from './reducers'
 let App = React.createClass({
   render: function () {
     return (
-      <LinkInterceptor>
+      <div className='app'>
         {this.props.children}
-      </LinkInterceptor>
+      </div>
     )
   }
 })
@@ -38,4 +37,4 @@ ReactDOM.render((
       </Route>
     </Router>
   </Provider>
-), document.getElementById('app'))
+), document.getElementById('app-container'))

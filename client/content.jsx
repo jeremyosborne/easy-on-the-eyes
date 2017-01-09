@@ -1,4 +1,5 @@
 require('./content.css')
+import LinkInterceptor from './linkinterceptor.jsx'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -17,7 +18,9 @@ const Content = React.createClass({
   },
   render: function () {
     return (
-      <div className='content' dangerouslySetInnerHTML={this.props.content} />
+      <LinkInterceptor>
+        <div className='content' dangerouslySetInnerHTML={this.props.content} />
+      </LinkInterceptor>
     )
   }
 })

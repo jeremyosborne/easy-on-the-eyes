@@ -29,16 +29,16 @@ const NavForm = React.createClass({
   handleChange: function (e) {
     var fields = this.state.fields
     fields[e.target.name] = e.target.value
-    this.setState('fields', fields)
+    this.setState({'fields': fields})
   },
   submit: function (e) {
     e.preventDefault()
-    window.location.href = qs.stringify(this.state.fields)
+    window.location.href = '/content?' + qs.stringify(this.state.fields)
   },
   render: function () {
     return (
       <div className='navform'>
-        <form onSubmit={this.submit}>
+        <form onSubmit={this.submit} onChange={this.handleChange}>
           <label htmlFor='url'>
             What do you want to read today?
           </label>
