@@ -1,5 +1,6 @@
-import {combineReducers, createStore} from 'redux'
 import {content, fetchingContent} from './content-reducers'
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
+import createSagaMiddleware from 'redux-saga'
 
 const initialState = {
   content: {
@@ -11,15 +12,23 @@ const initialState = {
   }
 }
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   content,
   fetchingContent
 })
 
-const store = createStore(reducers,
+const sagaMiddleware = createSagaMiddleware()
+const middleware = [
+  sagaMiddleware
+]
+
+// Use either redux compose or browser dev tools friendly compose for middleware.
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(
+  reducer,
   // NOTE: We assume the initial state, if available, is attached to the window.
   window.initialState || initialState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancers(applyMiddleware(...middleware))
 )
 
 export default store
