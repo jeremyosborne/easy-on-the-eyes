@@ -1,7 +1,15 @@
-import {FETCH_CONTENT} from './content-actions'
+import {FETCH_CONTENT, UPDATE_CONTENT} from './content-actions'
 
 export const content = function (state = {}, action) {
-  return state
+  switch (action.type) {
+    case UPDATE_CONTENT:
+      // We expect content to be delivered in some form no matter what.
+      return {
+        ...(action.content || {})
+      }
+    default:
+      return state
+  }
 }
 
 export const fetchingContent = function (state = {}, action) {

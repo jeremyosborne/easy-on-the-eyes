@@ -7,6 +7,8 @@
  */
 var Promise = require('bluebird')
 var request = require('request')
+// TODO: Swap in fetch which uses promises
+var fetch = require('isomorphic-fetch')
 var xforms = require('easy-on-the-eyes-xforms')
 
 module.exports = function (url, options) {

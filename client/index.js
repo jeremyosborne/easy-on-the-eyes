@@ -1,5 +1,8 @@
 require('./index.css')
 
+// ES2015 support. Someday in a not distant future we can get rid of this.... yeah right.
+import 'babel-polyfill'
+
 import App from './app.jsx'
 import Content from './content.jsx'
 import NavForm from './navform.jsx'

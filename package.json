@@ -26,6 +26,7 @@
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
   "standard": {},
   "dependencies": {
+    "babel-polyfill": "^6.20.0",
     "bluebird": "^3.4.7",
     "cheerio": "^0.22.0",
     "classnames": "^2.2.5",
@@ -33,6 +34,7 @@
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
     "express": "^4.13.4",
     "express-react-views": "github:jeremyosborne/express-react-views",
+    "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.1.1",
     "morgan": "^1.6.1",
     "react": "15.4.1",

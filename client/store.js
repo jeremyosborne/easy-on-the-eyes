@@ -17,6 +17,12 @@ const reducer = combineReducers({
   fetchingContent
 })
 
+const rootSaga = function* () {
+  yield [
+    helloSaga(),
+    watchIncrementAsync()
+  ]
+}
 const sagaMiddleware = createSagaMiddleware()
 const middleware = [
   sagaMiddleware
@@ -30,5 +36,6 @@ const store = createStore(
   window.initialState || initialState,
   composeEnhancers(applyMiddleware(...middleware))
 )
+sagaMiddleware.run(rootSaga)
 
 export default store
