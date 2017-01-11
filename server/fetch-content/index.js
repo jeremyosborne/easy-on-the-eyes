@@ -5,36 +5,45 @@
  *
  * Promise api rejecting with error or resolving witih a content object.
  */
-var Promise = require('bluebird')
-var request = require('request')
-// TODO: Swap in fetch which uses promises
 var fetch = require('isomorphic-fetch')
 var xforms = require('easy-on-the-eyes-xforms')
 
 module.exports = function (url, options) {
   var transformer = xforms.bestGuess(url)
-  return new Promise(function (resolve, reject) {
-    request(url, function (err, reqResponse, body) {
-      if (err) {
-        reject({
-          // Experiment: pass back error.
-          error: err,
-          transformer: {
-            name: transformer.name
-          },
-          url: url,
-          __html: transformer.xform(body).trim()
-        })
+  return fetch(url)
+    .then(function (res) {
+      if (!res.ok) {
+        const err = new Error(res.statusText)
+        err.code = res.status
+        throw err
       } else {
-        resolve({
-          error: null,
-          transformer: {
-            name: transformer.name
-          },
-          url: url,
-          __html: transformer.xform(body).trim()
-        })
+        return res.text()
       }
     })
-  })
+    .then(function (html) {
+      return {
+        error: null,
+        transformer: {
+          name: transformer.name
+        },
+        url: url,
+        __html: transformer.xform(html).trim()
+      }
+    })
+    .catch(function (err) {
+      // Network error.
+      // TODO: Retry?
+      return {
+        // Experiment: pass back error.
+        error: {
+          code: err.code || 0,
+          message: err.message
+        },
+        transformer: {
+          name: transformer.name
+        },
+        url: url,
+        __html: null
+      }
+    })
 }
