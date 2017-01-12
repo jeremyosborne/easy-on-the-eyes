@@ -49,7 +49,8 @@ const NavForm = React.createClass({
           <input type='submit' />
           <br />
         </form>
-        <Suggestions />
+        { /* FIXME (above): This is only being done for now to handle passing `props.dispatch` to the linkinterceptor. */ }
+        <Suggestions dispatch={this.props.dispatch} />
       </div>
     )
   }

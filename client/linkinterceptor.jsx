@@ -39,7 +39,7 @@ const LinkInterceptor = React.createClass({
         // be resolved correctly against the content url, whether relative or
         // absolute.
         // window.location.href = '/content?url=' + encodeURIComponent(url.resolve(contentUrl, targetHref))
-        this.props.dispatch(fetchContent(encodeURIComponent(url.resolve(contentUrl, targetHref))))
+        this.props.dispatch(fetchContent({ url: url.resolve(contentUrl, targetHref) }))
       }
     }
   },

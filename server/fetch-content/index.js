@@ -31,10 +31,9 @@ module.exports = function (url, options) {
       }
     })
     .catch(function (err) {
-      // Network error.
+      // Network error OR non-okay response.
       // TODO: Retry?
-      return {
-        // Experiment: pass back error.
+      var error = {
         error: {
           code: err.code || 0,
           message: err.message
@@ -45,5 +44,6 @@ module.exports = function (url, options) {
         url: url,
         __html: null
       }
+      throw error
     })
 }

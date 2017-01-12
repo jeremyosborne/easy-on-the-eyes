@@ -1,4 +1,5 @@
 import {content, fetchingContent} from './content-reducers'
+import {watchFetchContent} from './content-sagas'
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
@@ -19,11 +20,11 @@ const reducer = combineReducers({
 
 const rootSaga = function* () {
   yield [
-    helloSaga(),
-    watchIncrementAsync()
+    watchFetchContent()
   ]
 }
 const sagaMiddleware = createSagaMiddleware()
+
 const middleware = [
   sagaMiddleware
 ]
