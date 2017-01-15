@@ -1,4 +1,4 @@
-import {FETCH_CONTENT, UPDATE_CONTENT} from './content-actions'
+import {FETCH_CONTENT, FETCHED_CONTENT, UPDATE_CONTENT} from './content-actions'
 
 export const content = function (state = {}, action) {
   switch (action.type) {
@@ -19,6 +19,8 @@ export const fetchingContent = function (state = {}, action) {
         ...state,
         url: action.url
       }
+    case FETCHED_CONTENT:
+      return {}
     default:
       return state
   }
