@@ -5,10 +5,8 @@
 require('./navform.css')
 
 import {fetchContent} from './content-actions'
-// import qs from 'querystring'
 import React from 'react'
 import {connect} from 'react-redux'
-import Suggestions from './suggestions.jsx'
 
 const NavForm = React.createClass({
   propTypes: {
@@ -39,18 +37,14 @@ const NavForm = React.createClass({
   },
   render: function () {
     return (
-      <div className='navform'>
-        <form onSubmit={this.submit} onChange={this.handleChange}>
-          <label htmlFor='url'>
-            What do you want to read today?
-          </label>
-          <br />
-          <input type='url' name='url' id='url' />
-          <input type='submit' />
-          <br />
-        </form>
-        <Suggestions />
-      </div>
+      <form onSubmit={this.submit} onChange={this.handleChange} className='nav-form'>
+        <label htmlFor='url'>
+          What do you want to read today?
+        </label>
+        <br />
+        <input type='url' name='url' id='url' />
+        <input type='submit' />
+      </form>
     )
   }
 })

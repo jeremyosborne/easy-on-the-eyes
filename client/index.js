@@ -5,7 +5,7 @@ import 'babel-polyfill'
 
 import App from './app.jsx'
 import Content from './content.jsx'
-import NavForm from './navform.jsx'
+import Home from './home.jsx'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
@@ -16,7 +16,7 @@ ReactDOM.render((
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='/' component={App}>
-        <IndexRoute component={NavForm} />
+        <IndexRoute component={Home} />
         <Route path='/content' component={Content} />
       </Route>
     </Router>
