@@ -1,5 +1,6 @@
 import {fetchContent} from './content-actions'
 import React from 'react'
+import {connect} from 'react-redux'
 import url from 'url'
 
 /**
@@ -61,4 +62,5 @@ const LinkInterceptor = React.createClass({
   }
 })
 
-export default LinkInterceptor
+// Does not listen to store changes but will send changes on click.
+export default connect()(LinkInterceptor)
