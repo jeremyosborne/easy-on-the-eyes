@@ -1,6 +1,7 @@
-import {fetchContent} from './content-actions'
+// import { fetchContent } from './content-actions'
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import url from 'url'
 
 /**
@@ -36,11 +37,14 @@ const LinkInterceptor = React.createClass({
       var targetHref = t.getAttribute('href')
       if (targetHref) {
         ev.preventDefault()
-        // Using the `url.resolve` logic should allow links to
-        // be resolved correctly against the content url, whether relative or
-        // absolute.
-        // window.location.href = '/content?url=' + encodeURIComponent(url.resolve(contentUrl, targetHref))
-        this.props.dispatch(fetchContent({ url: url.resolve(contentUrl, targetHref) }))
+        // Using the `url.resolve` logic should allow links to be resolved
+        // correctly against the content url, whether relative or absolute.
+        this.props.dispatch(push({
+          pathname: '/content',
+          query: {
+            url: url.resolve(contentUrl, targetHref)
+          }
+        }))
       }
     }
   },

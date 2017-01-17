@@ -1,7 +1,8 @@
-import {content, fetchingContent} from './content-reducers'
-import {watchFetchContent} from './content-sagas'
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
-import createSagaMiddleware from 'redux-saga'
+import history from './history'
+import { applyMiddleware, compose, createStore } from 'redux'
+import { routerMiddleware } from 'react-router-redux'
+import { rootSaga, sagaMiddleware } from './store-sagas'
+import reducer from './store-reducers'
 
 const initialState = {
   content: {
@@ -13,20 +14,9 @@ const initialState = {
   }
 }
 
-const reducer = combineReducers({
-  content,
-  fetchingContent
-})
-
-const rootSaga = function* () {
-  yield [
-    watchFetchContent()
-  ]
-}
-const sagaMiddleware = createSagaMiddleware()
-
 const middleware = [
-  sagaMiddleware
+  sagaMiddleware,
+  routerMiddleware(history)
 ]
 
 // Use either redux compose or browser dev tools friendly compose for middleware.

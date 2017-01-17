@@ -6,15 +6,17 @@ import 'babel-polyfill'
 import App from './app.jsx'
 import Content from './content.jsx'
 import Home from './home.jsx'
+import history from './history'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
-import {browserHistory, IndexRoute, Route, Router} from 'react-router'
+import { Provider } from 'react-redux'
+import { IndexRoute, Route, Router } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 import store from './store'
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={syncHistoryWithStore(history, store)}>
       <Route path='/' component={App}>
         <IndexRoute component={Home} />
         <Route path='/content' component={Content} />

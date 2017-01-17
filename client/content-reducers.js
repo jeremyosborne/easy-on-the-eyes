@@ -20,7 +20,9 @@ export const fetchingContent = function (state = {}, action) {
         url: action.url
       }
     case FETCHED_CONTENT:
-      return {}
+      return {
+        url: null
+      }
     default:
       return state
   }

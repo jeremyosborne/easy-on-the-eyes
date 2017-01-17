@@ -4,9 +4,9 @@
 
 require('./navform.css')
 
-import {fetchContent} from './content-actions'
 import React from 'react'
-import {connect} from 'react-redux'
+import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
 
 const NavForm = React.createClass({
   propTypes: {
@@ -32,8 +32,12 @@ const NavForm = React.createClass({
   },
   submit: function (e) {
     e.preventDefault()
-    // window.location.href = '/content?' + qs.stringify(this.state.fields)
-    this.props.dispatch(fetchContent(this.state.fields))
+    this.props.dispatch(push({
+      pathname: '/content',
+      query: {
+        url: this.state.fields.url
+      }
+    }))
   },
   render: function () {
     return (
