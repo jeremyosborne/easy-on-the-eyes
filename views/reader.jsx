@@ -14,11 +14,19 @@ const Reader = React.createClass({
     }
   },
   render: function () {
-    var initialState = {
-      content: this.props.content || {}
-    }
+    // var initialState = {
+    //   content: this.props.content || {}
+    // }
+    //
+    // 2017-Jan-17: Removed this until I can figure out the least pain in the ass
+    // way to conveniently bootstrap data in the page without screwing other parts
+    // of the code.
+    //
+    // var dataScriptBootstrap = {
+    //   __html: this.props.content ? 'window.initialState = ' + JSON.stringify(initialState) : ''
+    // }
     var dataScriptBootstrap = {
-      __html: this.props.content ? 'window.initialState = ' + JSON.stringify(initialState) : ''
+      __html: ''
     }
     return (
       <html>

@@ -5,16 +5,19 @@ import { LOCATION_CHANGE } from 'react-router-redux'
 
 // Process of requesting content from server and updating content object on page.
 const fetchContent = function* (action) {
-  // TODO: Avoid page load content fetching and content that is the same.
-  console.log('TODO: Fetch some content please! Action:', action)
-  // TODO: Parse the location change and determine if we need to get new content.
-  const content = yield call(contentAPI.fetchContent, {
-    url: action.payload.query.url
-  })
-  // TODO: Differentiate between an actual error on the content grab and just no
-  // content to show.
-  yield put({type: FETCHED_CONTENT})
-  yield put({type: UPDATE_CONTENT, content})
+  if (action.payload.query.url) {
+    // Get new content based on state of url.
+    const content = yield call(contentAPI.fetchContent, {
+      url: action.payload.query.url
+    })
+    // TODO: Differentiate between an actual error and just no content to show.
+    yield put({type: FETCHED_CONTENT})
+    yield put({type: UPDATE_CONTENT, content})
+  } else {
+    // Something about this feels unnecessary.
+    yield put({type: FETCHED_CONTENT})
+    yield put({type: UPDATE_CONTENT, content: { __html: '' }})
+  }
 }
 
 export const watchLocationForContent = function* () {
