@@ -68,6 +68,21 @@ app.get('/api/content', function (req, res) {
   }
 })
 
+// If something slips through still return JSON
+app.use('/api', function (err, req, res, next) {
+  logger.debug('Unhandled `/api` error:', err)
+
+  // use the error's status or default to 500
+  res.status(err.status || 500)
+
+  // send back json data
+  res.send({
+    error: {
+      message: err.message || 'Unkonwn server error.'
+    }
+  })
+})
+
 // Intended to service routes intended to display content and not the index.
 app.get('/content', function (req, res) {
   res.render('reader', {})
