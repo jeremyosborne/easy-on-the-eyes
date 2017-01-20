@@ -5,6 +5,7 @@
  *
  * Promise api rejecting with error or resolving witih a content object.
  */
+var genContent = require('../../client/content-api').genContent
 var fetch = require('isomorphic-fetch')
 var xforms = require('easy-on-the-eyes-xforms')
 
@@ -21,19 +22,18 @@ module.exports = function (url, options) {
       }
     })
     .then(function (html) {
-      return {
-        error: null,
+      return genContent({
         transformer: {
           name: transformer.name
         },
         url: url,
         __html: transformer.xform(html).trim()
-      }
+      })
     })
     .catch(function (err) {
       // Network error OR non-okay response.
       // TODO: Retry?
-      var error = {
+      var contentPlusError = genContent({
         error: {
           code: err.code || 0,
           message: err.message
@@ -41,9 +41,8 @@ module.exports = function (url, options) {
         transformer: {
           name: transformer.name
         },
-        url: url,
-        __html: null
-      }
-      throw error
+        url: url
+      })
+      throw contentPlusError
     })
 }

@@ -1,3 +1,4 @@
+import { genContent } from './content-api'
 import history from './history'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
@@ -5,9 +6,7 @@ import { rootSaga, sagaMiddleware } from './store-sagas'
 import reducer from './store-reducers'
 
 const initialState = {
-  content: {
-    // TODO: populate with basic content.
-  },
+  content: genContent(),
   fetchingContent: {
     // Truthy if in the act of fetching content, falsey if not.
     url: null

@@ -1,6 +1,7 @@
 require('./content.css')
 
 import AppBar from 'material-ui/AppBar'
+import { genContent } from './content-api'
 import LinkInterceptor from './linkinterceptor.jsx'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -11,11 +12,8 @@ const Content = React.createClass({
     content: React.PropTypes.object
   },
   getDefaultProps: function () {
-    const content = Object.freeze({
-      __html: null
-    })
     return {
-      content: content
+      content: genContent()
     }
   },
   render: function () {

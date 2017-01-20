@@ -1,5 +1,6 @@
 const devWebpackMiddleware = require('./dev-webpack-middleware')
 const express = require('express')
+const genContent = require('../client/content-api').genContent
 const expressReactViews = require('express-react-views')
 const favicon = require('serve-favicon')
 const fetchContentQsMiddlware = require('./fetch-content/qs-middleware')
@@ -52,16 +53,11 @@ app.get('/api/content', function (req, res) {
   // If we are here, we better have content on res.locals.content.
   var content = res.locals.content
   if (!content) {
-    res.status(400).send({
+    res.status(400).send(genContent({
       error: {
         message: 'No content. Please pass the correct query params.'
-      },
-      transformer: {
-        name: null
-      },
-      url: null,
-      __html: null
-    })
+      }
+    }))
   } else {
     // TODO: Adjust status code if there was an error in the content request.
     res.status(content.error ? 400 : 200).send(content)
