@@ -1,4 +1,6 @@
 require('./content.css')
+
+import AppBar from 'material-ui/AppBar'
 import LinkInterceptor from './linkinterceptor.jsx'
 import React from 'react'
 import { connect } from 'react-redux'
@@ -18,9 +20,16 @@ const Content = React.createClass({
   },
   render: function () {
     return (
-      <LinkInterceptor>
-        <div className='content' dangerouslySetInnerHTML={this.props.content} />
-      </LinkInterceptor>
+      <div>
+        <AppBar
+          title='Easy on the eyes'
+          iconClassNameLeft=''
+          iconClassNameRight=''
+        />
+        <LinkInterceptor>
+          <div className='content' dangerouslySetInnerHTML={this.props.content} />
+        </LinkInterceptor>
+      </div>
     )
   }
 })

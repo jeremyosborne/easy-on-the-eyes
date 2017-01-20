@@ -5,6 +5,7 @@
 require('./navform.css')
 
 import React from 'react'
+import FlatButton from 'material-ui/FlatButton'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 
@@ -46,8 +47,9 @@ const NavForm = React.createClass({
           What do you want to read today?
         </label>
         <br />
-        <input type='url' name='url' id='url' />
-        <input type='submit' />
+        <br />
+        <input type='url' name='url' id='url' placeholder='https://someplace.com/link/to/content' />
+        <FlatButton label='read it' />
       </form>
     )
   }

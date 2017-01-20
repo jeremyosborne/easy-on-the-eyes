@@ -36,6 +36,7 @@ const Reader = React.createClass({
             Easy on the eyes
           </title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
+          <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' />
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
