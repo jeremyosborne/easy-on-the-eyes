@@ -11,11 +11,20 @@ const BASE_PATH = '/api/content?'
 
 // Basic content data type.
 const contentTemplate = {
+  // If truthy there is an error.
+  // TODO: error.code and error.message and error.trace should be enforced.
+  // TODO: isError when !!error.code === true.
   error: null,
   transformer: {
     name: null
   },
   url: null,
+  //
+  // TODO: Signal fetching with an isFetching boolean. When fetching, url is what
+  // is being retrieved, error should be nullified, and __html (or html) should be
+  // unset.
+  //
+  // TODO: rename from __html to just html?
   __html: null
 }
 
