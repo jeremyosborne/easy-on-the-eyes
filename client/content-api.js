@@ -4,42 +4,12 @@
 
 // NOTE: Switch this to universal when done.
 
-const fetch = require('isomorphic-fetch')
-const qs = require('querystring')
+import fetch from 'isomorphic-fetch'
+import qs from 'querystring'
 
 const BASE_PATH = '/api/content?'
 
-// Basic content data type.
-const contentTemplate = {
-  // If truthy there is an error.
-  // TODO: error.code and error.message and error.trace should be enforced.
-  // TODO: isError when !!error.code === true.
-  error: null,
-  transformer: {
-    name: null
-  },
-  url: null,
-  //
-  // TODO: Signal fetching with an isFetching boolean. When fetching, url is what
-  // is being retrieved, error should be nullified, and __html (or html) should be
-  // unset.
-  //
-  // TODO: rename from __html to just html?
-  __html: null
-}
-
-/**
- * Returns an instance of the contentTemplate.
- *
- * @param {object} overrides Overrides for content. Assumes correct format.
- * @return {object} Basic content object.
- */
-const genContent = function (overrides) {
-  return Object.assign({}, contentTemplate, overrides || {})
-}
-module.exports.genContent = genContent
-
-const fetchContent = function ({url}) {
+export const fetchContent = function ({url}) {
   return fetch(BASE_PATH + qs.stringify({'url': url}))
     .then(function (res) {
       if (!res.ok) {
@@ -58,4 +28,3 @@ const fetchContent = function ({url}) {
       throw err
     })
 }
-module.exports.fetchContent = fetchContent

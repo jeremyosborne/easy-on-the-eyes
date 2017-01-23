@@ -5,9 +5,9 @@
  *
  * Promise api rejecting with error or resolving witih a content object.
  */
-var genContent = require('../../client/content-api').genContent
+ var genContent = require('easy-on-the-eyes-content').genContent
+ var xforms = require('easy-on-the-eyes-xforms')
 var fetch = require('isomorphic-fetch')
-var xforms = require('easy-on-the-eyes-xforms')
 
 module.exports = function (url, options) {
   var transformer = xforms.bestGuess(url)

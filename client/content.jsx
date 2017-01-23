@@ -1,7 +1,7 @@
 require('./content.css')
 
+import { genContent } from 'easy-on-the-eyes-content'
 import AppBar from 'material-ui/AppBar'
-import { genContent } from './content-api'
 import LinkInterceptor from './linkinterceptor.jsx'
 import React from 'react'
 import { connect } from 'react-redux'

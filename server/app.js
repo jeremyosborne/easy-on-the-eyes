@@ -1,6 +1,6 @@
 const devWebpackMiddleware = require('./dev-webpack-middleware')
 const express = require('express')
-const genContent = require('../client/content-api').genContent
+const genContent = require('easy-on-the-eyes-content').genContent
 const expressReactViews = require('express-react-views')
 const favicon = require('serve-favicon')
 const fetchContentQsMiddlware = require('./fetch-content/qs-middleware')

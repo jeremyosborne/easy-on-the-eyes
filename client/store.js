@@ -1,4 +1,4 @@
-import { genContent } from './content-api'
+import { genContent } from 'easy-on-the-eyes-content'
 import history from './history'
 import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'react-router-redux'

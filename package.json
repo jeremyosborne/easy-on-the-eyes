@@ -30,6 +30,7 @@
     "cheerio": "0.22.0",
     "classnames": "2.2.5",
     "cross-env": "3.1.4",
+    "easy-on-the-eyes-content": "github:jeremyosborne/easy-on-the-eyes-content",
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
     "express": "4.13.4",
     "express-react-views": "github:jeremyosborne/express-react-views",
