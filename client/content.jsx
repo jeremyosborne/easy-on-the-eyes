@@ -34,8 +34,7 @@ const Content = React.createClass({
 
 const mapContentToProps = function (state) {
   return {
-    content: state.content,
-    fetchingContent: state.fetchingContent
+    content: state.content
   }
 }
 

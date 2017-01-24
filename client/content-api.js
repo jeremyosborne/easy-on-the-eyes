@@ -1,8 +1,6 @@
 //
-// HTTP requests back to the server.
+// Client HTTP requests back to the server.
 //
-
-// NOTE: Switch this to universal when done.
 
 import fetch from 'isomorphic-fetch'
 import qs from 'querystring'

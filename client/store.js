@@ -6,11 +6,7 @@ import { rootSaga, sagaMiddleware } from './store-sagas'
 import reducer from './store-reducers'
 
 const initialState = {
-  content: genContent(),
-  fetchingContent: {
-    // Truthy if in the act of fetching content, falsey if not.
-    url: null
-  }
+  content: genContent()
 }
 
 const middleware = [
