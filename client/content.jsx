@@ -1,8 +1,8 @@
 require('./content.css')
 
-import { genContent } from 'easy-on-the-eyes-content'
+import * as content from 'easy-on-the-eyes-content'
 import AppBar from 'material-ui/AppBar'
-import LinkInterceptor from './linkinterceptor.jsx'
+import LinkInterceptor from './linkinterceptor'
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -13,10 +13,31 @@ const Content = React.createClass({
   },
   getDefaultProps: function () {
     return {
-      content: genContent()
+      content: content.genContent()
     }
   },
   render: function () {
+    const {
+      isError,
+      isFetching,
+      urlBeingFetched
+    } = this.props
+    let main = null
+    if (isError) {
+      main = (
+        <div>You has error.</div>
+      )
+    } else if (isFetching) {
+      main = (
+        <div>Retrieving content from {urlBeingFetched}.</div>
+      )
+    } else {
+      main = (
+        <LinkInterceptor>
+          <div className='content' dangerouslySetInnerHTML={this.props.content} />
+        </LinkInterceptor>
+      )
+    }
     return (
       <div>
         <AppBar
@@ -24,18 +45,20 @@ const Content = React.createClass({
           iconClassNameLeft=''
           iconClassNameRight=''
         />
-        <LinkInterceptor>
-          <div className='content' dangerouslySetInnerHTML={this.props.content} />
-        </LinkInterceptor>
+        {main}
       </div>
     )
   }
 })
 
-const mapContentToProps = function (state) {
+const mapStateToProps = function (state) {
   return {
+    error: content.error(state),
+    isError: content.isError(state),
+    isFetching: content.isFetching(state),
+    urlBeingFetched: content.urlBeingFetched(state),
     content: state.content
   }
 }
 
-export default connect(mapContentToProps)(Content)
+export default connect(mapStateToProps)(Content)

@@ -48,6 +48,11 @@ module.exports = {
     publicPath: '/',
     filename: 'app.js'
   },
+  resolve: {
+    // NOTE: Webpack 2 still in beta, the usual ['', '.js', '.jsx'] throws a
+    // validation error.
+    extensions: ['.js', '.jsx']
+  },
   module: {
     // webpack 2: loaders becomes rules
     rules: [

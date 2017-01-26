@@ -4,7 +4,7 @@
 
 require('./suggestions.css')
 
-import LinkInterceptor from './linkinterceptor.jsx'
+import LinkInterceptor from './linkinterceptor'
 import React from 'react'
 
 const Suggestions = function () {

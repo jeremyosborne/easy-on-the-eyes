@@ -60,7 +60,7 @@ app.get('/api/content', function (req, res) {
     }))
   } else {
     // TODO: Adjust status code if there was an error in the content request.
-    res.status(content.error ? 400 : 200).send(content)
+    res.status(content.error.code ? 400 : 200).send(content)
   }
 })
 

@@ -5,9 +5,9 @@
 require('./home.css')
 
 import AppBar from 'material-ui/AppBar'
-import NavForm from './navform.jsx'
+import NavForm from './navform'
 import React from 'react'
-import Suggestions from './suggestions.jsx'
+import Suggestions from './suggestions'
 
 const Home = React.createClass({
   render: function () {

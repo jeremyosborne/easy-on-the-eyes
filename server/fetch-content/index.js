@@ -5,8 +5,8 @@
  *
  * Promise api rejecting with error or resolving witih a content object.
  */
- var genContent = require('easy-on-the-eyes-content').genContent
- var xforms = require('easy-on-the-eyes-xforms')
+var genContent = require('easy-on-the-eyes-content').genContent
+var xforms = require('easy-on-the-eyes-xforms')
 var fetch = require('isomorphic-fetch')
 
 module.exports = function (url, options) {

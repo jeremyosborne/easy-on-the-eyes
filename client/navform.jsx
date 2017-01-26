@@ -55,8 +55,8 @@ const NavForm = React.createClass({
   }
 })
 
-const mapContentToProps = function (state) {
+const mapStateToProps = function (state) {
   return { content: state.content }
 }
 
-export default connect(mapContentToProps)(NavForm)
+export default connect(mapStateToProps)(NavForm)

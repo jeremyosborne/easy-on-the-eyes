@@ -8,9 +8,9 @@ injectTapEventPlugin()
 // ES2015 support. Someday in a not distant future we can get rid of this.... yeah right.
 import 'babel-polyfill'
 
-import App from './app.jsx'
-import Content from './content.jsx'
-import Home from './home.jsx'
+import App from './app'
+import Content from './content'
+import Home from './home'
 import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import React from 'react'
