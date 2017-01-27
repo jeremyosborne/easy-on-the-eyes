@@ -58,14 +58,17 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        // Make this a "preloader".
         enforce: 'pre',
-        loader: 'standard-loader',
+        use: [
+          'standard-loader'
+        ],
         exclude: /node_modules/
       },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
-        // Please only configure via .babelrc where possible.
+        // Use babelrc for general configuration, webpack specific config in webpack.
         use: [
           'react-hot-loader',
           'babel-loader'
@@ -73,6 +76,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        // 2017=Jan-27: Webpack 2 + ExtractTextPlugin still requires the loader key.
         loader: ExtractTextPlugin.extract({
           fallbackLoader: 'style-loader',
           loader: 'css-loader'
@@ -81,7 +85,12 @@ module.exports = {
       {
                 // For font and icon requires.
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url?limit=100000'
+        use: [{
+          loader: 'url-loader',
+          query: {
+            limit: 100000
+          }
+        }]
       }
     ]
   },
