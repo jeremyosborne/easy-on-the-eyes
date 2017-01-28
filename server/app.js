@@ -30,7 +30,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   logger.info('Loading webpack dev and hot reloading middleware.')
   app.use(devWebpackMiddleware({
-    webpackConfig: require(path.resolve(__dirname, '../.webpack.config'))
+    webpackConfig: require(path.resolve(__dirname, '../webpack.config'))
   }))
 } else {
   logger.info('Running in production mode.')

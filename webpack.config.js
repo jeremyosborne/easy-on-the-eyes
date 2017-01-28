@@ -1,11 +1,12 @@
-var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var path = require('path')
 var StyleLintPlugin = require('stylelint-webpack-plugin')
 var webpack = require('webpack')
 
-const PROD = process.env.NODE_ENV === 'production'
+const PRODUCTION = process.env.NODE_ENV === 'production'
 
-var plugins = PROD ? [
+var plugins = PRODUCTION ? [
+  // Production.
   new StyleLintPlugin({
     configFile: '.stylelintrc',
     // glob pattern, not regex
@@ -15,8 +16,11 @@ var plugins = PROD ? [
   new ExtractTextPlugin({
     filename: 'app.css'
   }),
-  new webpack.optimize.UglifyJsPlugin({minimize: true})
+  new webpack.optimize.UglifyJsPlugin({
+    minimize: true
+  })
 ] : [
+  // Development.
   new StyleLintPlugin({
     configFile: '.stylelintrc',
     // glob pattern, not regex
@@ -32,11 +36,11 @@ var plugins = PROD ? [
   new webpack.NoEmitOnErrorsPlugin()
 ]
 
-var entry = PROD ? [
+var entry = PRODUCTION ? [
+  // Production
   './client/index.js'
 ] : [
-  // 'webpack-dev-server/client?http://0.0.0.0:3000',
-  // 'webpack/hot/only-dev-server',
+  // Development
   'webpack-hot-middleware/client?http://0.0.0.0:3000',
   './client/index.js'
 ]
@@ -48,6 +52,7 @@ module.exports = {
     publicPath: '/',
     filename: 'app.js'
   },
+  plugins: plugins,
   resolve: {
     // NOTE: Webpack 2 still in beta, the usual ['', '.js', '.jsx'] throws a
     // validation error.
@@ -93,6 +98,5 @@ module.exports = {
         }]
       }
     ]
-  },
-  plugins: plugins
+  }
 }
