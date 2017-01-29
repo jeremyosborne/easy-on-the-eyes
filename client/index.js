@@ -25,8 +25,8 @@ ReactDOM.render((
     <Provider store={store}>
       <Router history={syncHistoryWithStore(history, store)}>
         <Route path='/' component={App}>
-          <IndexRoute component={Home} />
-          <Route path='content' component={Content} />
+          <IndexRoute components={{main: Home}} />
+          <Route path='content' components={{main: Content}} />
         </Route>
       </Router>
     </Provider>

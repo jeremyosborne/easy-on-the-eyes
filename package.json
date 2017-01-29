@@ -7,7 +7,7 @@
     "build": "echo 'building assets' && webpack",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node server",
-    "start-dev": "supervisor -e css,js,jsx -w server,views server && opn http://localhost:3000/"
+    "start-dev": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server"
   },
   "repository": {
     "type": "git",
