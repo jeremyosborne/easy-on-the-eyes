@@ -37,7 +37,6 @@ const Content = React.createClass({
         </LinkInterceptor>
       )
     }
-    console.log(main)
     return (
       <div className='content'>
         {main}
