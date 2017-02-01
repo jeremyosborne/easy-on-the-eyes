@@ -4,7 +4,7 @@
   "description": "the web, simply",
   "main": "server/index.js",
   "scripts": {
-    "build": "echo 'building assets' && webpack",
+    "build": "echo 'building assets' && webpack --env.production=true",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node server",
     "start-dev": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server"
@@ -32,7 +32,7 @@
     "cross-env": "3.1.4",
     "easy-on-the-eyes-content": "github:jeremyosborne/easy-on-the-eyes-content",
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
-    "express": "4.14.0",
+    "express": "4.14.1",
     "express-react-views": "github:jeremyosborne/express-react-views",
     "isomorphic-fetch": "2.2.1",
     "material-ui": "0.16.7",
@@ -45,7 +45,7 @@
     "react-router-redux": "4.0.7",
     "react-tap-event-plugin": "2.0.1",
     "redux": "3.6.0",
-    "redux-devtools-extension": "^1.0.0",
+    "redux-devtools-extension": "2.0.0",
     "redux-saga": "0.14.3",
     "reselect": "^2.5.4",
     "serve-favicon": "2.3.2",
@@ -71,8 +71,8 @@
     "stylelint-webpack-plugin": "0.5.1",
     "supervisor": "0.12.0",
     "url-loader": "0.5.7",
-    "webpack": "2.2.0",
-    "webpack-dev-server": "1.16.2",
-    "webpack-hot-middleware": "2.15.0"
+    "webpack": "2.2.1",
+    "webpack-dev-server": "1.16.3",
+    "webpack-hot-middleware": "2.16.1"
   }
 }

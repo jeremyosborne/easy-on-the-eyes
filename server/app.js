@@ -30,7 +30,10 @@ if (process.env.NODE_ENV !== 'production') {
 
   logger.info('Loading webpack dev and hot reloading middleware.')
   app.use(devWebpackMiddleware({
-    webpackConfig: require(path.resolve(__dirname, '../webpack.config'))
+    // Webpack 2 idiom exports a function not a static configuration file.
+    webpackConfig: require(path.resolve(__dirname, '../webpack.config'))({
+      production: false
+    })
   }))
 } else {
   logger.info('Running in production mode.')
