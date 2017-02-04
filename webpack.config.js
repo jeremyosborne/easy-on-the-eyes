@@ -1,4 +1,5 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var path = require('path')
 var StyleLintPlugin = require('stylelint-webpack-plugin')
 var webpack = require('webpack')
@@ -44,6 +45,10 @@ module.exports = function (env) {
       output: {
         comments: false
       }
+    }),
+    new HtmlWebpackPlugin({
+      hash: true,
+      filename: './public/index.html'
     })
   ] : [
     new webpack.optimize.CommonsChunkPlugin({
@@ -67,7 +72,11 @@ module.exports = function (env) {
     // Removed for webpack 2.
     // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      hash: true,
+      filename: './public/index.html'
+    })
   ]
 
   var entry = IS_PRODUCTION ? {
@@ -121,10 +130,15 @@ module.exports = function (env) {
         },
         {
           test: /\.css$/,
-          // 2017=Jan-27: Webpack 2 + ExtractTextPlugin still requires the loader key.
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader'
+          // rc3 extract text plugin now in line with other webpack plgins
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [{
+              loader: 'css-loader',
+              query: {
+                minimize: false
+              }
+            }]
           })
         },
         {
