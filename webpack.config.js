@@ -1,7 +1,6 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var path = require('path')
-var StyleLintPlugin = require('stylelint-webpack-plugin')
 var webpack = require('webpack')
 
 // This seems to be the direction webpack 2 is going from reading various posts.
@@ -51,6 +50,7 @@ module.exports = function (env) {
       filename: './public/index.html'
     })
   ] : [
+    // Development.
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
@@ -58,13 +58,6 @@ module.exports = function (env) {
     }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(ENV) }
-    }),
-    // Development.
-    new StyleLintPlugin({
-      configFile: '.stylelintrc',
-      // glob pattern, not regex
-      files: '**/*.?(s)@(a|c)ss',
-      failOnError: false
     }),
     new ExtractTextPlugin({
       filename: 'app.css'
@@ -108,15 +101,6 @@ module.exports = function (env) {
     module: {
       // webpack 2: loaders becomes rules
       rules: [
-        {
-          test: /\.jsx?$/,
-          // Make this a "preloader".
-          enforce: 'pre',
-          use: [
-            'standard-loader'
-          ],
-          exclude: /node_modules/
-        },
         {
           test: /\.jsx?$/,
           // This module exports plain ES6, which doesn't get transformed because
