@@ -27,14 +27,6 @@ if (process.env.NODE_ENV !== 'production') {
 
   logger.info('morgan logging set to "dev".')
   app.use(morgan('dev'))
-
-  logger.info('Loading webpack dev and hot reloading middleware.')
-  app.use(devWebpackMiddleware({
-    // Webpack 2 idiom exports a function not a static configuration file.
-    webpackConfig: require(path.resolve(__dirname, '../webpack.config'))({
-      production: false
-    })
-  }))
 } else {
   logger.info('Running in production mode.')
 
@@ -91,6 +83,20 @@ app.get('/content', function (req, res) {
 app.get('/', function (req, res) {
   res.render('reader', {})
 })
+
+if (process.env.NODE_ENV !== 'production') {
+  // We want this loading after other APIs but before the static loader.
+  // webpack dev server-ish stuff will catch and intercept any request,
+  // like index.html, that we might want to service with our other parts
+  // of our application.
+  logger.info('Loading webpack dev and hot reloading middleware.')
+  app.use(devWebpackMiddleware({
+    // Webpack 2 idiom exports a function not a static configuration file.
+    webpackConfig: require(path.resolve(__dirname, '../webpack.config'))({
+      production: false
+    })
+  }))
+}
 
 app.use(express.static(path.join(ROOT_PATH, 'public')))
 

@@ -31,4 +31,4 @@ ReactDOM.render((
       </Router>
     </Provider>
   </MuiThemeProvider>
-), document.getElementById('app-container'))
+), document.getElementById('root'))

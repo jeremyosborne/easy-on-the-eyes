@@ -40,7 +40,7 @@ const Reader = React.createClass({
           <link href='/app.css' rel='stylesheet' />
         </head>
         <body>
-          <div id='app-container' />
+          <div id='root' />
           <script dangerouslySetInnerHTML={dataScriptBootstrap} />
           <script src='/vendor.bundle.js' />
           <script src='/app.bundle.js' />

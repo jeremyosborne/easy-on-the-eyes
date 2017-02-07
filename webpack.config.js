@@ -11,66 +11,59 @@ module.exports = function (env) {
   const ENV = env && env.production ? 'production' : 'development'
   const IS_PRODUCTION = ENV === 'production'
 
-  var plugins = IS_PRODUCTION ? [
-    // Production.
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    }),
+  var plugins = [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
       filename: 'vendor.bundle.js'
     }),
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(ENV) }
-    }),
-    new ExtractTextPlugin({
-      filename: 'app.css'
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true
-      },
-      output: {
-        comments: false
+      'process.env': {
+        NODE_ENV: JSON.stringify(ENV)
       }
     }),
-    new HtmlWebpackPlugin({
-      hash: true,
-      filename: './public/index.html'
-    })
-  ] : [
-    // Development.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-      filename: 'vendor.bundle.js'
-    }),
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(ENV) }
-    }),
     new ExtractTextPlugin({
       filename: 'app.css'
     }),
-    // Removed for webpack 2.
-    // new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       hash: true,
-      filename: './public/index.html'
+      minify: IS_PRODUCTION,
+      filename: './index.html'
     })
   ]
+
+  if (IS_PRODUCTION) {
+    // Production only settings.
+    plugins = [
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false,
+          screw_ie8: true,
+          conditionals: true,
+          unused: true,
+          comparisons: true,
+          sequences: true,
+          dead_code: true,
+          evaluate: true,
+          if_return: true,
+          join_vars: true
+        },
+        output: {
+          comments: false
+        }
+      })
+    ].concat(plugins)
+  } else {
+    // Dev only settings.
+    plugins = plugins.concat([
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
+    ])
+  }
 
   var entry = IS_PRODUCTION ? {
     // Production
