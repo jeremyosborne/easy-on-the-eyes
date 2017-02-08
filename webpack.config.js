@@ -27,7 +27,9 @@ module.exports = function (env) {
     }),
     new HtmlWebpackPlugin({
       hash: true,
-      minify: IS_PRODUCTION,
+      // 2017-Feb-07: Minifying is causing errors to be thrown. Turn it off.
+      // minify: IS_PRODUCTION,
+      template: 'client/index.hbs',
       filename: './index.html'
     })
   ]
@@ -103,6 +105,12 @@ module.exports = function (env) {
           use: [
             'react-hot-loader',
             'babel-loader'
+          ]
+        },
+        {
+          test: /\.hbs$/,
+          use: [
+            'handlebars-loader'
           ]
         },
         {

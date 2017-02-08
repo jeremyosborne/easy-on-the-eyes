@@ -1,7 +1,6 @@
 const devWebpackMiddleware = require('./dev-webpack-middleware')
 const express = require('express')
 const genContent = require('easy-on-the-eyes-content').genContent
-const expressReactViews = require('express-react-views')
 const favicon = require('serve-favicon')
 const fetchContentQsMiddlware = require('./fetch-content/qs-middleware')
 const logger = require('./logger')
@@ -12,10 +11,6 @@ const path = require('path')
 var ROOT_PATH = path.resolve(path.join(__dirname, '..'))
 
 var app = express()
-
-app.set('views', path.join(ROOT_PATH, 'views'))
-app.set('view engine', 'jsx')
-app.engine('jsx', expressReactViews.createEngine())
 
 app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 
@@ -74,18 +69,8 @@ app.use('/api', function (err, req, res, next) {
   })
 })
 
-// Intended to service routes intended to display content and not the index.
-app.get('/content', function (req, res) {
-  res.render('reader', {})
-})
-
-// Intended to service index specific route.
-app.get('/', function (req, res) {
-  res.render('reader', {})
-})
-
 if (process.env.NODE_ENV !== 'production') {
-  // We want this loading after other APIs but before the static loader.
+  // We want this loading after APIs but before static file handling.
   // webpack dev server-ish stuff will catch and intercept any request,
   // like index.html, that we might want to service with our other parts
   // of our application.
@@ -97,6 +82,16 @@ if (process.env.NODE_ENV !== 'production') {
     })
   }))
 }
+
+// Intended to service routes intended to display content and not the index.
+app.get('/content', function (req, res) {
+  res.sendFile(path.join(ROOT_PATH, 'public/index.html'))
+})
+
+// Intended to service index specific route.
+app.get('/', function (req, res) {
+  res.sendFile(path.join(ROOT_PATH, 'public/index.html'))
+})
 
 app.use(express.static(path.join(ROOT_PATH, 'public')))
 
