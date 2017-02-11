@@ -12,5 +12,5 @@ bower_components
 .imdone
 
 # Built application code.
-public/*.*
+public/*
 !public/.gitkeep
