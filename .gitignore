@@ -14,4 +14,3 @@ bower_components
 # Built application code.
 public/*.*
 !public/.gitkeep
-!public/favicon.ico
