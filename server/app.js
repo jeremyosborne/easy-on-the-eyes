@@ -1,7 +1,6 @@
 const devWebpackMiddleware = require('./dev-webpack-middleware')
 const express = require('express')
 const genContent = require('easy-on-the-eyes-content').genContent
-// const favicon = require('serve-favicon')
 const fetchContentQsMiddlware = require('./fetch-content/qs-middleware')
 const logger = require('./logger')
 const morgan = require('morgan')
@@ -11,9 +10,6 @@ const path = require('path')
 var ROOT_PATH = path.resolve(path.join(__dirname, '..'))
 
 var app = express()
-
-// Handled via static asset building in webpack.
-// app.use(favicon(path.join(ROOT_PATH, 'public', 'favicon.ico')))
 
 if (process.env.NODE_ENV !== 'production') {
   logger.info('Running in dev mode.')
