@@ -2,6 +2,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var path = require('path')
+var SriPlugin = require('webpack-subresource-integrity')
 var webpack = require('webpack')
 
 // This seems to be the direction webpack 2 is going from reading various posts.
@@ -29,6 +30,10 @@ module.exports = function (env) {
     // see: https://github.com/jantimon/favicons-webpack-plugin#advanced-usage
     // Needs a .png file.
     new FaviconsWebpackPlugin('./client/favicon.png'),
+    new SriPlugin({
+      hashFuncNames: ['sha256', 'sha384'],
+      enabled: IS_PRODUCTION
+    }),
     new HtmlWebpackPlugin({
       hash: true,
       // 2017-Feb-07: Minifying is causing errors to be thrown. Turn it off.
@@ -88,6 +93,7 @@ module.exports = function (env) {
     devtool: IS_PRODUCTION ? 'source-map' : 'eval',
     entry: entry,
     output: {
+      crossOriginLoading: 'anonymous',
       path: path.resolve(path.join(__dirname, 'public')),
       publicPath: '/',
       filename: '[name].bundle.js'
