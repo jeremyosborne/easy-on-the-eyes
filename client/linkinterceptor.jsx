@@ -9,6 +9,10 @@ import url from 'url'
  * will attempt to be loaded within our app.
  */
 const LinkInterceptor = React.createClass({
+  propTypes: {
+    dispatch: React.PropTypes.func,
+    children: React.PropTypes.node
+  },
   getInitialState: function () {
     // Reference to our DOM element after mounting.
     this._linkInterceptorEl = null

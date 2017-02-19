@@ -11,7 +11,8 @@ import { connect } from 'react-redux'
 
 const NavForm = React.createClass({
   propTypes: {
-    content: React.PropTypes.object
+    content: React.PropTypes.object,
+    dispatch: React.PropTypes.func
   },
   getDefaultProps: function () {
     const content = Object.freeze({

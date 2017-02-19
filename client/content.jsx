@@ -8,7 +8,10 @@ import { connect } from 'react-redux'
 const Content = React.createClass({
   propTypes: {
     // Dangerous html friendly object.
-    content: React.PropTypes.object
+    content: React.PropTypes.object,
+    isError: React.PropTypes.bool,
+    isFetching: React.PropTypes.bool,
+    urlBeingFetched: React.PropTypes.string
   },
   getDefaultProps: function () {
     return {

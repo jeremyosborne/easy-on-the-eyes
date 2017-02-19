@@ -2,8 +2,8 @@ import AppBar from 'material-ui/AppBar'
 import React from 'react'
 import history from './history'
 
-const App = React.createClass({
-  render: function () {
+class App extends React.component {
+  render () {
     return (
       <div className='app'>
         <AppBar
@@ -17,6 +17,10 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
+
+App.propTypes = {
+  main: React.PropTypes.main
+}
 
 export default App
