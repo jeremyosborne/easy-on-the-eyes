@@ -4,13 +4,13 @@
   "description": "the web, simply",
   "main": "server/index.js",
   "scripts": {
-    "lint-css": "stylelint client/**/*.css",
-    "lint-js": "eslint \"client/**/*.js?(x)\" \"server/**/*.js?(x)\"",
-    "lint": "npm run lint-css && npm run lint-js",
+    "lint:css": "stylelint client/**/*.css",
+    "lint:js": "eslint \"client/**/*.js?(x)\" \"server/**/*.js?(x)\"",
+    "lint": "npm run lint:css && npm run lint:js",
     "build": "echo 'building assets' && webpack --env.production=true",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node server",
-    "start-dev": "npm run lint && opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server",
+    "start:dev": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server",
     "test": "true",
     "commit": "commit-wizard"
   },
