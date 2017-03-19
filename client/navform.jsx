@@ -2,12 +2,13 @@
  * Input a URL and navigate to it.
  */
 
-require('./navform.css')
-
 import React from 'react'
 import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
+
+import './navform.css'
 
 const NavForm = React.createClass({
   propTypes: {
@@ -44,13 +45,8 @@ const NavForm = React.createClass({
   render: function () {
     return (
       <form onSubmit={this.submit} onChange={this.handleChange} className='nav-form'>
-        <label htmlFor='url'>
-          What do you want to read today?
-        </label>
-        <br />
-        <br />
-        <input type='url' name='url' id='url' placeholder='https://someplace.com/link/to/content' />
-        <FlatButton label='read it' />
+        <TextField floatingLabelText='What do you want to read today?' type='url' name='url' id='url' />
+        <FlatButton label='read it' type='submit' />
       </form>
     )
   }

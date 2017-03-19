@@ -2,33 +2,36 @@
  * Suggested links that when clicked will be "clean" displayed.
  */
 
-require('./suggestions.css')
+import {List, ListItem} from 'material-ui/List'
+import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
 
 import LinkInterceptor from './linkinterceptor'
 import React from 'react'
 
+import './suggestions.css'
+
 const Suggestions = function () {
   return (
     <LinkInterceptor>
-      <div className='suggestions'>
-        <p>
+      <List className='suggestions'>
+        <Subheader>
           Some starting points:
-        </p>
-        <ul>
-          <li>
-            <a href='https://en.wikipedia.org/wiki/Umberto_Eco'>Umberto Eco</a>
-          </li>
-          <li>
-            <a href='https://en.wikipedia.org/wiki/Sephirot'>Sephirot</a>
-          </li>
-          <li>
-            <a href='https://en.wikipedia.org/wiki/Semantics'>Semantics</a>
-          </li>
-          <li>
-            <a href='https://en.wikipedia.org/wiki/Maternal_insult'>"Your Mom..." Jokes</a>
-          </li>
-        </ul>
-      </div>
+        </Subheader>
+        <Divider />
+        <ListItem>
+          <a href='https://en.wikipedia.org/wiki/Umberto_Eco'>Umberto Eco</a>
+        </ListItem>
+        <ListItem>
+          <a href='https://en.wikipedia.org/wiki/Sephirot'>Sephirot</a>
+        </ListItem>
+        <ListItem>
+          <a href='https://en.wikipedia.org/wiki/Semantics'>Semantics</a>
+        </ListItem>
+        <ListItem>
+          <a href='https://en.wikipedia.org/wiki/Maternal_insult'>"Your Mom..." Jokes</a>
+        </ListItem>
+      </List>
     </LinkInterceptor>
   )
 }

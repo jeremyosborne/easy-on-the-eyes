@@ -2,7 +2,7 @@ import AppBar from 'material-ui/AppBar'
 import React from 'react'
 import history from './history'
 
-class App extends React.component {
+class App extends React.Component {
   render () {
     return (
       <div className='app'>
@@ -20,7 +20,7 @@ class App extends React.component {
 }
 
 App.propTypes = {
-  main: React.PropTypes.main
+  main: React.PropTypes.node
 }
 
 export default App
