@@ -12,7 +12,7 @@ import './navform.css'
 
 const NavForm = React.createClass({
   propTypes: {
-    content: React.PropTypes.object,
+    // content: React.PropTypes.object,
     dispatch: React.PropTypes.func
   },
   getDefaultProps: function () {

@@ -4,7 +4,7 @@ import { put, call, takeEvery } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'react-router-redux'
 
 // Process of requesting content from server and updating content object on page.
-const fetchContent = function* (action) {
+const fetchContent = function * (action) {
   if (action.payload.query.url) {
     const url = action.payload.query.url
     yield put({type: FETCH_CONTENT, url})
@@ -20,6 +20,6 @@ const fetchContent = function* (action) {
   }
 }
 
-export const watchLocationForContent = function* () {
+export const watchLocationForContent = function * () {
   yield takeEvery(LOCATION_CHANGE, fetchContent)
 }

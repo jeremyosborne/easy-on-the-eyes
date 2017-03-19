@@ -1,6 +1,7 @@
 import AppBar from 'material-ui/AppBar'
 import React from 'react'
 import history from './history'
+import Notifications from './Notifications'
 
 class App extends React.Component {
   render () {
@@ -14,6 +15,7 @@ class App extends React.Component {
           showMenuIconButton={false}
         />
         {this.props.main}
+        <Notifications />
       </div>
     )
   }

@@ -4,7 +4,7 @@
 import { watchLocationForContent } from './content-sagas'
 import createSagaMiddleware from 'redux-saga'
 
-export const rootSaga = function* () {
+export const rootSaga = function * () {
   yield [
     watchLocationForContent()
   ]
