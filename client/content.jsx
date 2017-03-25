@@ -3,22 +3,22 @@ require('./content.css')
 import * as content from 'easy-on-the-eyes-content'
 import LinkInterceptor from './linkinterceptor'
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
+import {compose} from 'redux'
 
-const Content = React.createClass({
-  propTypes: {
-    // Dangerous html friendly object.
+export class Content extends React.Component {
+  static propTypes = {
     content: React.PropTypes.object,
     isError: React.PropTypes.bool,
     isFetching: React.PropTypes.bool,
     urlBeingFetched: React.PropTypes.string
-  },
-  getDefaultProps: function () {
-    return {
-      content: content.genContent()
-    }
-  },
-  render: function () {
+  }
+
+  static defaultProps = {
+    content: content.genContent()
+  }
+
+  render () {
     const {
       isError,
       isFetching,
@@ -46,9 +46,9 @@ const Content = React.createClass({
       </div>
     )
   }
-})
+}
 
-const mapStateToProps = function (state) {
+export const mapStateToProps = function (state) {
   return {
     error: content.error(state),
     isError: content.isError(state),
@@ -58,4 +58,6 @@ const mapStateToProps = function (state) {
   }
 }
 
-export default connect(mapStateToProps)(Content)
+export default compose(
+  connect(mapStateToProps)
+)(Content)
