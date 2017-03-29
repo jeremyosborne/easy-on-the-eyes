@@ -1,4 +1,4 @@
-require('./index.css')
+import './index.css'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // Needed for onTouchTap

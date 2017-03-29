@@ -1,4 +1,4 @@
-require('./content.css')
+import './content.css'
 
 import * as content from 'easy-on-the-eyes-content'
 import LinkInterceptor from './linkinterceptor'
