@@ -8,20 +8,21 @@ import url from 'url'
  * Clicks an anchor tags in child components/elements will be watched and content
  * will attempt to be loaded within our app.
  */
-const LinkInterceptor = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func,
-    children: React.PropTypes.node
-  },
-  getInitialState: function () {
+export class LinkInterceptor extends React.Component {
+  constructor (props) {
+    super(props)
+
     // Reference to our DOM element after mounting.
     this._linkInterceptorEl = null
+  }
+  static propTypes = {
+    dispatch: React.PropTypes.func,
+    children: React.PropTypes.node
+  }
 
-    return {}
-  },
   // Easy on the eyes acts as a proxy. The page equivalent is stored in the
   // `?url=<page>` param.
-  contentUrl: function () {
+  contentUrl () {
     var contentUrl = url.parse(window.location.href, true).query.url || ''
     if (contentUrl) {
       try {
@@ -31,9 +32,10 @@ const LinkInterceptor = React.createClass({
       }
     }
     return contentUrl
-  },
+  }
+
   // Attach as a real DOM event to listen for clicks on `a`nchor tags.
-  linkInterceptor: function (ev) {
+  linkInterceptor = (ev) => {
     var t = ev.target
     var contentUrl = this.contentUrl()
     ev.preventDefault()
@@ -51,15 +53,18 @@ const LinkInterceptor = React.createClass({
         }))
       }
     }
-  },
-  componentDidMount: function () {
+  }
+
+  componentDidMount () {
     // Need raw event listener for listening to `a`nchor tag clicks.
     this._linkInterceptorEl.addEventListener('click', this.linkInterceptor)
-  },
-  componentWillUnmount: function () {
+  }
+
+  componentWillUnmount () {
     this._linkInterceptorEl.removeEventListener('click', this.linkInterceptor)
-  },
-  render: function () {
+  }
+
+  render () {
     return (
       <div className='link-interceptor' ref={(c) => {
         this._linkInterceptorEl = c
@@ -68,7 +73,7 @@ const LinkInterceptor = React.createClass({
       </div>
     )
   }
-})
+}
 
 // Does not listen to store changes but will send changes on click.
 export default connect()(LinkInterceptor)
