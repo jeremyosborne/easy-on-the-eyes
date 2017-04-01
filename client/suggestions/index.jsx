@@ -6,10 +6,10 @@ import {List, ListItem} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
 
-import LinkInterceptor from './linkinterceptor'
+import LinkInterceptor from '../linkinterceptor'
 import React from 'react'
 
-import './suggestions.css'
+import './index.css'
 
 const Suggestions = function () {
   return (

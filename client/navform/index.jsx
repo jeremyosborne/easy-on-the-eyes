@@ -9,7 +9,7 @@ import {push} from 'react-router-redux'
 import {compose} from 'redux'
 import {connect} from 'react-redux'
 
-import './navform.css'
+import './index.css'
 
 export class NavForm extends React.Component {
   static propTypes = {

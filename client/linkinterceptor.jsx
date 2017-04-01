@@ -1,7 +1,7 @@
 // import { fetchContent } from './content-actions'
 import React from 'react'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import {connect} from 'react-redux'
+import {push} from 'react-router-redux'
 import url from 'url'
 
 /**
