@@ -1,9 +1,9 @@
-import { genContent } from 'easy-on-the-eyes-content'
+import {genContent} from 'easy-on-the-eyes-content'
 import history from './history'
-import { applyMiddleware, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
-import { routerMiddleware } from 'react-router-redux'
-import { rootSaga, sagaMiddleware } from './store-sagas'
+import {applyMiddleware, createStore} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
+import {routerMiddleware} from 'react-router-redux'
+import {rootSaga, sagaMiddleware} from './store-sagas'
 import reducer from './store-reducers'
 
 // Assumption this code runs in the browser.

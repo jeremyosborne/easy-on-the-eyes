@@ -15,9 +15,9 @@ import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { IndexRoute, Route, Router } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import {Provider} from 'react-redux'
+import {IndexRoute, Route, Router} from 'react-router'
+import {syncHistoryWithStore} from 'react-router-redux'
 import store from './store'
 
 ReactDOM.render((

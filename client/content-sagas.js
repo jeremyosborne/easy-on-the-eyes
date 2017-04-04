@@ -1,7 +1,7 @@
 import * as contentAPI from './content-api'
-import { FETCH_CONTENT, FETCHED_CONTENT } from './content-actions'
-import { put, call, takeEvery } from 'redux-saga/effects'
-import { LOCATION_CHANGE } from 'react-router-redux'
+import {FETCH_CONTENT, FETCHED_CONTENT} from './content-actions'
+import {put, call, takeEvery} from 'redux-saga/effects'
+import {LOCATION_CHANGE} from 'react-router-redux'
 
 // Process of requesting content from server and updating content object on page.
 const fetchContent = function * (action) {
@@ -16,7 +16,7 @@ const fetchContent = function * (action) {
     yield put({type: FETCHED_CONTENT, content})
   } else {
     // TODO: Better error handling.
-    yield put({type: FETCHED_CONTENT, content: { __html: '' }})
+    yield put({type: FETCHED_CONTENT, content: {__html: ''}})
   }
 }
 

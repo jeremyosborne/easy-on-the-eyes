@@ -1,5 +1,5 @@
-import { FETCH_CONTENT, FETCHED_CONTENT } from './content-actions'
-import { genContent } from 'easy-on-the-eyes-content'
+import {FETCH_CONTENT, FETCHED_CONTENT} from './content-actions'
+import {genContent} from 'easy-on-the-eyes-content'
 
 export default (state = {}, action) => {
   switch (action.type) {

@@ -58,7 +58,7 @@ export class NavForm extends React.Component {
 }
 
 const mapStateToProps = function (state) {
-  return { content: state.content }
+  return {content: state.content}
 }
 
 export default compose(
