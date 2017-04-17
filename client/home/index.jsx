@@ -12,7 +12,7 @@ export class Home extends React.Component {
   render () {
     return (
       <div className='home'>
-        <NavForm />
+        <NavForm.rf />
         <br />
         <Suggestions />
       </div>

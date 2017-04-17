@@ -3,11 +3,13 @@
 //
 import content from './content-reducers'
 import {combineReducers} from 'redux'
-import {routerReducer} from 'react-router-redux'
+import {reducer as form} from 'redux-form'
+import {routerReducer as routing} from 'react-router-redux'
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   content,
-  routing: routerReducer
+  form,
+  routing,
 })
 
-export default reducers
+export default reducer

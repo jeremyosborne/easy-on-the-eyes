@@ -7,20 +7,17 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import {push} from 'react-router-redux'
 import {compose} from 'redux'
-import {connect} from 'react-redux'
+import {
+  // Field,
+  reduxForm,
+} from 'redux-form'
+// import {connect} from 'react-redux'
 
 import './index.css'
 
 export class NavForm extends React.Component {
   static propTypes = {
-    // content: React.PropTypes.object,
     dispatch: React.PropTypes.func
-  }
-
-  static defaultProps = {
-    content: {
-      __html: null,
-    }
   }
 
   constructor (props) {
@@ -57,10 +54,8 @@ export class NavForm extends React.Component {
   }
 }
 
-const mapStateToProps = function (state) {
-  return {content: state.content}
-}
-
-export default compose(
-  connect(mapStateToProps)
-)(NavForm)
+// see: https://github.com/redfin/react-server/issues/917
+// for why we have to export in this really dumb way.
+export default {rf: compose(
+  reduxForm({form: 'navForm'}),
+)(NavForm)}
