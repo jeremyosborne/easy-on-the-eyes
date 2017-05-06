@@ -1,7 +1,7 @@
 const devWebpackMiddleware = require('./dev-webpack-middleware')
 const express = require('express')
-const genContent = require('easy-on-the-eyes-content').genContent
-const fetchContentQsMiddlware = require('./fetch-content/qs-middleware')
+const content = require('easy-on-the-eyes-content').content
+const fetchContent = require('fetch-content').fetchContent
 const logger = require('./logger')
 const morgan = require('morgan')
 const path = require('path')
@@ -29,38 +29,40 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('combined'))
 }
 
-// All incoming requests might have a u query string parameter.
-// If they do, we will attempt to retrieve the contents at the URL.
-app.use(fetchContentQsMiddlware({logger: logger}))
-
 // AJAX specific content fetching.
 // Assumed that if this is being called, we want content or we want to
 // deliver a sane object that describes why we can't get the error.
 app.get('/api/content', function (req, res) {
   // If we are here, we better have content on res.locals.content.
-  var content = res.locals.content
-  if (!content) {
-    res.status(400).send(genContent({
+  var url = req.query.url
+  if (url) {
+    fetchContent(url).then((content) => {
+      res.send(content)
+    }).catch((errorContent) => {
+      res.status(errorContent.error.code || 500).send(content)
+    })
+  } else {
+    res.status(400).send(content({
       error: {
-        message: 'No content. Please pass the correct query params.'
+        code: 400,
+        message: 'please provide url query parameter',
       }
     }))
-  } else {
-    // TODO: Adjust status code if there was an error in the content request.
-    res.status(content.error.code ? 400 : 200).send(content)
   }
 })
 
 // If something slips through still return JSON
 app.use('/api', function (err, req, res, next) {
+  const code = err.status || 500
   logger.debug('Unhandled `/api` error:', err)
 
   // use the error's status or default to 500
-  res.status(err.status || 500)
+  res.status(code)
 
   // send back json data
   res.send({
     error: {
+      code: code,
       message: err.message || 'Unkonwn server error.'
     }
   })

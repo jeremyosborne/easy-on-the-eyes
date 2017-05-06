@@ -1,48 +1,40 @@
+const axios = require('axios')
+const content = require('easy-on-the-eyes-content').content
+const xforms = require('easy-on-the-eyes-xforms')
+
 /**
  * Retrieve and transform web content.
  *
- * Call with a URL and (not unsupported) options object.
+ * Call with a URL.
  *
- * Promise api rejecting with error or resolving witih a content object.
+ * Promise api rejecting with error or resolving with a content object.
  */
-var genContent = require('easy-on-the-eyes-content').genContent
-var xforms = require('easy-on-the-eyes-xforms')
-var fetch = require('isomorphic-fetch')
-
-module.exports = function (url, options) {
+module.exports.fetchContent = (url) => {
   var transformer = xforms.bestGuess(url)
-  return fetch(url)
-    .then(function (res) {
-      if (!res.ok) {
-        const err = new Error(res.statusText)
-        err.code = res.status
-        throw err
-      } else {
-        return res.text()
-      }
-    })
-    .then(function (html) {
-      return genContent({
-        transformer: {
-          name: transformer.name
+  return axios.get(url)
+    .then(function (response) {
+      return content({
+        content: {
+          transformer: transformer.name,
+          url: url,
+          type: 'html',
+          text: transformer.xform(response.data).trim(),
         },
-        url: url,
-        __html: transformer.xform(html).trim()
       })
     })
     .catch(function (err) {
+      const code = err.response ? err.response.status : 500
       // Network error OR non-okay response.
-      // TODO: Retry?
-      var contentPlusError = genContent({
+      var error = content({
         error: {
-          code: err.code || 0,
-          message: err.message
+          code: code,
+          message: 'Could not retrieve content',
         },
-        transformer: {
-          name: transformer.name
+        content: {
+          transformer: transformer.name,
+          url: url,
         },
-        url: url
       })
-      throw contentPlusError
+      throw error
     })
 }

@@ -7,9 +7,9 @@
     "lint:css": "stylelint client/**/*.css",
     "lint:js": "eslint \"client/**/*.js?(x)\" \"server/**/*.js?(x)\"",
     "lint": "npm run lint:css && npm run lint:js",
-    "build": "echo 'building assets' && webpack --env.production=true",
-    "start": "cross-env NODE_ENV=production node server",
-    "start:dev": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server",
+    "build": "echo 'building assets' && cross-env NODE_ENV=production webpack",
+    "start:production": "cross-env NODE_ENV=production node server",
+    "start": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server",
     "test": "true",
     "commit": "commit-wizard"
   },
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
   "dependencies": {
+    "axios": "^0.16.1",
     "babel-polyfill": "6.22.0",
     "cheerio": "0.22.0",
     "classnames": "2.2.5",

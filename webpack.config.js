@@ -6,11 +6,9 @@ var SriPlugin = require('webpack-subresource-integrity')
 var webpack = require('webpack')
 
 // This seems to be the direction webpack 2 is going from reading various posts.
-// `env` is a wepback specific object created at the command line via args like
-// --env.blah 42 which becomes env = {blah: 42}
 // It is the job of this function to return the config object used by webpack 2.
 module.exports = function (env) {
-  const ENV = env && env.production ? 'production' : 'development'
+  const ENV = process.env.NODE_ENV === 'production' ? 'production' : 'development'
   const IS_PRODUCTION = ENV === 'production'
 
   var plugins = [
