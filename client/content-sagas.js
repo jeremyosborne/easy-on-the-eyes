@@ -3,6 +3,7 @@ import {FETCH_CONTENT, FETCHED_CONTENT} from './content-actions'
 import {put, call, takeEvery} from 'redux-saga/effects'
 import {LOCATION_CHANGE} from 'react-router-redux'
 
+// TODO: convert to action-thunk.
 // Process of requesting content from server and updating content object on page.
 const fetchContent = function * (action) {
   if (action.payload.query.url) {
