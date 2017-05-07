@@ -3,7 +3,11 @@ import React from 'react'
 import history from './history'
 import Notifications from './Notifications'
 
-class App extends React.Component {
+export class App extends React.Component {
+  static propTypes = {
+    main: React.PropTypes.node
+  }
+
   render () {
     return (
       <div className='app'>
@@ -19,10 +23,6 @@ class App extends React.Component {
       </div>
     )
   }
-}
-
-App.propTypes = {
-  main: React.PropTypes.node
 }
 
 export default App

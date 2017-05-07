@@ -1,8 +1,7 @@
-// import { fetchContent } from './content-actions'
+import {viewContent} from './content'
 import React from 'react'
 import {connect} from 'react-redux'
-import {push} from 'react-router-redux'
-import url from 'url'
+import {compose, bindActionCreators} from 'redux'
 
 /**
  * Clicks an anchor tags in child components/elements will be watched and content
@@ -16,27 +15,18 @@ export class LinkInterceptor extends React.Component {
     this._linkInterceptorEl = null
   }
   static propTypes = {
+    actions: React.PropTypes.object,
     children: React.PropTypes.node,
-    dispatch: React.PropTypes.func,
   }
 
   // Attach as a real DOM event to listen for clicks on `a`nchor tags.
   linkInterceptor = (ev) => {
     var t = ev.target
-    var contentUrl = this.contentUrl()
-    ev.preventDefault()
     if (t.tagName.toLowerCase() === 'a') {
-      var targetHref = t.getAttribute('href')
-      if (targetHref) {
+      var href = t.getAttribute('href')
+      if (href) {
         ev.preventDefault()
-        // Using the `url.resolve` logic should allow links to be resolved
-        // correctly against the content url, whether relative or absolute.
-        this.props.dispatch(push({
-          pathname: '/content',
-          query: {
-            url: url.resolve(contentUrl, targetHref)
-          }
-        }))
+        this.props.actions.viewContent({href})
       }
     }
   }
@@ -61,5 +51,18 @@ export class LinkInterceptor extends React.Component {
   }
 }
 
-// Does not listen to store changes but will send changes on click.
-export default connect()(LinkInterceptor)
+export const mapStateToProps = (state) => {
+  return {}
+}
+
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({
+      viewContent,
+    }, dispatch)
+  }
+}
+
+return compose(
+  connect(mapStateToProps, mapDispatchToProps)
+)(LinkInterceptor)

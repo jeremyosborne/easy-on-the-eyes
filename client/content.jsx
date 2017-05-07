@@ -8,35 +8,26 @@ import './content.css'
 
 export class Content extends React.Component {
   static propTypes = {
-    isError: React.PropTypes.bool,
-    // isFetching: React.PropTypes.bool,
-    // urlBeingFetched: React.PropTypes.string,
-    text: React.PropTypes.object,
-  }
-
-  static defaultProps = {
-    content: content.content()
+    content: React.PropTypes.object,
   }
 
   render () {
     const {
-      isError,
-      // isFetching,
-      // urlBeingFetched
+      content,
     } = this.props
     let main = null
-    if (isError) {
+    if (content.isError) {
       main = (
         <div>You has error.</div>
       )
-    // } else if (isFetching) {
-    //   main = (
-    //     <div>Retrieving content from {urlBeingFetched}.</div>
-    //   )
+    } else if (content.loading) {
+      main = (
+        <div>Retrieving content from {content.url}.</div>
+      )
     } else {
       main = (
         <LinkInterceptor>
-          <div dangerouslySetInnerHTML={this.props.text} />
+          <div dangerouslySetInnerHTML={content.text} />
         </LinkInterceptor>
       )
     }

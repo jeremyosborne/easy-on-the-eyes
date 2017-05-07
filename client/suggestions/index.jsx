@@ -11,7 +11,7 @@ import React from 'react'
 
 import './index.css'
 
-const Suggestions = function () {
+export const Suggestions = function () {
   return (
     <LinkInterceptor>
       <List className='suggestions'>

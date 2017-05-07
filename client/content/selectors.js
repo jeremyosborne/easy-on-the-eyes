@@ -11,6 +11,7 @@ export const errorMessage = createSelector(
   error,
   (isError, error) => isError ? error.message : ''
 )
+export const loading = (state) => !!state[REDUCER_KEY].loading
 export const content = (state) => state[REDUCER_KEY].content
 export const text = createSelector(
   content,
@@ -29,6 +30,8 @@ export const selector = createStructuredSelector({
   error,
   isError,
   errorMessage,
+
+  loading,
 
   content,
   text,
