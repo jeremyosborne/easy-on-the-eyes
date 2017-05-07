@@ -16,22 +16,8 @@ export class LinkInterceptor extends React.Component {
     this._linkInterceptorEl = null
   }
   static propTypes = {
+    children: React.PropTypes.node,
     dispatch: React.PropTypes.func,
-    children: React.PropTypes.node
-  }
-
-  // Easy on the eyes acts as a proxy. The page equivalent is stored in the
-  // `?url=<page>` param.
-  contentUrl () {
-    var contentUrl = url.parse(window.location.href, true).query.url || ''
-    if (contentUrl) {
-      try {
-        contentUrl = decodeURIComponent(contentUrl)
-      } catch (err) {
-        contentUrl = ''
-      }
-    }
-    return contentUrl
   }
 
   // Attach as a real DOM event to listen for clicks on `a`nchor tags.

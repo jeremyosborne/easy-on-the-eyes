@@ -1,0 +1,63 @@
+import * as api from './api'
+import {FETCHED_CONTENT, REDUCER_KEY} from './constants'
+import {content} from 'easy-on-the-eyes-content'
+import history from '../history'
+import {selector} from './selectors'
+import url from 'url'
+
+export {
+  // Content factory
+  content,
+  REDUCER_KEY,
+  selector,
+}
+
+export const reducer = (state = {}, action) => {
+  switch (action.type) {
+    case FETCHED_CONTENT:
+      return {
+        ...action.payload,
+      }
+    default:
+      return state
+  }
+}
+export default reducer
+
+// Helps with deciding if the link is a url local to our current location or
+// an external url.
+const contentUrl = () => {
+  var cUrl = url.parse(window.location.href, true).query.url || ''
+  if (cUrl) {
+    try {
+      cUrl = decodeURIComponent(contentUrl)
+    } catch (err) {
+      cUrl = ''
+    }
+  }
+  return cUrl
+}
+
+// Transition to content viewing page and request new content.
+export const viewContent = ({href}) => {
+  return (dispatch) => {
+    history.push({
+      pathname: '/content',
+      query: {
+        url: url.resolve(contentUrl(), href)
+      }
+    })
+    // Get new content based on state of url.
+    return fetchContent({href})
+  }
+}
+
+// Request content.
+export const fetchContent = ({href}) => {
+  return (dispatch) => {
+    // Get new content based on state of url.
+    return api.fetchContent(url).then((content) => {
+      dispatch({type: FETCHED_CONTENT, payload: content})
+    })
+  }
+}
