@@ -2,60 +2,83 @@
  * Input a URL and navigate to it.
  */
 
-import React from 'react'
+import {viewContent} from 'content'
 import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
-import {push} from 'react-router-redux'
-import {compose} from 'redux'
+import React from 'react'
+import {connect} from 'react-redux'
+import {compose, bindActionCreators} from 'redux'
 import {
-  // Field,
+  Field,
   reduxForm,
 } from 'redux-form'
-// import {connect} from 'react-redux'
+import {TextField} from 'redux-form-fields'
+import validate from 'validate.js'
 
 import './index.css'
 
 export class ContentLoadForm extends React.Component {
   static propTypes = {
-    dispatch: React.PropTypes.func
+    actions: React.PropTypes.object,
+    reduxForm: React.PropTypes.object,
   }
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      fields: {},
+  submit = (values) => {
+    if (values) {
+      this.props.actions.viewContent({
+        href: values.url,
+      })
     }
   }
 
-  handleChange = (e) => {
-    var fields = this.state.fields
-    fields[e.target.name] = e.target.value
-    this.setState({'fields': fields})
-  }
-
-  submit = (e) => {
-    e.preventDefault()
-    this.props.dispatch(push({
-      pathname: '/content',
-      query: {
-        url: this.state.fields.url,
-      },
-    }))
-  }
-
   render () {
+    const {
+      reduxForm,
+    } = this.props
     return (
-      <form onSubmit={this.submit} onChange={this.handleChange} className='nav-form'>
-        <TextField floatingLabelText='What do you want to read today?' type='url' name='url' id='url' />
-        <FlatButton label='read it' type='submit' />
+      <form onSubmit={reduxForm.handleSubmit(this.submit)} className='nav-form'>
+        <Field
+          component={TextField}
+          label='What do you want to read today?'
+          name='url'
+        />
+        <FlatButton disabled={reduxForm.pristine} label='read it' type='submit' />
       </form>
     )
   }
 }
 
+export const validateRules = {
+  url: {
+    presence: true,
+    url: {message: 'please make it look like a URL'},
+  }
+}
+
+export const validator = (values) => {
+  return validate(values, validateRules, {fullMessages: false})
+}
+
+export const mapStateToProps = (state) => {
+  return {}
+}
+
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({
+      viewContent,
+    }, dispatch)
+  }
+}
+
 // see: https://github.com/redfin/react-server/issues/917
 // for why we have to export in this really dumb way.
-export default {rf: compose(
-  reduxForm({form: 'navForm'}),
-)(ContentLoadForm)}
+export default {
+  rf: compose(
+    reduxForm({
+      form: 'navForm',
+      propNamespace: 'reduxForm',
+      validate: validator,
+    }),
+    connect(mapStateToProps, mapDispatchToProps),
+  )(ContentLoadForm)
+}

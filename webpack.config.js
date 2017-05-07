@@ -88,7 +88,7 @@ module.exports = function (env) {
   }
 
   return {
-    devtool: IS_PRODUCTION ? 'source-map' : 'eval',
+    devtool: IS_PRODUCTION ? 'source-map' : 'cheap-module-source-map',
     entry: entry,
     output: {
       crossOriginLoading: 'anonymous',

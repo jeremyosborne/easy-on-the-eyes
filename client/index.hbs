@@ -10,6 +10,14 @@
   </head>
   <body>
     <div id='root' />
+    <script>
+    // see: https://github.com/facebook/react/issues/3877
+    // I use the devtools extension, and the log statement just irked me to no end.
+    // This apparently has to appear before react even loads... ugh.
+    window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+      inject: () => {}
+    }
+    </script>
     {{!-- Scripts injected by webpack. --}}
     {{!-- <script dangerouslySetInnerHTML={dataScriptBootstrap} /> --}}
     {{!-- <script src='/vendor.bundle.js' /> --}}

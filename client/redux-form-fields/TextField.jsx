@@ -1,19 +1,33 @@
-import muiTextField from 'material-ui/TextField'
+import TextField from 'material-ui/TextField'
 import React from 'react'
 
-export const TextField = ({input, label, meta: {touched, error}, ...custom}) => (
-  <muiTextField hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-)
+// Errors coming in from validate.js might be arrays of strings.
+const errorConcat = (error) => {
+  if (Array.isArray(error)) {
+    return error.join(' ')
+  } else {
+    return error
+  }
+}
 
-TextField.propTypes = {
-  input: React.PropTypes.node,
+export const ReduxFormTextField = ({input, label, meta: {touched, error}, ...custom}) => {
+  if (touched && error) {
+    error = errorConcat(error)
+  }
+  return (
+    <TextField
+      floatingLabelText={label}
+      errorText={touched && error}
+      {...input}
+      {...custom}
+    />
+  )
+}
+
+ReduxFormTextField.propTypes = {
+  input: React.PropTypes.object,
   label: React.PropTypes.string,
   meta: React.PropTypes.object,
 }
 
-export default TextField
+export default ReduxFormTextField

@@ -9,6 +9,7 @@ injectTapEventPlugin()
 import 'babel-polyfill'
 
 import App from 'App'
+import {fetchContent} from 'content'
 import ContentReader from 'ContentReader'
 import HomePage from 'HomePage'
 import history from './history'
@@ -19,6 +20,7 @@ import {Provider} from 'react-redux'
 import {IndexRoute, Route, Router} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 import store from './store'
+import url from 'url'
 
 // int main(void)
 Promise.resolve().then(() => {
@@ -34,4 +36,10 @@ Promise.resolve().then(() => {
       </Provider>
     </MuiThemeProvider>
   ), document.getElementById('root'))
+}).then(() => {
+  // If on load we have content designated as part of our url state, load it.
+  const href = url.parse(window.location.href, true).query.url
+  if (href) {
+    store.dispatch(fetchContent({href}))
+  }
 })

@@ -2,8 +2,11 @@
  * redux-form wrapped material-ui form fields.
  */
 
-import TextField from './TextField'
+import ReduxFormTextField from './TextField'
 
-export default {
+// Remap names for external use
+const TextField = ReduxFormTextField
+
+export {
   TextField,
 }

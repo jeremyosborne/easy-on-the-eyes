@@ -1,6 +1,9 @@
 {
   "extends": ["standard", "standard-react"],
   "parser": "babel-eslint",
+  "plugins": [
+     "import",
+  ],
   "settings": {
     "import/resolver": "webpack",
   },

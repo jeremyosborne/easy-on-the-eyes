@@ -1,15 +1,12 @@
-import {genContent} from 'easy-on-the-eyes-content'
 import history from './history'
 import {routerMiddleware} from 'react-router-redux'
 import {applyMiddleware, createStore} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
-import {thunkMiddleware} from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk'
 import reducer from './store-reducers'
 
 // Assumption this code runs in the browser.
-const initialState = (typeof window !== 'undefined' && window.initialState) || {
-  content: genContent()
-}
+const initialState = (typeof window !== 'undefined' && window.initialState) || {}
 
 const middleware = [
   thunkMiddleware,

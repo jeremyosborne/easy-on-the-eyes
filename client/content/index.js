@@ -1,5 +1,9 @@
 import * as api from './api'
-import {FETCH_CONTENT, REDUCER_KEY} from './constants'
+import {
+  DEFAULT_STATE,
+  FETCH_CONTENT,
+  REDUCER_KEY,
+} from './constants'
 import {content} from 'easy-on-the-eyes-content'
 import history from 'history'
 import {selector} from './selectors'
@@ -12,7 +16,7 @@ export {
   selector,
 }
 
-export const reducer = (state = {}, action) => {
+export const reducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case FETCH_CONTENT:
       return {
@@ -48,7 +52,7 @@ export const viewContent = ({href}) => {
       }
     })
     // Get new content based on state of url.
-    return fetchContent({href})
+    return dispatch(fetchContent({href}))
   }
 }
 
@@ -58,7 +62,7 @@ export const fetchContent = ({href}) => {
     // Get new content based on state of url.
     dispatch({
       type: FETCH_CONTENT,
-      payload: content.content({
+      payload: content({
         // This is augmented for use in the client.
         loading: true,
         content: {
@@ -66,7 +70,7 @@ export const fetchContent = ({href}) => {
         }
       })
     })
-    return api.fetchContent(url).then((content) => {
+    return api.fetchContent({url: href}).then((content) => {
       dispatch({
         type: FETCH_CONTENT,
         payload: content

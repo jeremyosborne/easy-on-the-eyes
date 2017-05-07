@@ -27,7 +27,7 @@ export class ContentReader extends React.Component {
     } else {
       main = (
         <LinkInterceptor>
-          <div dangerouslySetInnerHTML={content.text} />
+          <div dangerouslySetInnerHTML={{__html: content.text}} />
         </LinkInterceptor>
       )
     }
