@@ -1,7 +1,7 @@
 import AppBar from 'material-ui/AppBar'
 import React from 'react'
-import history from './history'
-import Notifications from './Notifications'
+import history from 'history'
+import Notifications from 'Notifications'
 
 export class App extends React.Component {
   static propTypes = {

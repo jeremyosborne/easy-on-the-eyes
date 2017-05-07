@@ -6,12 +6,12 @@ import {List, ListItem} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
 import Divider from 'material-ui/Divider'
 
-import LinkInterceptor from '../linkinterceptor'
+import LinkInterceptor from 'LinkInterceptor'
 import React from 'react'
 
 import './index.css'
 
-export const Suggestions = function () {
+export const SuggestionsList = function () {
   return (
     <LinkInterceptor>
       <List className='suggestions'>
@@ -36,4 +36,4 @@ export const Suggestions = function () {
   )
 }
 
-export default Suggestions
+export default SuggestionsList

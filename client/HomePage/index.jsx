@@ -4,20 +4,20 @@
 
 import './index.css'
 
-import NavForm from '../navform'
+import NavForm from 'ContentLoadForm'
 import React from 'react'
-import Suggestions from '../suggestions'
+import SuggestionsList from 'SuggestionsList'
 
-export class Home extends React.Component {
+export class HomePage extends React.Component {
   render () {
     return (
       <div className='home'>
         <NavForm.rf />
         <br />
-        <Suggestions />
+        <SuggestionsList />
       </div>
     )
   }
 }
 
-export default Home
+export default HomePage

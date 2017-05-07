@@ -8,9 +8,9 @@ injectTapEventPlugin()
 // ES2015 support. Someday in a not distant future we can get rid of this.... yeah right.
 import 'babel-polyfill'
 
-import App from './app'
-import Content from './content'
-import Home from './home'
+import App from 'App'
+import ContentReader from 'ContentReader'
+import HomePage from 'HomePage'
 import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import React from 'react'
@@ -20,15 +20,18 @@ import {IndexRoute, Route, Router} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 import store from './store'
 
-ReactDOM.render((
-  <MuiThemeProvider>
-    <Provider store={store}>
-      <Router history={syncHistoryWithStore(history, store)}>
-        <Route path='/' component={App}>
-          <IndexRoute components={{main: Home}} />
-          <Route path='content' components={{main: Content}} />
-        </Route>
-      </Router>
-    </Provider>
-  </MuiThemeProvider>
-), document.getElementById('root'))
+// int main(void)
+Promise.resolve().then(() => {
+  ReactDOM.render((
+    <MuiThemeProvider>
+      <Provider store={store}>
+        <Router history={syncHistoryWithStore(history, store)}>
+          <Route path='/' component={App}>
+            <IndexRoute components={{main: HomePage}} />
+            <Route path='content' components={{main: ContentReader}} />
+          </Route>
+        </Router>
+      </Provider>
+    </MuiThemeProvider>
+  ), document.getElementById('root'))
+})

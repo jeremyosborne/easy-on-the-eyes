@@ -19,7 +19,7 @@ module.exports = function (env) {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(ENV)
+        NODE_ENV: JSON.stringify(ENV),
       }
     }),
     new ExtractTextPlugin({
@@ -98,6 +98,10 @@ module.exports = function (env) {
     },
     plugins: plugins,
     resolve: {
+      modules: [
+        path.resolve(__dirname, 'client'),
+        'node_modules'
+      ],
       // NOTE: Webpack 2 still in beta, the usual ['', '.js', '.jsx'] throws a validation error.
       extensions: ['.js', '.jsx']
     },

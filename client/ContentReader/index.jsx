@@ -1,12 +1,12 @@
-import * as content from './content'
-import LinkInterceptor from './linkinterceptor'
+import * as content from 'content'
+import LinkInterceptor from 'LinkInterceptor'
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 
-import './content.css'
+import './index.css'
 
-export class Content extends React.Component {
+export class ContentReader extends React.Component {
   static propTypes = {
     content: React.PropTypes.object,
   }
@@ -47,4 +47,4 @@ export const mapStateToProps = function (state) {
 
 export default compose(
   connect(mapStateToProps)
-)(Content)
+)(ContentReader)

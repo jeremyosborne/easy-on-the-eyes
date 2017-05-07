@@ -1,4 +1,4 @@
-import {viewContent} from './content'
+import {viewContent} from 'content'
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose, bindActionCreators} from 'redux'
@@ -63,6 +63,6 @@ export const mapDispatchToProps = (dispatch) => {
   }
 }
 
-return compose(
+export default compose(
   connect(mapStateToProps, mapDispatchToProps)
 )(LinkInterceptor)

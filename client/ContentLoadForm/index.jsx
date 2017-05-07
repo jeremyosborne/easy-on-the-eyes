@@ -15,7 +15,7 @@ import {
 
 import './index.css'
 
-export class NavForm extends React.Component {
+export class ContentLoadForm extends React.Component {
   static propTypes = {
     dispatch: React.PropTypes.func
   }
@@ -58,4 +58,4 @@ export class NavForm extends React.Component {
 // for why we have to export in this really dumb way.
 export default {rf: compose(
   reduxForm({form: 'navForm'}),
-)(NavForm)}
+)(ContentLoadForm)}

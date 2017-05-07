@@ -1,7 +1,7 @@
 import * as api from './api'
 import {FETCH_CONTENT, REDUCER_KEY} from './constants'
 import {content} from 'easy-on-the-eyes-content'
-import history from '../history'
+import history from 'history'
 import {selector} from './selectors'
 import url from 'url'
 
