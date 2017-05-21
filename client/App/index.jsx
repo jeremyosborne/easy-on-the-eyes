@@ -3,22 +3,24 @@ import React from 'react'
 import history from 'history'
 import Notifications from 'Notifications'
 
+import './index.css'
+
 export class App extends React.Component {
   static propTypes = {
-    main: React.PropTypes.node
+    children: React.PropTypes.node
   }
 
   render () {
     return (
       <div className='app'>
         <AppBar
-          title='Easy on the eyes'
+          title={<span className='app-title'>Easy on the eyes</span>}
           onTitleTouchTap={() => history.push('/')}
           iconClassNameLeft=''
           iconClassNameRight=''
           showMenuIconButton={false}
         />
-        {this.props.main}
+        {this.props.children}
         <Notifications />
       </div>
     )

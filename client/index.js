@@ -29,8 +29,8 @@ Promise.resolve().then(() => {
       <Provider store={store}>
         <Router history={syncHistoryWithStore(history, store)}>
           <Route path='/' component={App}>
-            <IndexRoute components={{main: HomePage}} />
-            <Route path='content' components={{main: ContentPage}} />
+            <IndexRoute component={HomePage} />
+            <Route path='content' component={ContentPage} />
           </Route>
         </Router>
       </Provider>
