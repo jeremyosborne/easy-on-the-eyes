@@ -4,8 +4,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 
-import './index.css'
-
 export class ContentReader extends React.Component {
   static propTypes = {
     content: React.PropTypes.object,
@@ -32,17 +30,21 @@ export class ContentReader extends React.Component {
       )
     }
     return (
-      <div className='content'>
+      <div>
         {main}
       </div>
     )
   }
 }
 
-export const mapStateToProps = function (state) {
+export const mapStateToProps = (state) => {
   return {
     content: content.selector(state)
   }
+}
+
+export const mapDispatchToProps = (dispatch) => {
+  return {}
 }
 
 export default compose(

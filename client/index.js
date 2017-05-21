@@ -10,7 +10,7 @@ import 'babel-polyfill'
 
 import App from 'App'
 import {fetchContent} from 'content'
-import ContentReader from 'ContentReader'
+import ContentPage from 'ContentPage'
 import HomePage from 'HomePage'
 import history from './history'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -30,7 +30,7 @@ Promise.resolve().then(() => {
         <Router history={syncHistoryWithStore(history, store)}>
           <Route path='/' component={App}>
             <IndexRoute components={{main: HomePage}} />
-            <Route path='content' components={{main: ContentReader}} />
+            <Route path='content' components={{main: ContentPage}} />
           </Route>
         </Router>
       </Provider>

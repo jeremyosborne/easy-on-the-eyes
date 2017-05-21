@@ -41,7 +41,7 @@ export class ContentLoadForm extends React.Component {
           label='What do you want to read today?'
           name='url'
         />
-        <FlatButton disabled={reduxForm.pristine} label='read it' type='submit' />
+        <FlatButton disabled={reduxForm.pristine || !reduxForm.isValid} label='read it' type='submit' />
       </form>
     )
   }
