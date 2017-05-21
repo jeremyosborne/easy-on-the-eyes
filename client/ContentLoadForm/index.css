@@ -1,9 +1,9 @@
 .nav-form {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     max-width: 40em;
-}
-.nav-form input {
-    vertical-align: middle;
 }
 .nav-form input[type="url"] {
     font-size: 0.8em;
