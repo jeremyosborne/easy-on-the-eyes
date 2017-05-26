@@ -4,7 +4,7 @@ import React from 'react'
 import history from 'history'
 import Notifications from 'Notifications'
 
-import styles from './index.css'  // eslint-disable-line no-unused-vars
+import styles from './index.scss'  // eslint-disable-line no-unused-vars
 
 export class App extends React.Component {
   static propTypes = {

@@ -14,7 +14,7 @@ import styles from './index.css'  // eslint-disable-line no-unused-vars
 export const SuggestionsList = function () {
   return (
     <LinkInterceptor>
-      <List styleName='suggestions'>
+      <List styleName='styles.suggestions'>
         <Subheader>
           Some starting points:
         </Subheader>

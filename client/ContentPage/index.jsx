@@ -8,7 +8,7 @@ import styles from './index.css'  // eslint-disable-line no-unused-vars
 export class ContentPage extends React.Component {
   render () {
     return (
-      <div styleName='content-page'>
+      <div styleName='styles.content-page'>
         <ContentReader />
       </div>
     )

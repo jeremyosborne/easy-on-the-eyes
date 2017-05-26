@@ -103,7 +103,7 @@ module.exports = function (env) {
         'node_modules'
       ],
       // NOTE: Webpack 2 still in beta, the usual ['', '.js', '.jsx'] throws a validation error.
-      extensions: ['.js', '.jsx']
+      extensions: ['.js', '.jsx', '.scss', '.css']
     },
     module: {
       // webpack 2: loaders becomes rules
@@ -126,7 +126,7 @@ module.exports = function (env) {
           ]
         },
         {
-          test: /\.css$/,
+          test: /\.s?css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
@@ -137,6 +137,9 @@ module.exports = function (env) {
                   modules: true,
                   localIdentName: '[name]__[local]___[hash:base64:5]',
                 },
+              },
+              {
+                loader: 'sass-loader',
               },
               'postcss-loader',
             ]

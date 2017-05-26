@@ -11,7 +11,7 @@ import styles from './index.css'  // eslint-disable-line no-unused-vars
 export class HomePage extends React.Component {
   render () {
     return (
-      <div styleName='home'>
+      <div styleName='styles.home'>
         <NavForm.rf />
         <br />
         <SuggestionsList />

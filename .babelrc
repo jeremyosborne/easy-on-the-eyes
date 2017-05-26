@@ -2,7 +2,10 @@
   "presets": ["react", "es2015", "stage-0"],
   "plugins": [
     ["react-css-modules", {
-      "generateScopedName": "[name]__[local]___[hash:base64:5]"
+      "generateScopedName": "[name]__[local]___[hash:base64:5]",
+      "filetypes": {
+        ".scss": "postcss-scss"
+      }
     }],
   ],
   "env": {

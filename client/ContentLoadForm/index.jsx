@@ -36,7 +36,7 @@ export class ContentLoadForm extends React.Component {
       reduxForm,
     } = this.props
     return (
-      <form onSubmit={reduxForm.handleSubmit(this.submit)} styleName='nav-form'>
+      <form onSubmit={reduxForm.handleSubmit(this.submit)} styleName='styles.nav-form'>
         <Field
           component={TextField}
           label='What do you want to read today?'
