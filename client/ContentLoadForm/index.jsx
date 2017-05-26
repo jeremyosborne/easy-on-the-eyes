@@ -4,6 +4,7 @@
 
 import {viewContent} from 'content'
 import FlatButton from 'material-ui/FlatButton'
+import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose, bindActionCreators} from 'redux'
@@ -18,8 +19,8 @@ import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export class ContentLoadForm extends React.Component {
   static propTypes = {
-    actions: React.PropTypes.object,
-    reduxForm: React.PropTypes.object,
+    actions: PropTypes.object,
+    reduxForm: PropTypes.object,
   }
 
   submit = (values) => {

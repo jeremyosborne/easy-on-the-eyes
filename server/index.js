@@ -17,15 +17,14 @@ server.on('error', function (error) {
   switch (error.code) {
     case 'EACCES': {
       logger.error(bind + ' requires elevated privileges.')
-      process.exit(1)
-      break
+      throw error
     }
     case 'EADDRINUSE': {
       logger.error(bind + ' is already in use.')
-      process.exit(1)
-      break
+      throw error
     }
     default: {
+      logger.error(error)
       throw error
     }
   }

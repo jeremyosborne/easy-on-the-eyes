@@ -1,4 +1,5 @@
 import TextField from 'material-ui/TextField'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 // Errors coming in from validate.js might be arrays of strings.
@@ -25,9 +26,9 @@ export const ReduxFormTextField = ({input, label, meta: {touched, error}, ...cus
 }
 
 ReduxFormTextField.propTypes = {
-  input: React.PropTypes.object,
-  label: React.PropTypes.string,
-  meta: React.PropTypes.object,
+  input: PropTypes.object,
+  label: PropTypes.string,
+  meta: PropTypes.object,
 }
 
 export default ReduxFormTextField

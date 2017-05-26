@@ -1,12 +1,13 @@
 import * as content from 'content'
 import LinkInterceptor from 'LinkInterceptor'
+import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 
 export class ContentReader extends React.Component {
   static propTypes = {
-    content: React.PropTypes.object,
+    content: PropTypes.object,
   }
 
   render () {

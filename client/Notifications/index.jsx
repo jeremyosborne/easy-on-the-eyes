@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Snackbar from 'material-ui/Snackbar'
 import {connect} from 'react-redux'
@@ -5,8 +6,8 @@ import {bindActionCreators} from 'redux'
 
 export class Notifications extends React.Component {
   static propTypes = {
-    open: React.PropTypes.bool,
-    actions: React.PropTypes.object,
+    open: PropTypes.bool,
+    actions: PropTypes.object,
   }
 
   static defaultProps = {

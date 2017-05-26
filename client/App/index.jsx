@@ -1,4 +1,5 @@
 import AppBar from 'material-ui/AppBar'
+import PropTypes from 'prop-types'
 import React from 'react'
 import history from 'history'
 import Notifications from 'Notifications'
@@ -7,7 +8,7 @@ import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export class App extends React.Component {
   static propTypes = {
-    children: React.PropTypes.node
+    children: PropTypes.node
   }
 
   render () {

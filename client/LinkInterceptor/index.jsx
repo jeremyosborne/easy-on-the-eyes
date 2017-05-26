@@ -1,4 +1,5 @@
 import {viewContent} from 'content'
+import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
 import {compose, bindActionCreators} from 'redux'
@@ -15,8 +16,8 @@ export class LinkInterceptor extends React.Component {
     this._linkInterceptorEl = null
   }
   static propTypes = {
-    actions: React.PropTypes.object,
-    children: React.PropTypes.node,
+    actions: PropTypes.object,
+    children: PropTypes.node,
   }
 
   // Attach as a real DOM event to listen for clicks on `a`nchor tags.
