@@ -2,16 +2,16 @@
  * Input a URL and navigate to it.
  */
 
-import './index.css'
-
 import NavForm from 'ContentLoadForm'
 import React from 'react'
 import SuggestionsList from 'SuggestionsList'
 
+import styles from './index.css'  // eslint-disable-line no-unused-vars
+
 export class HomePage extends React.Component {
   render () {
     return (
-      <div className='home'>
+      <div styleName='home'>
         <NavForm.rf />
         <br />
         <SuggestionsList />

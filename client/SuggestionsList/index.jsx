@@ -9,12 +9,12 @@ import Divider from 'material-ui/Divider'
 import LinkInterceptor from 'LinkInterceptor'
 import React from 'react'
 
-import './index.css'
+import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export const SuggestionsList = function () {
   return (
     <LinkInterceptor>
-      <List className='suggestions'>
+      <List styleName='suggestions'>
         <Subheader>
           Some starting points:
         </Subheader>

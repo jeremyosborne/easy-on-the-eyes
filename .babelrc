@@ -1,3 +1,20 @@
 {
-  "presets": ["react", "es2015", "stage-0"]
+  "presets": ["react", "es2015", "stage-0"],
+  "plugins": [
+    ["react-css-modules", {
+      "generateScopedName": "[name]__[local]___[hash:base64:5]"
+    }],
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        ["react-css-modules", {
+          "webpackHotModuleReloading": true,
+        }],
+      ],
+    },
+    "production": {
+      "plugins": ["react-remove-prop-types"]
+    }
+  }
 }

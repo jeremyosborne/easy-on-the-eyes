@@ -14,7 +14,7 @@ import {
 import {TextField} from 'redux-form-fields'
 import validate from 'validate.js'
 
-import './index.css'
+import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export class ContentLoadForm extends React.Component {
   static propTypes = {
@@ -35,7 +35,7 @@ export class ContentLoadForm extends React.Component {
       reduxForm,
     } = this.props
     return (
-      <form onSubmit={reduxForm.handleSubmit(this.submit)} className='nav-form'>
+      <form onSubmit={reduxForm.handleSubmit(this.submit)} styleName='nav-form'>
         <Field
           component={TextField}
           label='What do you want to read today?'

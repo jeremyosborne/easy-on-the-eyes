@@ -3,12 +3,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
 
-import './index.css'
+import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export class ContentPage extends React.Component {
   render () {
     return (
-      <div className='content-page'>
+      <div styleName='content-page'>
         <ContentReader />
       </div>
     )

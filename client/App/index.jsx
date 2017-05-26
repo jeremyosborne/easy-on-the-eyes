@@ -3,7 +3,7 @@ import React from 'react'
 import history from 'history'
 import Notifications from 'Notifications'
 
-import './index.css'
+import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export class App extends React.Component {
   static propTypes = {
@@ -12,9 +12,9 @@ export class App extends React.Component {
 
   render () {
     return (
-      <div className='app'>
+      <div>
         <AppBar
-          title={<span className='app-title'>Easy on the eyes</span>}
+          title={<span styleName='styles.app-title'>Easy on the eyes</span>}
           onTitleTouchTap={() => history.push('/')}
           iconClassNameLeft=''
           iconClassNameRight=''

@@ -127,15 +127,19 @@ module.exports = function (env) {
         },
         {
           test: /\.css$/,
-          // rc3 extract text plugin now in line with other webpack 2 plugins
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: [{
-              loader: 'css-loader',
-              query: {
-                minimize: false
-              }
-            }]
+            use: [
+              {
+                loader: 'css-loader',
+                query: {
+                  minimize: false,
+                  modules: true,
+                  localIdentName: '[name]__[local]___[hash:base64:5]',
+                },
+              },
+              'postcss-loader',
+            ]
           })
         },
         {
