@@ -2,31 +2,33 @@
  * Generic CSS for the reader.
  */
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+:global {
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-body {
-    font: 1.2em/1.8em Garamond, Georgia, serif;
-}
+    body {
+        font: 1.2em/1.8em Garamond, Georgia, serif;
+    }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    font-weight: 300;
-}
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+    }
 
-a, a:visited, a:hover, a:link, a:active {
-    text-decoration: none;
-    color: #107896;
-}
+    a, a:visited, a:hover, a:link, a:active {
+        text-decoration: none;
+        color: #107896;
+    }
 
-img {
-    max-width: 100%;
-    max-height: 100%;
-}
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 
-.hide {
-    display: none !important;
+    .hide {
+        display: none !important;
+    }
 }

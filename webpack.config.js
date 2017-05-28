@@ -1,6 +1,7 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var noopPlugin = require('noop-webpack-plugin')
 var path = require('path')
 var SriPlugin = require('webpack-subresource-integrity')
 var webpack = require('webpack')
@@ -12,18 +13,24 @@ module.exports = function (env) {
   const IS_PRODUCTION = ENV === 'production'
 
   var plugins = [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-      filename: 'vendor.bundle.js'
+    new webpack.LoaderOptionsPlugin({
+      minimize: IS_PRODUCTION,
+      debug: !IS_PRODUCTION
     }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(ENV),
       }
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+      filename: 'vendor.[hash].js'
+    }),
     new ExtractTextPlugin({
-      filename: 'app.css'
+      allChunks: true,
+      disable: process.env.NODE_ENV === 'development',
+      filename: 'app.[hash].css',
     }),
     // see: https://github.com/jantimon/favicons-webpack-plugin#advanced-usage
     // Needs a .png file.
@@ -38,41 +45,27 @@ module.exports = function (env) {
       // minify: IS_PRODUCTION,
       template: 'client/index.hbs',
       filename: './index.html'
-    })
+    }),
+    IS_PRODUCTION ? noopPlugin : new webpack.HotModuleReplacementPlugin(),
+    IS_PRODUCTION ? noopPlugin : new webpack.NoEmitOnErrorsPlugin(),
+    IS_PRODUCTION ? new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true
+      },
+      output: {
+        comments: false
+      }
+    }) : noopPlugin,
   ]
-
-  if (IS_PRODUCTION) {
-    // Production only settings.
-    plugins = [
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          screw_ie8: true,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true
-        },
-        output: {
-          comments: false
-        }
-      })
-    ].concat(plugins)
-  } else {
-    // Dev only settings.
-    plugins = plugins.concat([
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
-    ])
-  }
 
   var entry = IS_PRODUCTION ? {
     // Production
@@ -88,13 +81,13 @@ module.exports = function (env) {
   }
 
   return {
-    devtool: IS_PRODUCTION ? 'source-map' : 'cheap-module-source-map',
+    devtool: IS_PRODUCTION ? 'nosources-source-map' : 'cheap-module-source-map',
     entry: entry,
     output: {
       crossOriginLoading: 'anonymous',
       path: path.resolve(path.join(__dirname, 'public')),
       publicPath: '/',
-      filename: '[name].bundle.js'
+      filename: '[name].bundle.[hash].js'
     },
     plugins: plugins,
     resolve: {
@@ -115,8 +108,8 @@ module.exports = function (env) {
           exclude: /node_modules\/(?!(easy-on-the-eyes-content)\/).*/,
           // Use babelrc for general configuration, webpack specific config in webpack.
           use: [
-            'react-hot-loader',
-            'babel-loader'
+            IS_PRODUCTION ? 'noop-loader' : 'react-hot-loader',
+            'babel-loader',
           ]
         },
         {
@@ -133,7 +126,7 @@ module.exports = function (env) {
               {
                 loader: 'css-loader',
                 query: {
-                  minimize: false,
+                  minimize: IS_PRODUCTION,
                   modules: true,
                   localIdentName: '[name]__[local]___[hash:base64:5]',
                 },
