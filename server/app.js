@@ -82,16 +82,11 @@ if (process.env.NODE_ENV !== 'production') {
   }))
 }
 
-// Intended to service routes intended to display content and not the index.
-app.get('/content', function (req, res) {
-  res.sendFile(path.join(ROOT_PATH, 'public/index.html'))
-})
-
-// Intended to service index specific route.
-app.get('/', function (req, res) {
-  res.sendFile(path.join(ROOT_PATH, 'public/index.html'))
-})
-
 app.use(express.static(path.join(ROOT_PATH, 'public')))
+
+// If we end up here, let the client deal with things.
+app.get(/^\/.*/, function (req, res) {
+  res.sendFile(path.join(ROOT_PATH, 'public/index.html'))
+})
 
 module.exports = app

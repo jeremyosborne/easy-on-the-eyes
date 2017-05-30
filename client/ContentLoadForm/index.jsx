@@ -2,32 +2,34 @@
  * Input a URL and navigate to it.
  */
 
-import {viewContent} from 'content'
 import FlatButton from 'material-ui/FlatButton'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
-import {compose, bindActionCreators} from 'redux'
+import {withRouter} from 'react-router'
+import {
+  // bindActionCreators,
+  compose,
+} from 'redux'
 import {
   Field,
   reduxForm,
 } from 'redux-form'
 import {TextField} from 'redux-form-fields'
+import urlJoin from 'url-join'
 import validate from 'validate.js'
 
 import styles from './index.css'  // eslint-disable-line no-unused-vars
 
 export class ContentLoadForm extends React.Component {
   static propTypes = {
-    actions: PropTypes.object,
+    router: PropTypes.object,
     reduxForm: PropTypes.object,
   }
 
   submit = (values) => {
     if (values) {
-      this.props.actions.viewContent({
-        href: values.url,
-      })
+      this.props.router.push(urlJoin('/content', encodeURIComponent(values.url)))
     }
   }
 
@@ -64,11 +66,7 @@ export const mapStateToProps = (state) => {
 }
 
 export const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators({
-      viewContent,
-    }, dispatch)
-  }
+  return {}
 }
 
 // see: https://github.com/redfin/react-server/issues/917
@@ -81,5 +79,6 @@ export default {
       validate: validator,
     }),
     connect(mapStateToProps, mapDispatchToProps),
+    withRouter
   )(ContentLoadForm)
 }
