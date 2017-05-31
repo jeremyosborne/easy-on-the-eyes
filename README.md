@@ -11,10 +11,10 @@ The stripped down web.
 npm install
 
 # Dev friendly server that will autorestart and autorebuild on change.
-npm run start:dev
+npm run start
 
 # Production friendly server start.
-npm start
+npm run start:production
 ```
 
 ## Developer Notes
