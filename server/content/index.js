@@ -9,7 +9,7 @@ const xforms = require('easy-on-the-eyes-xforms')
  *
  * Promise api rejecting with error or resolving with a content object.
  */
-module.exports.fetchContent = (url) => {
+module.exports.fetch = (url) => {
   var transformer = xforms.bestGuess(url)
   return axios.get(url)
     .then(function (response) {

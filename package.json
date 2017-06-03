@@ -30,10 +30,12 @@
   "homepage": "https://github.com/jeremyosborne/easy-on-the-eyes#readme",
   "dependencies": {
     "axios": "^0.16.1",
+    "cheerio": "^1.0.0-rc.1",
     "classnames": "2.2.5",
     "easy-on-the-eyes-content": "github:jeremyosborne/easy-on-the-eyes-content",
     "easy-on-the-eyes-xforms": "github:jeremyosborne/easy-on-the-eyes-xforms",
     "express": "^4.15.3",
+    "lodash": "^4.17.4",
     "material-ui": "^0.18.1",
     "minimist": "1.2.0",
     "morgan": "^1.8.2",

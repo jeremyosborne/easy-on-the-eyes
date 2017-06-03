@@ -1,7 +1,8 @@
 const devWebpackMiddleware = require('./dev-webpack-middleware')
 const express = require('express')
 const content = require('easy-on-the-eyes-content').content
-const fetchContent = require('./fetch-content').fetchContent
+const fetchContent = require('./content').fetch
+const fetchSuggestions = require('./suggestions').fetch
 const logger = require('./logger')
 const morgan = require('morgan')
 const path = require('path')
@@ -33,13 +34,13 @@ if (process.env.NODE_ENV !== 'production') {
 // Assumed that if this is being called, we want content or we want to
 // deliver a sane object that describes why we can't get the error.
 app.get('/api/content', function (req, res) {
-  // If we are here, we better have content on res.locals.content.
   var url = req.query.url
   if (url) {
     fetchContent(url).then((content) => {
       res.send(content)
     }).catch((errorContent) => {
-      res.status(errorContent.error.code || 500).send(content)
+      console.error(errorContent)
+      res.status((errorContent.error && errorContent.error.code) || 500).send(errorContent)
     })
   } else {
     res.status(400).send(content({
@@ -49,6 +50,15 @@ app.get('/api/content', function (req, res) {
       }
     }))
   }
+})
+
+app.get('/api/suggestions', function (req, res) {
+  fetchSuggestions().then((suggestions) => {
+    res.send(suggestions)
+  }).catch((errorContent) => {
+    console.error(errorContent)
+    res.status((errorContent.error && errorContent.error.code) || 500).send(errorContent)
+  })
 })
 
 // If something slips through still return JSON
