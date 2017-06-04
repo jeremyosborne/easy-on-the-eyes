@@ -1,5 +1,7 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
+const moment = require('moment')
+// const _ = require('lodash')
 
 /**
  * Retrieve and transform web content.
@@ -12,37 +14,62 @@ module.exports.fetch = (url) => {
   return axios.get('https://en.wikipedia.org/wiki/Portal:Current_events')
     .then(function (response) {
       const $ = cheerio.load(response.data)
-      // TODO: process the links in the suggestions and return them.
-      // TODO: Tag them in some way?
-      // TODO: make use of lodash to zip them
+
+      // TODO: process the links in the suggestions and return them (use url.resolve relative to wikipedia)
+      // TODO: add sentiment by pre-reading the links
       return {
+        // NOTE: using normal ES .map this would end up being an array of arrays,
+        // but it seems that cheerio, should it contain an array of arrays, will flatten
+        // the arrays on a call to get, returning one single array of all objects within.
+        // Basically the below code works due to this quirk in cheerio.get and we don't end up
+        // with a bunch of nested arrays.
         suggestions: $('.vevent').map(function () {
-          // within each .vevent, the first tr contains the date subject.
-          // TODO: Make use of moment.
-          const date = $(this).find('tr:nth-child(1) tbody td:nth-child(1)').text()
+          // within each .vevent, the first tr contains the date subject, which applies
+          // to all items.
+          let date = $(this).find('tr:nth-child(1) tbody td:nth-child(1) .published').text()
+          date = moment.utc(date).format('YYYY-MM-DD')
+
           // within each .vevent, the second tr contains categories, headlines, and articles.
           // categories are in the definition list...
-          const categories = $(this).find('tr:nth-child(2) dl').map(function () {
+          const categories = $(this).find('tr:nth-child(2) > td > dl').map(function () {
             return {
               title: $(this).text().trim(),
               href: null,
             }
           }).get()
-          // ...unordered list siblings of categories are the articles associated
-          // with that category.
-          const subCategories = $(this).find('tr:nth-child(2) > td > ul > li > a').map(function () {
-            return {
-              title: $(this).text().trim(),
-              // Resolve links to wikipedia
-              href: $(this).attr('href').trim(),
-            }
+
+          // ...unordered list siblings of categories are the associated articles
+          return $(this).find('tr:nth-child(2) > td > ul').map(function (i) {
+            return $(this).find('> li').map(function () {
+              const subcategory = $(this).find('> a')
+              // Everything in this structure applies to each article we find.
+              const structure = {
+                date: date,
+                // we rely on structure of HTML in wikipedia page to determine
+                // relationship
+                category: categories[i],
+                subcategory: {
+                  title: subcategory.text().trim(),
+                  // Resolve links to wikipedia
+                  href: subcategory.attr('href').trim()
+                }
+              }
+              // Form content by stripping ul and li tags and just leaving a tags and other text
+              return $(this).find('> ul > li').map(function () {
+                return Object.assign({
+                  //
+                  // TODO: Preserve links in the text. They're the suggestions we want to
+                  // clicky click
+                  //
+                  // TODO: The final content generated should be normal content objects, with
+                  // additional meta data. There shouldn't be a "suggestion" type, just a subtype
+                  // of content
+                  //
+                  content: $(this).text()
+                }, structure)
+              }).get()
+            }).get()
           }).get()
-          return {
-            date: date,
-            categories: categories,
-            subCategories: subCategories,
-            // unprocessed: $(this).html(),
-          }
         }).get()
       }
     })
