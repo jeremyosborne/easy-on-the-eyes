@@ -2,6 +2,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const moment = require('moment')
 // const _ = require('lodash')
+const url = require('url')
 
 /**
  * Retrieve and transform web content.
@@ -10,8 +11,9 @@ const moment = require('moment')
  *
  * Promise api rejecting with error or resolving with a content object.
  */
-module.exports.fetch = (url) => {
-  return axios.get('https://en.wikipedia.org/wiki/Portal:Current_events')
+module.exports.fetch = () => {
+  const SOURCE_URL = 'https://en.wikipedia.org/wiki/Portal:Current_events'
+  return axios.get(SOURCE_URL)
     .then(function (response) {
       const $ = cheerio.load(response.data)
 
@@ -44,14 +46,19 @@ module.exports.fetch = (url) => {
               const subcategory = $(this).find('> a')
               // Everything in this structure applies to each article we find.
               const structure = {
-                date: date,
-                // we rely on structure of HTML in wikipedia page to determine
-                // relationship
-                category: categories[i],
-                subcategory: {
-                  title: subcategory.text().trim(),
-                  // Resolve links to wikipedia
-                  href: subcategory.attr('href').trim()
+                meta: {
+                  date: date,
+                  // we rely on structure of HTML in wikipedia page to determine
+                  // relationship. 'categories' should be ordered from most to
+                  // least important (maybe???), or general -> specific
+                  categories: [
+                    categories[i],
+                    {
+                      title: subcategory.text().trim(),
+                      // Resolve links to wikipedia
+                      href: subcategory.attr('href') ? url.resolve(SOURCE_URL, subcategory.attr('href').trim()) : null,
+                    }
+                  ],
                 }
               }
               // Form content by stripping ul and li tags and just leaving a tags and other text
@@ -65,7 +72,11 @@ module.exports.fetch = (url) => {
                   // additional meta data. There shouldn't be a "suggestion" type, just a subtype
                   // of content
                   //
-                  content: $(this).text()
+                  content: {
+                    url: SOURCE_URL,
+                    type: 'html',
+                    text: $(this).text(),
+                  }
                 }, structure)
               }).get()
             }).get()
