@@ -36,6 +36,7 @@ module.exports.fetch = () => {
           const categories = $(this).find('tr:nth-child(2) > td > dl').map(function () {
             return {
               title: $(this).text().trim(),
+              // We assume the category has no link.
               href: null,
             }
           }).get()
@@ -48,10 +49,7 @@ module.exports.fetch = () => {
               const structure = {
                 meta: {
                   date: date,
-                  // we rely on structure of HTML in wikipedia page to determine
-                  // relationship. 'categories' should be ordered from most to
-                  // least important (maybe???), or general -> specific
-                  categories: [
+                  tags: [
                     categories[i],
                     {
                       title: subcategory.text().trim(),
@@ -68,14 +66,10 @@ module.exports.fetch = () => {
                   // TODO: Preserve links in the text. They're the suggestions we want to
                   // clicky click
                   //
-                  // TODO: The final content generated should be normal content objects, with
-                  // additional meta data. There shouldn't be a "suggestion" type, just a subtype
-                  // of content
-                  //
                   content: {
                     url: SOURCE_URL,
                     type: 'html',
-                    text: $(this).text(),
+                    text: $(this).text().trim(),
                   }
                 }, structure)
               }).get()
