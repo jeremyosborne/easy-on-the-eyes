@@ -46,32 +46,39 @@ module.exports.fetch = () => {
             return $(this).find('> li').map(function () {
               const subcategory = $(this).find('> a')
               // Everything in this structure applies to each article we find.
-              const structure = {
-                meta: {
-                  date: date,
-                  tags: [
-                    categories[i],
-                    {
-                      title: subcategory.text().trim(),
-                      // Resolve links to wikipedia
-                      href: subcategory.attr('href') ? url.resolve(SOURCE_URL, subcategory.attr('href').trim()) : null,
-                    }
-                  ],
-                }
-              }
               // Form content by stripping ul and li tags and just leaving a tags and other text
               return $(this).find('> ul > li').map(function () {
+                const suggestionContent = $(this)
                 return Object.assign({
-                  //
-                  // TODO: Preserve links in the text. They're the suggestions we want to
-                  // clicky click
-                  //
                   content: {
                     url: SOURCE_URL,
                     type: 'html',
-                    text: $(this).text().trim(),
+                    // Inside each URL, we assume only plain HTML exists, and that
+                    // is the content of our suggestions.
+                    text: suggestionContent.text().trim(),
                   }
-                }, structure)
+                }, {
+                  meta: {
+                    date: date,
+                    tags: [
+                      categories[i],
+                      {
+                        title: subcategory.text().trim(),
+                        // Resolve links to wikipedia
+                        href: subcategory.attr('href') ? url.resolve(SOURCE_URL, subcategory.attr('href').trim()) : null,
+                      },
+                    ].concat(
+                      // Links from within the text.
+                      suggestionContent.find('a').map(function () {
+                        const link = $(this)
+                        return {
+                          title: link.text().trim(),
+                          href: link.attr('href') ? url.resolve(SOURCE_URL, link.attr('href').trim()) : null,
+                        }
+                      }).get()
+                    ),
+                  }
+                })
               }).get()
             }).get()
           }).get()
