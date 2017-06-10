@@ -1,5 +1,7 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
+const logger = require('../logger')
+const memoryCache = require('memory-cache')
 const moment = require('moment')
 // const _ = require('lodash')
 const url = require('url')
@@ -12,14 +14,18 @@ const url = require('url')
  * Promise api rejecting with error or resolving with a content object.
  */
 module.exports.fetch = () => {
-  const SOURCE_URL = 'https://en.wikipedia.org/wiki/Portal:Current_events'
-  return axios.get(SOURCE_URL)
+  const sourceUrl = 'https://en.wikipedia.org/wiki/Portal:Current_events'
+  const cachedContent = memoryCache.get(sourceUrl)
+  if (cachedContent) {
+    return Promise.resolve(cachedContent)
+  }
+  return axios.get(sourceUrl)
     .then(function (response) {
       const $ = cheerio.load(response.data)
+      logger.debug('suggestions: cache miss, retrieving suggestions from:', sourceUrl)
 
-      // TODO: process the links in the suggestions and return them (use url.resolve relative to wikipedia)
       // TODO: add sentiment by pre-reading the links
-      return {
+      const suggestions = {
         // NOTE: using normal ES .map this would end up being an array of arrays,
         // but it seems that cheerio, should it contain an array of arrays, will flatten
         // the arrays on a call to get, returning one single array of all objects within.
@@ -51,8 +57,8 @@ module.exports.fetch = () => {
                 const suggestionContent = $(this)
                 return Object.assign({
                   content: {
-                    url: SOURCE_URL,
-                    type: 'html',
+                    url: sourceUrl,
+                    type: 'text',
                     // Inside each URL, we assume only plain HTML exists, and that
                     // is the content of our suggestions.
                     text: suggestionContent.text().trim(),
@@ -65,18 +71,18 @@ module.exports.fetch = () => {
                       {
                         title: subcategory.text().trim(),
                         // Resolve links to wikipedia
-                        href: subcategory.attr('href') ? url.resolve(SOURCE_URL, subcategory.attr('href').trim()) : null,
+                        href: subcategory.attr('href') ? url.resolve(sourceUrl, subcategory.attr('href').trim()) : null,
                       },
                     ].concat(
-                      // Links from within the text.
-                      suggestionContent.find('a').map(function () {
-                        const link = $(this)
-                        return {
-                          title: link.text().trim(),
-                          href: link.attr('href') ? url.resolve(SOURCE_URL, link.attr('href').trim()) : null,
-                        }
-                      }).get()
-                    ),
+                        // Links from within the text.
+                        suggestionContent.find('a').map(function () {
+                          const link = $(this)
+                          return {
+                            title: link.text().trim(),
+                            href: link.attr('href') ? url.resolve(sourceUrl, link.attr('href').trim()) : null,
+                          }
+                        }).get()
+                      ),
                   }
                 })
               }).get()
@@ -84,8 +90,9 @@ module.exports.fetch = () => {
           }).get()
         }).get()
       }
-    })
-    .catch(function (err) {
+      memoryCache.put(sourceUrl, suggestions)
+      return suggestions
+    }).catch(function (err) {
       err = err || {}
       console.error('error fetching suggestions:', err)
       const code = err.response ? err.response.status : 500
