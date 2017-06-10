@@ -7,21 +7,22 @@ export const DEFAULT_STATE = {
   loading: false,
   error: {},
   suggestions: [
-    {
-      href: 'https://en.wikipedia.org/wiki/Umberto_Eco',
-      title: 'Umberto Eco',
-    },
-    {
-      href: 'https://en.wikipedia.org/wiki/Sephirot',
-      title: 'Sephirot',
-    },
-    {
-      href: 'https://en.wikipedia.org/wiki/Semantics',
-      title: 'Semantics',
-    },
-    {
-      href: 'https://en.wikipedia.org/wiki/Maternal_insult',
-      title: '"Your Mom..." Jokes',
-    },
+    // Old suggestions, might have a use for them.
+    // {
+    //   href: 'https://en.wikipedia.org/wiki/Umberto_Eco',
+    //   title: 'Umberto Eco',
+    // },
+    // {
+    //   href: 'https://en.wikipedia.org/wiki/Sephirot',
+    //   title: 'Sephirot',
+    // },
+    // {
+    //   href: 'https://en.wikipedia.org/wiki/Semantics',
+    //   title: 'Semantics',
+    // },
+    // {
+    //   href: 'https://en.wikipedia.org/wiki/Maternal_insult',
+    //   title: '"Your Mom..." Jokes',
+    // },
   ],
 }

@@ -1,4 +1,4 @@
-// import * as api from './api'
+import * as api from './api'
 import {
   DEFAULT_STATE,
   REDUCER_KEY,
@@ -27,7 +27,7 @@ export const reducer = (state = DEFAULT_STATE, action) => {
 export default reducer
 
 // Request content.
-export const load = ({href}) => {
+export const load = ({href = ''} = {}) => {
   return (dispatch) => {
     // Get new content based on state of url.
     dispatch({
@@ -36,11 +36,16 @@ export const load = ({href}) => {
         loading: true,
       }
     })
-    // return api.fetchContent({url: href}).then((content) => {
-    //   dispatch({
-    //     type: FETCH_CONTENT,
-    //     payload: content
-    //   })
-    // })
+    return api.fetch({url: href}).then((data) => {
+      dispatch({
+        type: SUGGESTIONS_LOAD,
+        payload: {
+          loading: false,
+          error: {},
+          // Should be `.suggestions[]` only on suggestions.
+          ...data,
+        }
+      })
+    })
   }
 }
