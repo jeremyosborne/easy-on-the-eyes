@@ -90,7 +90,7 @@ module.exports.fetch = () => {
           }).get()
         }).get()
       }
-      memoryCache.put(sourceUrl, suggestions)
+      memoryCache.put(sourceUrl, suggestions, 1000 * 60 * 60 * 5)  // 5 hours
       return suggestions
     }).catch(function (err) {
       err = err || {}
