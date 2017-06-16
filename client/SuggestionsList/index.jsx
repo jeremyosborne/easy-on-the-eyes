@@ -37,9 +37,9 @@ export class SuggestionsList extends React.Component {
           {this.props.suggestions.list.map((s, i) => {
             return (
               <ListItem key={i}>
-                <p>{s.content.text}</p>
-                {s.meta.tags.map((t, i) => (
-                  i > 0 ? (<span><span> | </span><a href={t.href}>{t.title}</a></span>) : <a href={t.href}>{t.title}</a>
+                <div>{s.content.text}</div>
+                {s.content.tags.map((t, i) => (
+                  i > 0 ? (<span styleName='styles.tag'><span> | </span><a href={t.href}>{t.title}</a></span>) : <span styleName='styles.tag'><a href={t.href}>{t.title}</a></span>
                 ))}
               </ListItem>
             )

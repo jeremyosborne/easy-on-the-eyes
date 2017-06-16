@@ -55,16 +55,13 @@ module.exports.fetch = () => {
               // Form content by stripping ul and li tags and just leaving a tags and other text
               return $(this).find('> ul > li').map(function () {
                 const suggestionContent = $(this)
-                return Object.assign({
+                return {
                   content: {
                     url: sourceUrl,
-                    type: 'text',
+                    type: 'text/plain',
                     // Inside each URL, we assume only plain HTML exists, and that
                     // is the content of our suggestions.
                     text: suggestionContent.text().trim(),
-                  }
-                }, {
-                  meta: {
                     date: date,
                     tags: [
                       categories[i],
@@ -84,7 +81,7 @@ module.exports.fetch = () => {
                         }).get()
                       ),
                   }
-                })
+                }
               }).get()
             }).get()
           }).get()
