@@ -27,19 +27,12 @@ export class SuggestionsList extends React.Component {
             Some starting points:
           </Subheader>
           <Divider />
-          {/* {this.props.suggestions.list.map((s) => {
-            return (
-              <ListItem key={s.href}>
-                <a href={s.href}>{s.title}</a>
-              </ListItem>
-            )
-          })} */}
           {this.props.suggestions.list.map((s, i) => {
             return (
               <ListItem key={i}>
-                <div>{s.content.text}</div>
+                <div styleName='styles.suggestion'>{s.content.text}</div>
                 {s.content.tags.map((t, i) => (
-                  i > 0 ? (<span styleName='styles.tag'><span> | </span><a href={t.href}>{t.title}</a></span>) : <span styleName='styles.tag'><a href={t.href}>{t.title}</a></span>
+                  t.href ? <span styleName='styles.tag'><a href={t.href}>{t.title}</a></span> : <span styleName='styles.tag'>{t.title}</span>
                 ))}
               </ListItem>
             )
