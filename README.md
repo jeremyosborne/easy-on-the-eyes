@@ -1,7 +1,5 @@
 # easy on the eyes
 
-[![JavaScript Standard Code Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-
 The stripped down web.
 
 ## Usage
@@ -11,7 +9,7 @@ The stripped down web.
 npm install
 
 # Dev friendly server that will autorestart and autorebuild on change.
-npm run start
+npm start
 
 # Production friendly server start.
 npm run start:production

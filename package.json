@@ -4,12 +4,11 @@
   "description": "the web, simply",
   "main": "server/index.js",
   "scripts": {
-    "lint:css": "stylelint client/**/*.css",
-    "lint:js": "eslint \"client/**/*.js?(x)\" \"server/**/*.js?(x)\"",
+    "lint:css": "stylelint src/**/*.css",
+    "lint:js": "eslint \"src/**/*.js?(x)\"",
     "lint": "npm run lint:css && npm run lint:js",
     "build": "echo 'building assets' && cross-env NODE_ENV=production webpack",
-    "start:production": "cross-env NODE_ENV=production node server",
-    "start": "opn http://localhost:3000/ && supervisor -e css,js,jsx -w server,views server",
+    "start": "webpack-dev-server --open --progress --watch --history-api-fallback",
     "test": "true",
     "commit": "commit-wizard"
   },

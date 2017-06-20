@@ -34,7 +34,7 @@ module.exports = function (env) {
     }),
     // see: https://github.com/jantimon/favicons-webpack-plugin#advanced-usage
     // Needs a .png file.
-    new FaviconsWebpackPlugin('./client/favicon.png'),
+    new FaviconsWebpackPlugin('./src/favicon.png'),
     new SriPlugin({
       hashFuncNames: ['sha256', 'sha384'],
       enabled: IS_PRODUCTION
@@ -43,7 +43,7 @@ module.exports = function (env) {
       hash: true,
       // 2017-Feb-07: Minifying is causing errors to be thrown. Turn it off.
       // minify: IS_PRODUCTION,
-      template: 'client/index.hbs',
+      template: 'src/index.hbs',
       filename: './index.html'
     }),
     IS_PRODUCTION ? noopPlugin : new webpack.HotModuleReplacementPlugin(),
@@ -69,13 +69,13 @@ module.exports = function (env) {
 
   var entry = IS_PRODUCTION ? {
     // Production
-    app: './client/index.js',
+    app: './src/index.js',
     vendor: ['react']
   } : {
     // Development
     app: [
-      'webpack-hot-middleware/client?http://0.0.0.0:3000',
-      './client/index.js'
+      'webpack-hot-middleware/src?http://0.0.0.0:3000',
+      './src/index.js'
     ],
     vendor: ['react']
   }
@@ -92,7 +92,7 @@ module.exports = function (env) {
     plugins: plugins,
     resolve: {
       modules: [
-        path.resolve(__dirname, 'client'),
+        path.resolve(__dirname, 'src'),
         'node_modules'
       ],
       // NOTE: Webpack 2 still in beta, the usual ['', '.js', '.jsx'] throws a validation error.
