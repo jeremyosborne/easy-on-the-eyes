@@ -8,7 +8,7 @@
     "lint:js": "eslint \"src/**/*.js?(x)\"",
     "lint": "npm run lint:css && npm run lint:js",
     "build": "echo 'building assets' && cross-env NODE_ENV=production webpack",
-    "start": "webpack-dev-server --open --progress --watch --history-api-fallback",
+    "start": "webpack-dev-server --open --progress --watch",
     "test": "true",
     "commit": "commit-wizard"
   },
@@ -97,7 +97,7 @@
     "postcss-loader": "^2.0.5",
     "postcss-scss": "^1.0.0",
     "pre-git": "^3.15.0",
-    "react-hot-loader": "^1.3.1",
+    "react-hot-loader": "^3.0.0-beta.7",
     "sass-loader": "^6.0.5",
     "semiraw-loader": "0.5.2",
     "style-loader": "^0.18.2",

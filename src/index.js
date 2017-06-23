@@ -1,6 +1,4 @@
 import injectTapEventPlugin from 'react-tap-event-plugin'
-// ES2015 support. Someday in a not distant future we can get rid of this.... yeah right.
-import 'babel-polyfill'
 import App from 'App'
 import ContentPage from 'ContentPage'
 import HomePage from 'HomePage'

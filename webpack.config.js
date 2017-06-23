@@ -67,22 +67,25 @@ module.exports = function (env) {
     }) : noopPlugin,
   ]
 
-  var entry = IS_PRODUCTION ? {
-    // Production
-    app: './src/index.js',
-    vendor: ['react']
-  } : {
-    // Development
-    app: [
-      'webpack-hot-middleware/src?http://0.0.0.0:3000',
-      './src/index.js'
-    ],
-    vendor: ['react']
-  }
-
   return {
     devtool: IS_PRODUCTION ? 'nosources-source-map' : 'cheap-module-source-map',
-    entry: entry,
+    devServer: {
+      historyApiFallback: true,
+      hot: true,
+      port: 3001,
+      proxy: {
+        '/api': 'http://localhost:3000',
+      },
+      publicPath: '/',
+    },
+    entry: {
+      app: [
+        'babel-polyfill',
+        IS_PRODUCTION ? '' : 'react-hot-loader/patch',
+        './src/index.js',
+      ],
+      vendor: ['react']
+    },
     output: {
       crossOriginLoading: 'anonymous',
       path: path.resolve(path.join(__dirname, 'public')),
@@ -108,7 +111,7 @@ module.exports = function (env) {
           exclude: /node_modules\/(?!(easy-on-the-eyes-content)\/).*/,
           // Use babelrc for general configuration, webpack specific config in webpack.
           use: [
-            IS_PRODUCTION ? 'noop-loader' : 'react-hot-loader',
+            IS_PRODUCTION ? 'noop-loader' : 'react-hot-loader/webpack',
             'babel-loader',
           ]
         },
