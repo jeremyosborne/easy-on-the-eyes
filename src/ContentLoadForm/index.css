@@ -1,11 +1,8 @@
 .nav-form {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+    padding: 16px;
     max-width: 40em;
 }
 .nav-form input[type="url"] {
+    padding-left: 16px;  /* matches what material-ui does */
     font-size: 0.8em;
-    width: 70%;
 }

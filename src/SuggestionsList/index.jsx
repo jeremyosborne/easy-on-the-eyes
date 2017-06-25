@@ -32,7 +32,9 @@ export class SuggestionsList extends React.Component {
               <ListItem key={i}>
                 <div styleName='styles.suggestion'>{s.content.text}</div>
                 {s.content.tags.map((t, i) => (
-                  t.href ? <span styleName='styles.tag'><a href={t.href}>{t.title}</a></span> : <span styleName='styles.tag'>{t.title}</span>
+                  t && t.href
+                    ? <span styleName='styles.tag' key={i}><a href={t.href}>{t.title}</a></span>
+                    : t && t.title ? <span styleName='styles.tag' key={i}>{t.title}</span> : ''
                 ))}
               </ListItem>
             )

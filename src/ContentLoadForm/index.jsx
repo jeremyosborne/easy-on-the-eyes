@@ -2,7 +2,7 @@
  * Input a URL and navigate to it.
  */
 
-import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {connect} from 'react-redux'
@@ -39,12 +39,20 @@ export class ContentLoadForm extends React.Component {
     } = this.props
     return (
       <form onSubmit={reduxForm.handleSubmit(this.submit)} styleName='styles.nav-form'>
-        <Field
-          component={TextField}
-          label='What do you want to read today?'
-          name='url'
+        <div>
+          <Field
+            component={TextField}
+            label='What do you want to read today?'
+            name='url'
+            fullWidth
+          />
+        </div>
+        <RaisedButton
+          fullWidth
+          disabled={reduxForm.pristine || reduxForm.invalid}
+          label='read it'
+          type='submit'
         />
-        <FlatButton disabled={reduxForm.pristine || reduxForm.invalid} label='read it' type='submit' />
       </form>
     )
   }
